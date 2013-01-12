@@ -131,9 +131,7 @@
 			<fileset dir="lib" >
 				<patternset includes="*.jar" />
 			</fileset>
-
 		</copy>
-
 	</target>
 
 	<target name="download-forge" depends="download-ant-contrib" unless="forge-exists">
