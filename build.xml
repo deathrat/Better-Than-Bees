@@ -38,11 +38,7 @@
 
 
 	<target name="install" depends="build">
-    <jar destfile="${dist.dir}/BetterThanBees-${build.ver}-${build.number}.jar" basedir="${classes.dir}" manifestencoding="UTF-8">
-      <manifest>
-        <attribute name="author" value="deathrat"/>
-      </manifest>
-    </jar>
+		<jar destfile="${dist.dir}/BetterThanBees-${build.ver}-${build.number}.jar" basedir="${classes.dir}"/>
 		<delete dir="${classes.dir}" />
 	</target>
 
