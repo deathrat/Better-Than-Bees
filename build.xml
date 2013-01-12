@@ -119,11 +119,11 @@
 		<!-- Copy source -->
 		<mkdir dir="${mcpsrc.dir}/deathrat" />
 		<copy todir="${mcpsrc.dir}/deathrat">
-			<fileset dir="${src.dir}/deathrat"/>
+			<fileset dir="${src.dir}/minecraft/deathrat"/>
 		</copy>
     <mkdir dir="${mcpsrc.dir}/powercrystals" />
     <copy todir="${mcpsrc.dir}/powercrystals" >
-      <fileset dir="${src.dir}/deathrat"/>
+      <fileset dir="${src.dir}/minecraft/powercrystals"/>
     </copy>
     
 		<!-- Copy libraries -->
