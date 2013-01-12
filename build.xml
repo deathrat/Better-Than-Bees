@@ -1,65 +1,180 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="BetterThanBees" basedir="." default="all">
- 
-   <property name="author" value="deathrat" />
-   <property name="version" value="0.1" />
-   <property name="filetype" value="zip" />
-   <property name="mcp.dir" location="." />
-   <property name="dist.dir" location="./dist" />
-   <property name="build.dir" location="./build" />
-   <property name="git.dir" location="./git repo" />
-   <property name="resources.dir" location="./resources" />
-   <property name="python" location="${mcp.dir}/runtime/bin/python/python_mcp.exe" />
- 
-   <target name="init" description="Initialize build environment">
-      <echo message="Cleaning old build and dist, MCP reobf directories" />
-      <delete dir="${build.dir}" />
-      <delete dir="${dist.dir}" />
-      <delete dir="${mcp.dir}/reobf" />
- 
-      <echo message="Creating build and dist dirs" />
-      <mkdir dir="${build.dir}" />
-      <mkdir dir="${dist.dir}" />
-   </target>
- 
-   <target name="recompile" description="MCP recompile" >
-      <exec executable="${python}" dir="${mcp.dir}">
-          <arg value="runtime/recompile.py"/>
-          <arg value="%*"/>
-      </exec>
-   </target>
- 
-   <target name="reobfuscate" description="MCP reobfuscate">
-      <exec executable="${python}" dir="${mcp.dir}">
-          <arg value="runtime/reobfuscate.py"/>
-          <arg value="%*"/>
-      </exec>
-   </target>
- 
-   <target name="stage" description="Stage resources into build directory">
-      <copy todir="${build.dir}">
-         <fileset dir="${mcp.dir}/reobf/minecraft" excludes=".git/**" />
-      </copy>
-      <copy todir="${build.dir}">
-         <fileset dir="${resources.dir}"  excludes=".git/**"/>
-      </copy>
-   </target>
- 
-   <target name="all" description="Perform all tasks for a build" depends="init, recompile, reobfuscate, stage, jarzip">
-      <echo message="MCP Ant Build Completed!" />
-   </target>
- 
-   <target name="jarzip" description="Jar (or zip) the project's dist output">
-      <mkdir dir="${dist.dir}" />
-      <jar destfile="${dist.dir}/${ant.project.name}${version}.${filetype}" duplicate="preserve" index="true" manifestencoding="UTF-8">
-         <manifest>
-            <attribute name="Built-By" value="MCP (http://mcp.ocean-labs.de)"/>
-            <attribute name="Implementation-Vendor" value="${author}"/>
-            <attribute name="Implementation-Title" value="${ant.project.name}"/>
-            <attribute name="Implementation-Version" value="${version}"/>
-         </manifest>
-         <fileset dir="${build.dir}" />
-      </jar>
-   </target>
- 
+<project name="BetterThanBees" default="install" basedir=".">
+
+	<property environment="env" />
+
+	<property name="build.dir" value="build" />
+	<property name="classes.dir" value="${build.dir}/packaging" />
+	<property name="src.dir" value="src" />
+	<property name="forge.version" value="1.4.7-6.6.0.497" />
+	<property name="forge.url" value="http://files.minecraftforge.net/minecraftforge/minecraftforge-src-${forge.version}.zip" />
+	<property name="mcp.version" value="723" />
+	<property name="forge.dir" value="${build.dir}/forge" />
+	<property name="mcp.dir" value="${forge.dir}/mcp" />
+	<property name="mcpsrc.dir" value="${mcp.dir}/src/minecraft" />
+
+	<property name="package.meta-inf" value="META-INF" />
+	<property name="build.ver" value="1.4.7" />
+	<!--<property name="files.minecraft.dir" value="jars" />-->
+	<property name="dist.dir" value="${build.dir}/dist" />
+
+	<property name="download.dir" value="downloads" />
+
+	<property name="lib.dir" value="${src.dir}/lib" />
+
+
+	<mkdir dir="${download.dir}"/>
+	<mkdir dir="${build.dir}" />
+
+
+
+	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
+	<available property="already-compiled" file="${classes.dir}/deathrat" />
+	<condition property="should-download-ant-contrib">
+		<or>
+			<available file="${download.dir}/ant-contrib/ant-contrib-1.0b3.jar"/>
+			<available file="${download.dir}/minecraftforge-src-${forge.version}.zip"/>
+		</or>
+	</condition>
+
+
+	<target name="install" depends="build">
+		<manifest file="MANIFEST.MF" >
+			<attribute name="author" value="deathrat" />
+		</manifest>
+		<jar destfile="${dist.dir}/BetterThanBees-${build.ver}-${build.number}.jar" basedir="${classes.dir}" manifest="META-INF/MANIFEST.MF"/>
+		<delete dir="${classes.dir}" />
+	</target>
+
+	<target name="build" depends="setup-forge" unless="already-compiled">
+		<!-- Recompile -->
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
+			<arg line="/c recompile.bat"/>
+		</exec>
+
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
+			<arg value="recompile.sh" />
+		</exec>
+
+		<!-- Reobf -->
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
+			<arg line="/c reobfuscate.bat"/>
+		</exec>
+
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
+			<arg value="reobfuscate.sh" />
+		</exec>
+
+
+		<copy todir="${classes.dir}">
+			<fileset dir="${mcp.dir}/reobf/minecraft"/>
+		</copy>
+	</target>
+
+	<target name="build-number-there" if="env.BUILD_NUMBER" >
+		<echo message="Using build number ${env.BUILD_NUMBER}..." />
+		<property name="build.number" value="${env.BUILD_NUMBER}" />
+	</target>
+
+	<target name="build-number-not-there" unless="env.BUILD_NUMBER" >
+		<echo message="!! No build number set !!" />
+		<property name="build.number" value="CUSTOM_BUILD" />
+	</target>
+
+	<target name="setup-forge" depends="download-forge,build-number-there,build-number-not-there" unless="already-compiled">
+
+		<property name="build.full" value="${build.number}" />
+		<unzip dest="${build.dir}">
+			<fileset dir="${download.dir}">
+				<include name="minecraftforge-src-${forge.version}.zip"/>
+			</fileset>
+		</unzip>
+
+
+
+		<!-- Change executables' permitions -->
+
+		<chmod file="${forge.dir}/install.sh" perm="+x"/>
+
+		<!-- if your building on OSX these 2 should be executable -->
+
+
+
+		<!-- Install forge -->
+		<delete dir="${mcp.dir}" failonerror="no"/>
+		<exec dir="${forge.dir}" executable="cmd" osfamily="windows" inputstring="Yes\n">
+			<arg line="/c install.cmd"/>
+		</exec>
+
+		<exec dir="${forge.dir}" executable="sh" osfamily="unix" inputstring="Yes\n">
+			<arg value="install.sh" />
+
+		</exec>
+
+
+		<chmod file="${mcp.dir}/updatemd5.sh" perm="+x"/>
+		<chmod file="${mcp.dir}/recompile.sh" perm="+x"/>
+		<chmod file="${mcp.dir}/reobfuscate.sh" perm="+x"/>
+		<chmod file="${mcp.dir}/runtime/bin/astyle-osx" perm="+x" />
+		<chmod file="${mcp.dir}/runtime/bin/jad-osx" perm="+x" />
+		<!-- Copy source -->
+		<mkdir dir="${mcpsrc.dir}/deathrat" />
+		<copy todir="${mcpsrc.dir}/deathrat">
+			<fileset dir="${src.dir}/deathrat"/>
+		</copy>
+    <mkdir dir="${mcpsrc.dir}/powercrystals" />
+    <copy todir="${mcpsrc.dir}/powercrystals" >
+      <fileset dir="${src.dir}/deathrat"/>
+    </copy>
+    
+		<!-- Copy libraries -->
+		<copy todir="${mcp.dir}/lib" >
+			<fileset dir="lib" >
+				<patternset includes="*.jar" />
+			</fileset>
+
+		</copy>
+
+	</target>
+
+	<target name="download-forge" depends="download-ant-contrib" unless="forge-exists">
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath>
+				<pathelement location="${download.dir}/ant-contrib/ant-contrib-1.0b3.jar"/>
+				<fileset dir="${download.dir}/ant-contrib/lib">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+		</taskdef>
+		<echo message="Downloading forge... " />
+		<getMethod url="http://files.minecraftforge.net/minecraftforge-src-${forge.version}.zip"
+							 responseDataFile="${download.dir}/minecraftforge-src-${forge.version}.zip">
+			<header name="User-Agent" value="Ant-${ant.version}/${ant.java.version}"/>
+		</getMethod>
+	</target>
+
+	<target name="download-ant-contrib" unless="should-download-ant-contrib">
+		<echo message="Getting: ant-contrib"/>
+		<mkdir dir="${download.dir}/tmp"/>
+		<mkdir dir="${download.dir}/ant-contrib/lib" />
+		<get src="http://sourceforge.net/projects/ant-contrib/files/ant-contrib/1.0b3/ant-contrib-1.0b3-bin.zip/download" dest="${download.dir}/tmp/ant-contrib-1.0b3-bin.zip"/>
+		<get src="http://archive.apache.org/dist/commons/codec/binaries/commons-codec-1.6-bin.zip" dest="${download.dir}/tmp/commons-codec-1.6-bin.zip"/>
+
+		<unzip src="${download.dir}/tmp/ant-contrib-1.0b3-bin.zip" dest="${download.dir}"/>
+		<unzip src="${download.dir}/tmp/commons-codec-1.6-bin.zip" dest="${download.dir}/tmp"/>
+
+		<move todir="${download.dir}/ant-contrib/lib">
+			<fileset file="${download.dir}/tmp/commons-codec-1.6/commons-codec-1.6.jar"/>
+		</move>
+
+		<!-- Delete useless files -->
+		<delete dir="${download.dir}/ant-contrib/docs"/>
+		<delete dir="${download.dir}/tmp"/>
+
+	</target>
+
+	<target name="clean" >
+		<delete dir="${build.dir}" />
+	</target>
+
+
 </project>
