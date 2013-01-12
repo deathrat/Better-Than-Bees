@@ -38,10 +38,11 @@
 
 
 	<target name="install" depends="build">
-		<manifest file="MANIFEST.MF" >
-			<attribute name="author" value="deathrat" />
-		</manifest>
-		<jar destfile="${dist.dir}/BetterThanBees-${build.ver}-${build.number}.jar" basedir="${classes.dir}" manifest="META-INF/MANIFEST.MF"/>
+    <jar destfile="${dist.dir}/BetterThanBees-${build.ver}-${build.number}.jar" basedir="${classes.dir}" manifestencoding="UTF-8">
+      <manifest>
+        <attribute name="author" value="deathrat"/>
+      </manifest>
+    </jar>
 		<delete dir="${classes.dir}" />
 	</target>
 
@@ -121,11 +122,11 @@
 		<copy todir="${mcpsrc.dir}/deathrat">
 			<fileset dir="${src.dir}/minecraft/deathrat"/>
 		</copy>
-    <mkdir dir="${mcpsrc.dir}/powercrystals" />
-    <copy todir="${mcpsrc.dir}/powercrystals" >
-      <fileset dir="${src.dir}/minecraft/powercrystals"/>
-    </copy>
-    
+		<mkdir dir="${mcpsrc.dir}/powercrystals" />
+		<copy todir="${mcpsrc.dir}/powercrystals" >
+			<fileset dir="${src.dir}/minecraft/powercrystals"/>
+		</copy>
+		
 		<!-- Copy libraries -->
 		<copy todir="${mcp.dir}/lib" >
 			<fileset dir="lib" >
