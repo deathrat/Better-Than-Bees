@@ -4,7 +4,7 @@
    <property name="author" value="deathrat" />
    <property name="version" value="0.1" />
    <property name="filetype" value="zip" />
-   <property name="mcp.dir" location="./mcp" />
+   <property name="mcp.dir" location="." />
    <property name="dist.dir" location="./dist" />
    <property name="build.dir" location="./build" />
    <property name="git.dir" location="./git repo" />
@@ -40,12 +40,9 @@
       <copy todir="${build.dir}">
          <fileset dir="${mcp.dir}/reobf/minecraft" excludes=".git/**" />
       </copy>
-	  <copy todir="${build.dir}">
-		<fileset dir="${resources.dir}"  excludes=".git/**"/>
+      <copy todir="${build.dir}">
+         <fileset dir="${resources.dir}"  excludes=".git/**"/>
       </copy>
-	  <copy todir="${git.dir}/Better-Than-Bees/MCP/src/minecraft"/>
-		<fileset dir="$mcp.dir/src/minecraft/deathrat" />
-	  </copy>
    </target>
  
    <target name="all" description="Perform all tasks for a build" depends="init, recompile, reobfuscate, stage, jarzip">
