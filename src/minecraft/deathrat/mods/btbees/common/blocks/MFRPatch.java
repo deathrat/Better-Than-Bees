@@ -15,7 +15,7 @@ import powercrystals.minefactoryreloaded.api.IFactoryFertilizable;
 import powercrystals.minefactoryreloaded.api.IFactoryHarvestable;
 import powercrystals.minefactoryreloaded.api.IFactoryPlantable;
 
-public class MFRPatch implements IFactoryPlantable, IFactoryHarvestable, IFactoryFertilizable
+public class MFRPatch implements IFactoryHarvestable, IFactoryFertilizable
 {
 
 	@Override
@@ -68,38 +68,6 @@ public class MFRPatch implements IFactoryPlantable, IFactoryHarvestable, IFactor
 	public int getSourceId()
 	{
 		return BetterThanBees.ricePlantID;
-	}
-
-	@Override
-	public int getPlantedBlockId(World world, int x, int y, int z, ItemStack stack)
-	{
-		return BetterThanBees.ricePlantID;
-	}
-
-	@Override
-	public int getPlantedBlockMetadata(World world, int x, int y, int z, ItemStack stack)
-	{
-		return 0;
-	}
-
-	@Override
-	public boolean canBePlantedHere(World world, int x, int y, int z, ItemStack stack)
-	{
-		if(world.getBlockMaterial(x, y-1, z) == Material.water && world.getBlockMetadata(x, y-1, z) == 0)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public void prePlant(World world, int x, int y, int z, ItemStack stack)
-	{
-	}
-
-	@Override
-	public void postPlant(World world, int x, int y, int z, ItemStack stack)
-	{
 	}
 
 }
