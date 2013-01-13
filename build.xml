@@ -21,10 +21,8 @@
 
 	<property name="lib.dir" value="${src.dir}/lib" />
 
-	<!--<property name="VersionClass" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded/MineFactoryReloadedCore.java" />-->
-	<property name="VersionClass" value="${mcpsrc.dir}/deathrat/mods/btbees/common/BetterThanBees.java" />
-
-	<property name="greppedversion" value=""/>
+	<!--<property name="version.class" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded/MineFactoryReloadedCore.java" />-->
+	<property name="version.class" value="${mcpsrc.dir}/deathrat/mods/btbees/common/BetterThanBees.java" />
 
 	<mkdir dir="${download.dir}"/>
 	<mkdir dir="${build.dir}" />
@@ -33,12 +31,13 @@
 	<target name="get-version">
 		<exec executable="grep" osfamily="unix" resultproperty="greppedversion">
 			<arg value="'[0-9].[0-9].[0-9][A-Za-z][0-9].[0-9].[0-9][A-Za-z0-9]*'"/>
-			<arg value="${VersionClass}" />
+			<arg value="${version.class}" />
 		</exec>
 		<exec executable="python" osfamily="unix">
 			<arg value="versionscript.py" />
 			<arg value="${greppedversion}" />
 		</exec>
+    <echo message="Grepped version: ${greppedversion}"/>
 	</target>
 
 	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
