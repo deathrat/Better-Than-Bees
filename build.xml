@@ -21,17 +21,20 @@
 
 	<property name="lib.dir" value="${src.dir}/lib" />
 
-	<!--<property name="version.class" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded/MineFactoryReloadedCore.java" />-->
-	<property name="version.class" value="${mcpsrc.dir}/deathrat/mods/btbees/common/BetterThanBees.java" />
+	<!--<property name="verclass.dir" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded" />-->
+  <!--<property name="verclass.name value="MineFactoryReloadedCore.java"/>-->
+	<property name="verclass.dir" value="${mcpsrc.dir}/deathrat/mods/btbees/common" />
+  <property name="verclass.name" value="BetterThanBees.java"/>
+  
 
 	<mkdir dir="${download.dir}"/>
 	<mkdir dir="${build.dir}" />
 
 
 	<target name="get-version" depends="setup-forge">
-		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common" executable="sh" osfamily="unix" outputproperty="grep.out">
+		<exec dir="${verclass.dir}" executable="sh" osfamily="unix" outputproperty="grep.out">
       <arg value="-c"/>
-      <arg value="grep -o -P '[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?' BetterThanBees.java"/>
+      <arg value="grep -o -P '[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?' ${verclass.name}"/>
 		</exec>
 		<exec executable="python" osfamily="unix">
 			<arg value="versionscript.py" />
