@@ -21,11 +21,25 @@
 
 	<property name="lib.dir" value="${src.dir}/lib" />
 
+  <!--<property name="VersionClass" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded/MineFactoryReloadedCore.java" />-->
+  <property name="VersionClass" value="${mcpsrc.dir}/deathrat/mods/btbees/common/BetterThanBees.java" />
+
+  <property name="greppedversion" />
 
 	<mkdir dir="${download.dir}"/>
 	<mkdir dir="${build.dir}" />
 
 
+  <target name="get-version">
+    <exec executable="grep" osfamily="unix" resultproperty="greppedversion">
+      <arg value="'[0-9].[0-9].[0-9][A-Za-z][0-9].[0-9].[0-9][A-Za-z0-9]*'"/>
+      <arg value="${VersionClass}" />
+    </exec>
+    <exec executable="python" osfamily="unix">
+      <arg value="versionscript.py" />
+      <arg value="${greppedversion}" />
+    </exec>
+  </target>
 
 	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
 	<available property="already-compiled" file="${classes.dir}/deathrat" />
@@ -36,9 +50,8 @@
 		</or>
 	</condition>
 
-
 	<target name="install" depends="build">
-		<jar destfile="${dist.dir}/BetterThanBees-${build.ver}-${build.number}.jar" basedir="${classes.dir}"/>
+		<jar destfile="${dist.dir}/BetterThanBees-${greppedversion}-${build.number}.jar" basedir="${classes.dir}"/>
 		<delete dir="${classes.dir}" />
 	</target>
 
@@ -118,6 +131,7 @@
 		<copy todir="${mcpsrc.dir}/deathrat">
 			<fileset dir="${src.dir}/minecraft/deathrat"/>
 		</copy>
+    <copy todir="${mcpsrc.dir}" file="mcmod.info"/>
 		<mkdir dir="${mcpsrc.dir}/powercrystals" />
 		<copy todir="${mcpsrc.dir}/powercrystals" >
 			<fileset dir="${src.dir}/minecraft/powercrystals"/>
