@@ -28,10 +28,10 @@
 	<mkdir dir="${build.dir}" />
 
 
-	<target name="get-version">
+	<target name="get-version" depends="setup-forge">
 		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common" executable="grep" osfamily="unix" outputproperty="greppedversion">
-      <arg value="-o"/>
-      <arg value="-P"/>
+			<arg value="-o"/>
+			<arg value="-P"/>
 			<arg value="'[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?'"/>
 			<arg value="BetterThanBees.java" />
 		</exec>
@@ -39,7 +39,7 @@
 			<arg value="versionscript.py" />
 			<arg value="${greppedversion}" />
 		</exec>
-    <echo message="Grepped version: ${greppedversion}"/>
+		<echo message="Grepped version: ${greppedversion}"/>
 	</target>
 
 	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
@@ -56,7 +56,7 @@
 		<delete dir="${classes.dir}" />
 	</target>
 
-	<target name="build" depends="setup-forge" unless="already-compiled">
+	<target name="build" depends="get-version" unless="already-compiled">
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
 			<arg line="/c recompile.bat"/>
@@ -162,7 +162,7 @@
 		</getMethod>
 	</target>
 
-	<target name="download-ant-contrib" depends="get-version" unless="should-download-ant-contrib">
+	<target name="download-ant-contrib" unless="should-download-ant-contrib">
 		<echo message="Getting: ant-contrib"/>
 		<mkdir dir="${download.dir}/tmp"/>
 		<mkdir dir="${download.dir}/ant-contrib/lib" />
