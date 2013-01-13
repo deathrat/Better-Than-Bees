@@ -34,7 +34,7 @@
 			<arg value="-P"/>
 			<arg value="'[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?'"/>
 			<arg value="BetterThanBees.java" />
-			<redirector outputproperty="reflector.out" />
+			<redirector outputproperty="redirector.out" />
 		</exec>
 		<exec executable="python" osfamily="unix">
 			<arg value="versionscript.py" />
