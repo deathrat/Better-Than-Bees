@@ -24,7 +24,7 @@
   <!--<property name="VersionClass" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded/MineFactoryReloadedCore.java" />-->
   <property name="VersionClass" value="${mcpsrc.dir}/deathrat/mods/btbees/common/BetterThanBees.java" />
 
-  <property name="greppedversion" />
+  <!--<property name="greppedversion" value=""/>-->
 
 	<mkdir dir="${download.dir}"/>
 	<mkdir dir="${build.dir}" />
