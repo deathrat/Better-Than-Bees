@@ -11,6 +11,7 @@
 	<property name="forge.dir" value="${build.dir}/forge" />
 	<property name="mcp.dir" value="${forge.dir}/mcp" />
 	<property name="mcpsrc.dir" value="${mcp.dir}/src/minecraft" />
+	<property name="resources.dir" value="resources" />
 
 	<property name="package.meta-inf" value="META-INF" />
 	<property name="build.ver" value="1.4.7" />
@@ -22,10 +23,10 @@
 	<property name="lib.dir" value="${src.dir}/lib" />
 
 	<!--<property name="verclass.dir" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded" />-->
-  <!--<property name="verclass.name value="MineFactoryReloadedCore.java"/>-->
+	<!--<property name="verclass.name value="MineFactoryReloadedCore.java"/>-->
 	<property name="verclass.dir" value="${mcpsrc.dir}/deathrat/mods/btbees/common" />
-  <property name="verclass.name" value="BetterThanBees.java"/>
-  
+	<property name="verclass.name" value="BetterThanBees.java"/>
+	
 
 	<mkdir dir="${download.dir}"/>
 	<mkdir dir="${build.dir}" />
@@ -33,8 +34,8 @@
 
 	<target name="get-version" depends="setup-forge">
 		<exec dir="${verclass.dir}" executable="sh" osfamily="unix" outputproperty="grep.out">
-      <arg value="-c"/>
-      <arg value="grep -o -P '[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?' ${verclass.name}"/>
+			<arg value="-c"/>
+			<arg value="grep -o -P '[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?' ${verclass.name}"/>
 		</exec>
 		<exec executable="python" osfamily="unix">
 			<arg value="versionscript.py" />
@@ -79,6 +80,9 @@
 
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
+		</copy>
+		<copy todir="${classes.dir}>
+			<fileset dir="${resources.dir}"/>
 		</copy>
 	</target>
 
