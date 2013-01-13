@@ -29,12 +29,8 @@
 
 
 	<target name="get-version" depends="setup-forge">
-		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common" executable="grep" osfamily="unix" output="poopbutt" outputproperty="grep.out">
-			<arg value="-o"/>
-			<arg value="-P"/>
-			<arg value="'[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?'"/>
-			<arg value="BetterThanBees.java" />
-			<!--<redirector outputproperty="redirector.out" />-->
+		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common" executable="sh" osfamily="unix" outputproperty="grep.out">
+      <arg value="grep -o -P '[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?' BetterThanBees.java"/>
 		</exec>
 		<exec executable="python" osfamily="unix">
 			<arg value="versionscript.py" />
