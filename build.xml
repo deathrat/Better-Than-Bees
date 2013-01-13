@@ -30,7 +30,7 @@
 	<mkdir dir="${build.dir}" />
 
 
-	<target name="get-version" depends="install">
+	<target name="get-version">
 		<exec executable="grep" osfamily="unix" resultproperty="greppedversion">
 			<arg value="'[0-9].[0-9].[0-9][A-Za-z][0-9].[0-9].[0-9][A-Za-z0-9]*'"/>
 			<arg value="${VersionClass}" />
