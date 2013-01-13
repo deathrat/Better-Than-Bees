@@ -29,18 +29,18 @@
 
 
 	<target name="get-version" depends="setup-forge">
-		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common" executable="grep" osfamily="unix">
+		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common" executable="grep" osfamily="unix" output="poopbutt" outputproperty="grep.out">
 			<arg value="-o"/>
 			<arg value="-P"/>
 			<arg value="'[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?'"/>
 			<arg value="BetterThanBees.java" />
-			<redirector outputproperty="redirector.out" />
+			<!--<redirector outputproperty="redirector.out" />-->
 		</exec>
 		<exec executable="python" osfamily="unix">
 			<arg value="versionscript.py" />
-			<arg value="${redirector.out}" />
+			<arg value="${grep.out}" />
 		</exec>
-		<echo message="Grepped version: ${redirector.out}"/>
+		<echo message="Grepped version: ${grep.out}"/>
 	</target>
 
 	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
@@ -53,7 +53,7 @@
 	</condition>
 
 	<target name="install" depends="build">
-		<jar destfile="${dist.dir}/BetterThanBees-${redirector.out}-${build.number}.jar" basedir="${classes.dir}"/>
+		<jar destfile="${dist.dir}/BetterThanBees-${grep.out}-${build.number}.jar" basedir="${classes.dir}"/>
 		<delete dir="${classes.dir}" />
 	</target>
 
