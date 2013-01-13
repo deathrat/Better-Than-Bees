@@ -29,10 +29,11 @@
 
 
 	<target name="get-version">
-		<exec executable="grep" osfamily="unix" resultproperty="greppedversion">
+		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common/BetterThanBees.java" executable="grep" osfamily="unix" resultproperty="greppedversion">
       <arg value="-o"/>
-			<arg value="'[0-9].[0-9].[0-9][A-Za-z][0-9].[0-9].[0-9][A-Za-z0-9]*'"/>
-			<arg value="${version.class}" />
+      <arg value="-P"/>
+			<arg value="'[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?'"/>
+			<arg value="BetterThanBees.java" />
 		</exec>
 		<exec executable="python" osfamily="unix">
 			<arg value="versionscript.py" />
