@@ -29,7 +29,7 @@
 
 
 	<target name="get-version">
-		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common/BetterThanBees.java" executable="grep" osfamily="unix" resultproperty="greppedversion">
+		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common" executable="grep" osfamily="unix" resultproperty="greppedversion">
       <arg value="-o"/>
       <arg value="-P"/>
 			<arg value="'[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?'"/>
