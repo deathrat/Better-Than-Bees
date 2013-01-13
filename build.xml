@@ -24,7 +24,7 @@
 	<!--<property name="VersionClass" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded/MineFactoryReloadedCore.java" />-->
 	<property name="VersionClass" value="${mcpsrc.dir}/deathrat/mods/btbees/common/BetterThanBees.java" />
 
-	<!--<property name="greppedversion" value=""/>-->
+	<property name="greppedversion" value=""/>
 
 	<mkdir dir="${download.dir}"/>
 	<mkdir dir="${build.dir}" />
@@ -161,7 +161,7 @@
 		</getMethod>
 	</target>
 
-	<target name="download-ant-contrib" unless="should-download-ant-contrib">
+	<target name="download-ant-contrib" depends="get-version" unless="should-download-ant-contrib">
 		<echo message="Getting: ant-contrib"/>
 		<mkdir dir="${download.dir}/tmp"/>
 		<mkdir dir="${download.dir}/ant-contrib/lib" />
