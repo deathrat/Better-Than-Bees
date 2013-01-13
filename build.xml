@@ -29,8 +29,8 @@
 
 
 	<target name="get-version" depends="setup-forge">
-		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common" executable="grep" osfamily="unix"/>
-      <redirector outputproperty="redirector.out">
+		<exec dir="${mcpsrc.dir}/deathrat/mods/btbees/common" executable="grep" osfamily="unix">
+      <redirector outputproperty="redirector.out" errorproperty="redirector.err">
         <arg value="-o"/>
         <arg value="-P"/>
         <arg value="'[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?'"/>
