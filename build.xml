@@ -30,7 +30,7 @@
 	<mkdir dir="${build.dir}" />
 
 
-  <target name="get-version">
+  <target name="get-version" depends="install">
     <exec executable="grep" osfamily="unix" resultproperty="greppedversion">
       <arg value="'[0-9].[0-9].[0-9][A-Za-z][0-9].[0-9].[0-9][A-Za-z0-9]*'"/>
       <arg value="${VersionClass}" />
@@ -131,7 +131,7 @@
 		<copy todir="${mcpsrc.dir}/deathrat">
 			<fileset dir="${src.dir}/minecraft/deathrat"/>
 		</copy>
-    <copy todir="${mcpsrc.dir}" file="mcmod.info"/>
+    <copy todir="${mcpsrc.dir}" file="{$build.dir}/mcmod.info"/>
 		<mkdir dir="${mcpsrc.dir}/powercrystals" />
 		<copy todir="${mcpsrc.dir}/powercrystals" >
 			<fileset dir="${src.dir}/minecraft/powercrystals"/>
