@@ -32,6 +32,16 @@
 	<mkdir dir="${build.dir}" />
 
 
+	<target name="get-coremod" depends="get-version">
+		<echo message="Downloading PowerCrystalsCore... " />
+		<getMethod url="https://github.com/powercrystals/PowerCrystalsCore/archive/master.zip"
+							 responseDataFile="${download.dir}/master.zip">
+			<header name="User-Agent" value="Ant-${ant.version}/${ant.java.version}"/>
+		</getMethod>
+		<unzip src="${download.dir}/master.zip" dest="${download.dir}"/>
+		<move file="${download.dir}/PowerCrystalsCore-master/src/powercrystals/core" todir="${mcpsrc.dir}/powercrystals/"/>
+	</target>
+	
 	<target name="get-version" depends="setup-forge">
 		<exec dir="${verclass.dir}" executable="sh" osfamily="unix" outputproperty="grep.out">
 			<arg value="-c"/>
@@ -58,7 +68,7 @@
 		<delete dir="${classes.dir}" />
 	</target>
 
-	<target name="build" depends="get-version" unless="already-compiled">
+	<target name="build" depends="get-coremod" unless="already-compiled">
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
 			<arg line="/c recompile.bat"/>
@@ -77,7 +87,7 @@
 			<arg value="reobfuscate.sh" />
 		</exec>
 
-
+		<delete dir="${mcp.dir}/reobf/minecraft/powercrystals/core"/>
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>

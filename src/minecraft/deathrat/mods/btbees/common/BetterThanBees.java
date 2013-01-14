@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import powercrystals.core.updater.IUpdateableMod;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -19,6 +20,8 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 import deathrat.mods.btbees.client.RiceBaseRender;
 import deathrat.mods.btbees.common.blocks.BlockRicePlant;
 import deathrat.mods.btbees.common.blocks.TileEntityRicePlant;
@@ -28,17 +31,20 @@ import deathrat.mods.btbees.common.items.ItemRiceSeeds;
 import deathrat.mods.btbees.common.packets.BTBConnectionHandler;
 import deathrat.mods.btbees.common.packets.ServerPacketHandler;
 import deathrat.mods.btbees.gui.BTBGuiHandler;
+import deathrat.mods.btbees.updater.UpdateManager;
 
-@Mod(modid = "btbees", name = "Better Than Bees", version = "0.1")
+@Mod(modid = "btbees", name = "Better Than Bees", version = "1.4.7R0.2.0", dependencies = "required-after:PowerCrystalsCore")
 @NetworkMod(serverSideRequired=true, clientSideRequired=true, channels={"btbees","updaterice"}, packetHandler=ServerPacketHandler.class, connectionHandler=BTBConnectionHandler.class)
-public class BetterThanBees
+public class BetterThanBees implements IUpdateableMod
 {
 	@Instance("BetterThanBees")
 	public static BetterThanBees instance = new BetterThanBees();
 	@SidedProxy(clientSide = "deathrat.mods.btbees.client.ClientProxy", serverSide = "deathrat.mods.btbees.common.CommonProxy")
 	public static CommonProxy proxy;
 
-	public final static String version = "1.4.7R0.1.0";
+	public final static String modId = "BetterThanBees";
+	public final static String version = "1.4.7R0.2.0";
+	public final static String modName = "Better Than Bees";
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -75,6 +81,9 @@ public class BetterThanBees
 		initializeLanguageSetup();
 		initializeRecipes();
 		initializeCustomCreative();
+
+		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
+
 		proxy.init();
 	}
 
@@ -163,4 +172,28 @@ public class BetterThanBees
 	public static CreativeTabs customTab;
 
 	public static RiceBaseRender riceRender = new RiceBaseRender();
+
+	@Override
+    public String getModId()
+    {
+	    return modId;
+    }
+
+	@Override
+    public String getModName()
+    {
+	    return modName;
+    }
+
+	@Override
+    public String getModFolder()
+    {
+	    return "Better-Than-Bees";
+    }
+
+	@Override
+    public String getModVersion()
+    {
+	    return version;
+    }
 }
