@@ -1,6 +1,7 @@
 package deathrat.mods.btbees;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,7 +24,9 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import deathrat.mods.btbees.blocks.BlockRicePlant;
+import deathrat.mods.btbees.blocks.BlockWok;
 import deathrat.mods.btbees.blocks.TileEntityRicePlant;
+import deathrat.mods.btbees.blocks.TileEntityWok;
 import deathrat.mods.btbees.gui.BTBGuiHandler;
 import deathrat.mods.btbees.gui.BTBTab;
 import deathrat.mods.btbees.items.ItemRiceFood;
@@ -41,7 +44,7 @@ public class BetterThanBees implements IUpdateableMod
 {
 	@Instance("BetterThanBees")
 	public static BetterThanBees instance = new BetterThanBees();
-	@SidedProxy(clientSide = "deathrat.mods.btbees.client.ClientProxy", serverSide = "deathrat.mods.btbees.common.CommonProxy")
+	@SidedProxy(clientSide = "deathrat.mods.btbees.proxies.ClientProxy", serverSide = "deathrat.mods.btbees.proxies.CommonProxy")
 	public static CommonProxy proxy;
 
 	public final static String modId = "BetterThanBees";
@@ -116,6 +119,10 @@ public class BetterThanBees implements IUpdateableMod
 		ricePlant = new BlockRicePlant(ricePlantID, 0, TileEntityRicePlant.class);
 		GameRegistry.registerBlock(ricePlant, "ricePlant");
 		GameRegistry.registerTileEntity(TileEntityRicePlant.class, "RicePlant");
+
+		wok = new BlockWok(wokID, Material.iron);
+		GameRegistry.registerBlock(wok, "wok");
+		GameRegistry.registerTileEntity(TileEntityWok.class, "Wok");
 	}
 
 	private void initalizeItems()
@@ -160,6 +167,7 @@ public class BetterThanBees implements IUpdateableMod
 
 	//Block IDs
 	public static int ricePlantID;
+	public static int wokID;
 
 	//Items
 	public static Item uncookedRice;
@@ -169,6 +177,7 @@ public class BetterThanBees implements IUpdateableMod
 
 	//Blocks
 	public static Block ricePlant;
+	public static Block wok;
 
 	//Creative Tab
 	public static CreativeTabs customTab;

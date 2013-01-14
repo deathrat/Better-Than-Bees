@@ -21,7 +21,6 @@ public class TileEntityRicePlant extends TileEntity
 {
 	public TileEntityRicePlant()
 	{
-
 	}
 
 	@Override
@@ -44,14 +43,12 @@ public class TileEntityRicePlant extends TileEntity
 	{
 		try
 		{
-//			int meta = data.readInt();
 			this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		FMLCommonHandler.instance().getFMLLogger().log(Level.INFO, "[BTBees] sendRiceUpdatePacket received");
 	}
 
 	@Override

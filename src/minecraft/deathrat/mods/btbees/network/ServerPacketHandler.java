@@ -21,6 +21,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import deathrat.mods.btbees.blocks.TileEntityRicePlant;
+import deathrat.mods.btbees.blocks.TileEntityWok;
 
 public class ServerPacketHandler implements IPacketHandler
 {
@@ -58,6 +59,11 @@ public class ServerPacketHandler implements IPacketHandler
 					{
 						((TileEntityRicePlant)tileEntity).handlePacketData(manager, packet, player, data, meta);
 					}
+					if(tileEntity instanceof TileEntityWok)
+					{
+						int fireLevel = data.readInt();
+						((TileEntityWok)tileEntity).handlePacketData(manager, packet, player, data, fireLevel);
+					}
 				}
 			}
 		}
@@ -94,8 +100,35 @@ public class ServerPacketHandler implements IPacketHandler
 
 		if(side == Side.SERVER)
 			PacketDispatcher.sendPacketToAllPlayers(packet);
+	}
 
-		FMLCommonHandler.instance().getFMLLogger().log(Level.INFO, "[BTBees] sendRiceUpdate called");
+	public static void sendWokUpdate(TileEntityWok tileEntity, int fireLevel)
+	{
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		DataOutputStream data = new DataOutputStream(bytes);
+		try
+		{
+			data.writeInt(tileEntity.xCoord);
+			data.writeInt(tileEntity.yCoord);
+			data.writeInt(tileEntity.zCoord);
+			data.writeInt(0);
+			data.writeInt(fireLevel);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "btbees";
+		packet.data = bytes.toByteArray();
+		packet.length = packet.data.length;
+		packet.isChunkDataPacket = true;
+
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+
+		if(side == Side.SERVER)
+			PacketDispatcher.sendPacketToAllPlayers(packet);
 	}
 
 }

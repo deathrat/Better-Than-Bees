@@ -35,7 +35,6 @@ public class BlockWok extends BlockContainer
 	    {
 	            return false;
 	    }
-	    //code to open gui explained later
 	    player.openGui(BetterThanBees.instance, 0, world, x, y, z);
 
 	    return true;

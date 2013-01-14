@@ -1,10 +1,18 @@
 package deathrat.mods.btbees.blocks;
 
+import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
+import deathrat.mods.btbees.network.ServerPacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityWok extends TileEntity implements IInventory
@@ -15,6 +23,17 @@ public class TileEntityWok extends TileEntity implements IInventory
 	public TileEntityWok()
 	{
 		inv = new ItemStack[9];
+	}
+
+	@Override
+	public void updateEntity()
+	{
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+
+		if(side == Side.CLIENT)
+		{
+			ServerPacketHandler.sendWokUpdate(this, this.fireLevel);
+		}
 	}
 
 
@@ -140,4 +159,17 @@ public class TileEntityWok extends TileEntity implements IInventory
 		}
 		tagCompound.setTag("Inventory", itemList);
 	}
+
+
+	public void handlePacketData(INetworkManager manager, Packet250CustomPayload packet, Player player, ByteArrayDataInput data, int fireLevel)
+    {
+		try
+		{
+			this.fireLevel = fireLevel;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+    }
 }
