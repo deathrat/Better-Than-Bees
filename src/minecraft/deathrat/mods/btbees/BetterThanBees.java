@@ -35,8 +35,8 @@ import deathrat.mods.btbees.proxies.CommonProxy;
 import deathrat.mods.btbees.render.RiceBaseRender;
 import deathrat.mods.btbees.updater.UpdateManager;
 
-@Mod(modid = "btbees", name = "Better Than Bees", version = "1.4.7R0.2.0", dependencies = "required-after:PowerCrystalsCore")
-@NetworkMod(serverSideRequired=true, clientSideRequired=true, channels={"btbees","updaterice"}, packetHandler=ServerPacketHandler.class, connectionHandler=BTBConnectionHandler.class)
+@Mod(modid = "btbees", name = BetterThanBees.modName, version = BetterThanBees.version, dependencies = "required-after:PowerCrystalsCore")
+@NetworkMod(serverSideRequired=true, clientSideRequired=true, channels={"btbees"}, packetHandler=ServerPacketHandler.class, connectionHandler=BTBConnectionHandler.class)
 public class BetterThanBees implements IUpdateableMod
 {
 	@Instance("BetterThanBees")
