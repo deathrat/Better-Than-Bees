@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.packets;
+package deathrat.mods.btbees.network;
 
 import com.google.common.io.ByteArrayDataInput;
 

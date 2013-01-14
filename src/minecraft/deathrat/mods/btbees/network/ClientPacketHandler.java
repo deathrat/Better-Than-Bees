@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.packets;
+package deathrat.mods.btbees.network;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;

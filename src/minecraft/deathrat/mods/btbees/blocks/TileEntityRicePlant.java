@@ -8,7 +8,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.network.Player;
-import deathrat.mods.btbees.packets.ServerPacketHandler;
+import deathrat.mods.btbees.network.ServerPacketHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
