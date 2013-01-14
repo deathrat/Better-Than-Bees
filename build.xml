@@ -24,7 +24,7 @@
 
 	<!--<property name="verclass.dir" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded" />-->
 	<!--<property name="verclass.name value="MineFactoryReloadedCore.java"/>-->
-	<property name="verclass.dir" value="${mcpsrc.dir}/deathrat/mods/btbees/common" />
+	<property name="verclass.dir" value="${mcpsrc.dir}/deathrat/mods/btbees" />
 	<property name="verclass.name" value="BetterThanBees.java"/>
 	
 
