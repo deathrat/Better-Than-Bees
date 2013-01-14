@@ -41,7 +41,7 @@
 		<echo message="Downloading BuildCraft API..." />
 		<get src="https://github.com/SirSengir/BuildCraft/archive/master.zip" dest="${download.dir}/BuildCraft-master.zip"/>
 		<unzip src="${download.dir}/BuildCraft-master.zip" dest="${download.dir}"/>
-		<mkdir dir="${mcpsrc.dir/buildcraft/" />
+		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
 		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
 	</target>
 	
