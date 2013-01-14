@@ -35,11 +35,12 @@
 	<target name="get-coremod" depends="get-version">
 		<echo message="Downloading PowerCrystalsCore... " />
 		<getMethod url="https://github.com/powercrystals/PowerCrystalsCore/archive/master.zip"
-							 responseDataFile="${download.dir}/master.zip">
+							 responseDataFile="${download.dir}/PowerCrystalsCore-master.zip">
 			<header name="User-Agent" value="Ant-${ant.version}/${ant.java.version}"/>
 		</getMethod>
-		<unzip src="${download.dir}/master.zip" dest="${download.dir}"/>
+		<unzip src="${download.dir}/PowerCrystalsCore-master.zip" dest="${download.dir}"/>
 		<move file="${download.dir}/PowerCrystalsCore-master/src/powercrystals/core" todir="${mcpsrc.dir}/powercrystals/"/>
+    <delete file="${download.dir}/PowerCrystalsCore-master.zip"/>
 	</target>
 	
 	<target name="get-version" depends="setup-forge">
