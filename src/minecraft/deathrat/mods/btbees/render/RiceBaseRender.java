@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.client;
+package deathrat.mods.btbees.render;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -6,7 +6,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
-import deathrat.mods.btbees.common.blocks.TileEntityRicePlant;
+import deathrat.mods.btbees.blocks.TileEntityRicePlant;
 
 
 public class RiceBaseRender extends TileEntitySpecialRenderer

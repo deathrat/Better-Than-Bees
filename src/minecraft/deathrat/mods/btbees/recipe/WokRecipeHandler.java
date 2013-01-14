@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common.recipe;
+package deathrat.mods.btbees.recipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import deathrat.mods.btbees.common.BetterThanBees;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class WokRecipeHandler
 {

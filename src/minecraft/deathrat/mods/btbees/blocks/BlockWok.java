@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common.blocks;
+package deathrat.mods.btbees.blocks;
 
 import java.util.Random;
 
@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import deathrat.mods.btbees.common.BetterThanBees;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class BlockWok extends BlockContainer
 {

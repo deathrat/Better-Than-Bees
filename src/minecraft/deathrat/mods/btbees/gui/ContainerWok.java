@@ -5,7 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import deathrat.mods.btbees.common.blocks.TileEntityWok;
+import deathrat.mods.btbees.blocks.TileEntityWok;
 
 public class ContainerWok extends Container
 {

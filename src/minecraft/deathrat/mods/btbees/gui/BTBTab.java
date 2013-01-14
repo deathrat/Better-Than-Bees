@@ -1,8 +1,9 @@
-package deathrat.mods.btbees.common;
+package deathrat.mods.btbees.gui;
 
 import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class BTBTab extends CreativeTabs
 {

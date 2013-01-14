@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common;
+package deathrat.mods.btbees.proxies;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;

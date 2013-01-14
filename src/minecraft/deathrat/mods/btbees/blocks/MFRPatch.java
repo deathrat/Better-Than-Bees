@@ -1,10 +1,10 @@
-package deathrat.mods.btbees.common.blocks;
+package deathrat.mods.btbees.blocks;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import deathrat.mods.btbees.common.BetterThanBees;
+import deathrat.mods.btbees.BetterThanBees;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;

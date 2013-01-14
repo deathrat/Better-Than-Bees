@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common.items;
+package deathrat.mods.btbees.items;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

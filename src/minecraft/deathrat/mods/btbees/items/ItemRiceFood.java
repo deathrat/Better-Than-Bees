@@ -1,7 +1,7 @@
-package deathrat.mods.btbees.common.items;
+package deathrat.mods.btbees.items;
 
 import net.minecraft.item.ItemFood;
-import deathrat.mods.btbees.common.BetterThanBees;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class ItemRiceFood extends ItemFood
 {

@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common.packets;
+package deathrat.mods.btbees.packets;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -20,7 +20,7 @@ import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
-import deathrat.mods.btbees.common.blocks.TileEntityRicePlant;
+import deathrat.mods.btbees.blocks.TileEntityRicePlant;
 
 public class ServerPacketHandler implements IPacketHandler
 {

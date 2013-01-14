@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common.blocks;
+package deathrat.mods.btbees.blocks;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -7,16 +7,23 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityWok extends TileEntity implements IInventory
+public class TileEntityBoiler extends TileEntity implements IInventory
 {
 	private ItemStack[] inv;
 	private int fireLevel;
+	private int waterLevel;
+	private int energyLevel;
+	private int waterLevelMax = 100;
+	private int fireLevelMax = 100;
+	private int energyLevelMax = 100;
 
-	public TileEntityWok()
+	public TileEntityBoiler()
 	{
-		inv = new ItemStack[9];
+		inv = new ItemStack[30];
+		fireLevel = 0;
+		waterLevel = 0;
+		energyLevel = 0;
 	}
-
 
 	@Override
 	public int getSizeInventory()
@@ -76,7 +83,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 	@Override
 	public String getInvName()
 	{
-		return "deathrat.tileentitywok";
+		return "deathrat.tileentityboiler";
 	}
 
 
@@ -85,6 +92,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 	{
 		return 64;
 	}
+
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player)
@@ -107,21 +115,6 @@ public class TileEntityWok extends TileEntity implements IInventory
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound)
-	{
-		super.readFromNBT(tagCompound);
-
-        NBTTagList tagList = tagCompound.getTagList("Inventory");
-        for (int i = 0; i < tagList.tagCount(); i++) {
-                NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
-                byte slot = tag.getByte("Slot");
-                if (slot >= 0 && slot < inv.length) {
-                        inv[slot] = ItemStack.loadItemStackFromNBT(tag);
-                }
-        }
-	}
-
-	@Override
 	public void writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
@@ -138,6 +131,29 @@ public class TileEntityWok extends TileEntity implements IInventory
 				itemList.appendTag(tag);
 			}
 		}
+
 		tagCompound.setTag("Inventory", itemList);
+		tagCompound.setInteger("energyLevel", energyLevel);
+		tagCompound.setInteger("fireLevel", fireLevel);
+		tagCompound.setInteger("waterLevel", waterLevel);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound)
+	{
+		super.readFromNBT(tagCompound);
+
+        NBTTagList tagList = tagCompound.getTagList("Inventory");
+        for (int i = 0; i < tagList.tagCount(); i++) {
+                NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+                byte slot = tag.getByte("Slot");
+                if (slot >= 0 && slot < inv.length) {
+                        inv[slot] = ItemStack.loadItemStackFromNBT(tag);
+                }
+        }
+
+		energyLevel = tagCompound.getInteger("energyLevel");
+		fireLevel = tagCompound.getInteger("fireLevel");
+		waterLevel = tagCompound.getInteger("waterLevel");
 	}
 }

@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.client;
+package deathrat.mods.btbees.render;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -8,7 +8,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.ForgeHooksClient;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import deathrat.mods.btbees.common.blocks.TileEntityRicePlant;
+import deathrat.mods.btbees.blocks.TileEntityRicePlant;
 
 public class BTBRenderRice implements ISimpleBlockRenderingHandler
 {

@@ -1,10 +1,11 @@
-package deathrat.mods.btbees.client;
+package deathrat.mods.btbees.proxies;
 
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import deathrat.mods.btbees.common.CommonProxy;
-import deathrat.mods.btbees.common.blocks.TileEntityRicePlant;
+import deathrat.mods.btbees.blocks.TileEntityRicePlant;
+import deathrat.mods.btbees.render.BTBRenderRice;
+import deathrat.mods.btbees.render.RiceBaseRender;
 
 public class ClientProxy extends CommonProxy
 {

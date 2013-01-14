@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common.blocks;
+package deathrat.mods.btbees.blocks;
 
 import java.util.logging.Level;
 
@@ -8,7 +8,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.network.Player;
-import deathrat.mods.btbees.common.packets.ServerPacketHandler;
+import deathrat.mods.btbees.packets.ServerPacketHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;

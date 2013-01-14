@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common.blocks;
+package deathrat.mods.btbees.blocks;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -28,9 +28,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
-import deathrat.mods.btbees.client.BTBRenderRice;
-import deathrat.mods.btbees.common.BetterThanBees;
-import deathrat.mods.btbees.common.packets.ServerPacketHandler;
+import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.packets.ServerPacketHandler;
+import deathrat.mods.btbees.render.BTBRenderRice;
 
 public class BlockRicePlant extends net.minecraft.block.BlockContainer implements IPlantable
 {

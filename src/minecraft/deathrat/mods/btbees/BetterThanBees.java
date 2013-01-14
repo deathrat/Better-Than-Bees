@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common;
+package deathrat.mods.btbees;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,15 +22,17 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
-import deathrat.mods.btbees.client.RiceBaseRender;
-import deathrat.mods.btbees.common.blocks.BlockRicePlant;
-import deathrat.mods.btbees.common.blocks.TileEntityRicePlant;
-import deathrat.mods.btbees.common.items.ItemRiceFood;
-import deathrat.mods.btbees.common.items.ItemRiceFoodBowl;
-import deathrat.mods.btbees.common.items.ItemRiceSeeds;
-import deathrat.mods.btbees.common.packets.BTBConnectionHandler;
-import deathrat.mods.btbees.common.packets.ServerPacketHandler;
+import deathrat.mods.btbees.blocks.BlockRicePlant;
+import deathrat.mods.btbees.blocks.TileEntityRicePlant;
 import deathrat.mods.btbees.gui.BTBGuiHandler;
+import deathrat.mods.btbees.gui.BTBTab;
+import deathrat.mods.btbees.items.ItemRiceFood;
+import deathrat.mods.btbees.items.ItemRiceFoodBowl;
+import deathrat.mods.btbees.items.ItemRiceSeeds;
+import deathrat.mods.btbees.packets.BTBConnectionHandler;
+import deathrat.mods.btbees.packets.ServerPacketHandler;
+import deathrat.mods.btbees.proxies.CommonProxy;
+import deathrat.mods.btbees.render.RiceBaseRender;
 import deathrat.mods.btbees.updater.UpdateManager;
 
 @Mod(modid = "btbees", name = "Better Than Bees", version = "1.4.7R0.2.0", dependencies = "required-after:PowerCrystalsCore")

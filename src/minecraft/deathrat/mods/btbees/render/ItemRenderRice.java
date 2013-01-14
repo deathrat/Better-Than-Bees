@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.client;
+package deathrat.mods.btbees.render;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;

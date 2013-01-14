@@ -1,6 +1,6 @@
-package deathrat.mods.btbees.common.blocks;
+package deathrat.mods.btbees.blocks;
 
-import deathrat.mods.btbees.common.BetterThanBees;
+import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.common.packets;
+package deathrat.mods.btbees.packets;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
