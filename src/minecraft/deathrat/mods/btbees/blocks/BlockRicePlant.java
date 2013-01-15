@@ -52,7 +52,7 @@ public class BlockRicePlant extends net.minecraft.block.BlockContainer implement
 
 	public String getTextureFile()
 	{
-		return "/deathrat/mods/btbees/btb_terrain2.png";
+		return BetterThanBees.terrainTextures;
 	}
 
     protected boolean canThisPlantGrowOnThisBlockID(int par1)
@@ -133,7 +133,7 @@ public class BlockRicePlant extends net.minecraft.block.BlockContainer implement
 		}
 	}
 
-	public void setPlantMeta(World world, int x, int y, int z, int meta)
+	public static void setPlantMeta(World world, int x, int y, int z, int meta)
 	{
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 

@@ -1,5 +1,6 @@
 package deathrat.mods.btbees.items;
 
+import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -23,7 +24,7 @@ public class ItemRiceSeeds extends Item implements IPlantable
 
 	public String getTextureFile()
 	{
-		return "/deathrat/mods/btbees/btb_items.png";
+		return BetterThanBees.getItemTextures();
 	}
 
 

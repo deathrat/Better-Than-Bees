@@ -20,7 +20,8 @@ public class GuiWok extends GuiContainer
 	{
 		super.drawGuiContainerForegroundLayer(par1, par2);
 
-		fontRenderer.drawString("Wok", 8, 6, 4210752);
+		fontRenderer.drawString("Wok", (this.xSize / 2) - (fontRenderer.getStringWidth("Wok") / 2), 6, 4210752);
+
 	}
 
 	@Override

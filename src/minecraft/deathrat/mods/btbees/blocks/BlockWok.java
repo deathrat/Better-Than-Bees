@@ -16,15 +16,31 @@ import deathrat.mods.btbees.BetterThanBees;
 
 public class BlockWok extends BlockContainer
 {
+	private Class tileEntity;
 
-	public BlockWok(int id, Material mat)
+	public BlockWok(int id, Material mat, Class te)
 	{
 		super(id, mat);
+
+		this.tileEntity = te;
 
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setBlockName("blockWok");
-		setCreativeTab(CreativeTabs.tabDecorations);
+	}
+
+
+
+	@Override
+	public String getTextureFile()
+	{
+	    return BetterThanBees.terrainTextures;
+	}
+
+	@Override
+	public int getBlockTextureFromSideAndMetadata(int side, int meta)
+	{
+		return 4;
 	}
 
     @Override
@@ -36,7 +52,6 @@ public class BlockWok extends BlockContainer
 	            return false;
 	    }
 	    player.openGui(BetterThanBees.instance, 0, world, x, y, z);
-
 	    return true;
     }
 
@@ -85,7 +100,14 @@ public class BlockWok extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World var1)
 	{
-		return new TileEntityWok();
+		try
+		{
+			return (TileEntityWok)tileEntity.newInstance();
+		}
+		catch(Exception e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 
 }

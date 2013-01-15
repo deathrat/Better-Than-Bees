@@ -12,13 +12,10 @@ public class BTBGuiHandler implements IGuiHandler
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		if(ID == 0)
+		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		if(tileEntity instanceof TileEntityWok)
 		{
-    		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-    		if(tileEntity instanceof TileEntityWok)
-    		{
-    			return new ContainerWok(player.inventory, (TileEntityWok) tileEntity);
-    		}
+			return new ContainerWok(player.inventory, (TileEntityWok) tileEntity);
 		}
 		return null;
 	}
@@ -26,13 +23,10 @@ public class BTBGuiHandler implements IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		if(ID == 0)
+		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		if(tileEntity instanceof TileEntityWok)
 		{
-    		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-    		if(tileEntity instanceof TileEntityWok)
-    		{
-    			return new GuiWok(player.inventory, (TileEntityWok) tileEntity);
-    		}
+			return new GuiWok(player.inventory, (TileEntityWok) tileEntity);
 		}
 		return null;
 	}

@@ -33,7 +33,7 @@ public class MFRPatch implements IFactoryHarvestable, IFactoryFertilizable
 	@Override
 	public boolean fertilize(World world, Random rand, int x, int y, int z, FertilizerType fertilizerType)
 	{
-		((BlockRicePlant)BetterThanBees.ricePlant).setPlantMeta(world, x, y, z, 3);
+		BlockRicePlant.setPlantMeta(world, x, y, z, 3);
 		return true;
 	}
 

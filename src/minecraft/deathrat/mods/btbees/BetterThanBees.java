@@ -31,6 +31,7 @@ import deathrat.mods.btbees.gui.BTBGuiHandler;
 import deathrat.mods.btbees.gui.BTBTab;
 import deathrat.mods.btbees.items.ItemRiceFood;
 import deathrat.mods.btbees.items.ItemRiceFoodBowl;
+import deathrat.mods.btbees.items.ItemRiceHusk;
 import deathrat.mods.btbees.items.ItemRiceSeeds;
 import deathrat.mods.btbees.network.BTBConnectionHandler;
 import deathrat.mods.btbees.network.ServerPacketHandler;
@@ -43,7 +44,8 @@ import deathrat.mods.btbees.updater.UpdateManager;
 public class BetterThanBees implements IUpdateableMod
 {
 	@Instance("BetterThanBees")
-	public static BetterThanBees instance = new BetterThanBees();
+	public static BetterThanBees instance;
+
 	@SidedProxy(clientSide = "deathrat.mods.btbees.proxies.ClientProxy", serverSide = "deathrat.mods.btbees.proxies.CommonProxy")
 	public static CommonProxy proxy;
 
@@ -68,6 +70,7 @@ public class BetterThanBees implements IUpdateableMod
 	private void initializeBlockConfig(Configuration config)
 	{
 		ricePlantID = config.getBlock("ricePlant", 3876).getInt();
+		wokID = config.getBlock("wok", 3877).getInt();
 	}
 
 	private void initializeItemConfig(Configuration config)
@@ -76,16 +79,20 @@ public class BetterThanBees implements IUpdateableMod
 		cookedRiceBallID = config.getItem("riceBall", 8024).getInt();
 		cookedRiceBowlID = config.getItem("riceBowl", 8025).getInt();
 		cookedRiceRollID = config.getItem("riceRoll", 8026).getInt();
+		riceHuskID = config.getItem("riceHusk", 8027).getInt();
 	}
 
 	@Init
 	public void init(FMLInitializationEvent event)
 	{
+		instance = this;
+
 		initalizeItems();
 		initializeBlocks();
 		initializeLanguageSetup();
 		initializeRecipes();
 		initializeCustomCreative();
+		initializeGui();
 
 		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
 
@@ -96,9 +103,11 @@ public class BetterThanBees implements IUpdateableMod
 	{
 		customTab = new BTBTab(CreativeTabs.getNextID(), "btbTab");
 		uncookedRice.setCreativeTab(customTab);
+		riceHusk.setCreativeTab(customTab);
 		cookedRiceBall.setCreativeTab(customTab);
 		cookedRiceBowl.setCreativeTab(customTab);
 		cookedRiceRoll.setCreativeTab(customTab);
+		wok.setCreativeTab(customTab);
 	}
 
 	private void initializeRecipes()
@@ -108,10 +117,12 @@ public class BetterThanBees implements IUpdateableMod
 
 	private void initializeLanguageSetup()
 	{
+		LanguageRegistry.addName(riceHusk, "Rice Husk");
 		LanguageRegistry.addName(uncookedRice, "Uncooked Rice");
 		LanguageRegistry.addName(cookedRiceBall, "Rice Ball");
 		LanguageRegistry.addName(cookedRiceBowl, "Bowl of Rice");
 		LanguageRegistry.addName(cookedRiceRoll, "California Roll");
+		LanguageRegistry.addName(wok, "Wok");
 	}
 
 	private void initializeBlocks()
@@ -120,7 +131,7 @@ public class BetterThanBees implements IUpdateableMod
 		GameRegistry.registerBlock(ricePlant, "ricePlant");
 		GameRegistry.registerTileEntity(TileEntityRicePlant.class, "RicePlant");
 
-		wok = new BlockWok(wokID, Material.iron);
+		wok = new BlockWok(wokID, Material.iron, TileEntityWok.class);
 		GameRegistry.registerBlock(wok, "wok");
 		GameRegistry.registerTileEntity(TileEntityWok.class, "Wok");
 	}
@@ -131,7 +142,13 @@ public class BetterThanBees implements IUpdateableMod
 		cookedRiceBall = new ItemRiceFood(cookedRiceBallID, 4, 3, false).setIconIndex(1).setItemName("riceBall");
 		cookedRiceRoll = new ItemRiceFood(cookedRiceRollID, 4, 7, false).setIconIndex(2).setItemName("riceRoll");
 		uncookedRice = new ItemRiceSeeds(uncookedRiceID, ricePlantID).setIconIndex(3).setItemName("uncookedRice");
+		riceHusk = new ItemRiceHusk(riceHuskID).setIconIndex(3).setItemName("riceHusk");
 		MinecraftForge.addGrassSeed(new ItemStack(uncookedRice),  8);
+	}
+
+	private CreativeTabs getCustomCreativeTab()
+	{
+		return this.customTab;
 	}
 
 	private void initializeGui()
@@ -147,19 +164,20 @@ public class BetterThanBees implements IUpdateableMod
 
 	public static String getTerrainTextures()
 	{
-		return btbTerrainTextures;
+		return terrainTextures;
 	}
 
 	public static String getItemTextures()
 	{
-		return btbItemsTextures;
+		return itemTextures;
 	}
 
 	//Texture files
-	public static String btbTerrainTextures = "/deathrat/mods/btbees/btb_terrain2.png";
-	public static String btbItemsTextures = "/deathrat/mods/btbees/btb_items.png";
+	public static String terrainTextures = "/deathrat/mods/btbees/btb_terrain.png";
+	public static String itemTextures = "/deathrat/mods/btbees/btb_items.png";
 
 	//Item IDs
+	public static int riceHuskID;
 	public static int uncookedRiceID;
 	public static int cookedRiceBallID;
 	public static int cookedRiceBowlID;
@@ -170,6 +188,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static int wokID;
 
 	//Items
+	public static Item riceHusk;
 	public static Item uncookedRice;
 	public static Item cookedRiceBall;
 	public static Item cookedRiceBowl;

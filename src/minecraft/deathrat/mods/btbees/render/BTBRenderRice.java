@@ -8,6 +8,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.ForgeHooksClient;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.blocks.TileEntityRicePlant;
 
 public class BTBRenderRice implements ISimpleBlockRenderingHandler
@@ -30,7 +31,7 @@ public class BTBRenderRice implements ISimpleBlockRenderingHandler
         if((te != null) && (te instanceof TileEntityRicePlant))
         {
         	TileEntityRicePlant teRice = (TileEntityRicePlant)te;
-        	ForgeHooksClient.bindTexture("/deathrat/mods/btbees/btb_terrain2.png", 0);
+        	ForgeHooksClient.bindTexture(BetterThanBees.terrainTextures, 0);
         }
 
         var5.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));

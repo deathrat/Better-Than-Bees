@@ -19,15 +19,15 @@ public class ContainerWok extends Container
 		{
 			for(int width = 0; width < 3; width++)
 			{
-				addSlotToContainer(new Slot(tileEntity, width + height * 3, 8 + width * 18, 17 + height * 18));
+				addSlotToContainer(new Slot(tileEntity, width + height * 3, 8 + width * 18, 8 + height * 18));
 			}
 		}
 
 		//Heat Slot
-		addSlotToContainer(new Slot(tileEntity, 46, 80, 64));
+		addSlotToContainer(new Slot(tileEntity, this.inventorySlots.size() + 1, 80, 64));
 
 		//Result Slot
-		addSlotToContainer(new Slot(tileEntity, 47, 114, 27));
+		addSlotToContainer(new Slot(tileEntity, this.inventorySlots.size() + 1, 114, 27));
 
 		bindPlayerInventory(invPlayer);
 	}
@@ -39,7 +39,7 @@ public class ContainerWok extends Container
 		{
 			for(int width = 0; width < 9; width++)
 			{
-				addSlotToContainer(new Slot(invPlayer, width + height * 9 + 9, 8 + width * 18, 8 + height * 18));
+				addSlotToContainer(new Slot(invPlayer, width + height * 9 + 9, 8 + width * 18, 84 + height * 18));
 			}
 		}
 

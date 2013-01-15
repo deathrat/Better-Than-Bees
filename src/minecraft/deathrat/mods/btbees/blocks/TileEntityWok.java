@@ -22,7 +22,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 
 	public TileEntityWok()
 	{
-		inv = new ItemStack[9];
+		inv = new ItemStack[12];
 	}
 
 	@Override
@@ -30,12 +30,11 @@ public class TileEntityWok extends TileEntity implements IInventory
 	{
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-		if(side == Side.CLIENT)
+		if(side == Side.SERVER)
 		{
 			ServerPacketHandler.sendWokUpdate(this, this.fireLevel);
 		}
 	}
-
 
 	@Override
 	public int getSizeInventory()
@@ -49,7 +48,6 @@ public class TileEntityWok extends TileEntity implements IInventory
 	{
 		return inv[slot];
 	}
-
 
 	@Override
 	public ItemStack decrStackSize(int slot, int amt)

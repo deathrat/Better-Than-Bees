@@ -1,5 +1,6 @@
 package deathrat.mods.btbees.items;
 
+import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -28,6 +29,6 @@ public class ItemRiceFoodBowl extends ItemFood
 
 	public String getTextureFile()
 	{
-		return "/deathrat/mods/btbees/btb_items.png";
+		return BetterThanBees.getItemTextures();
 	}
 }
