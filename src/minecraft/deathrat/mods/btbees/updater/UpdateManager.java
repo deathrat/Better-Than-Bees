@@ -20,7 +20,7 @@ public class UpdateManager implements IScheduledTickHandler
 	public UpdateManager(IUpdateableMod mod)
 	{
 		_mod = mod;
-		_updateThread = new UpdateCheckThread(mod, "http://raw.github.com/deathrat/", "/master/VERSION");
+		_updateThread = new UpdateCheckThread(mod, "https://raw.github.com/deathrat/", "/master/VERSION");
 		if(CoreCore.doUpdateCheck.getBoolean(true))
 		{
 			_updateThread.start();
