@@ -29,6 +29,7 @@ import deathrat.mods.btbees.blocks.TileEntityRicePlant;
 import deathrat.mods.btbees.blocks.TileEntityWok;
 import deathrat.mods.btbees.gui.BTBGuiHandler;
 import deathrat.mods.btbees.gui.BTBTab;
+import deathrat.mods.btbees.items.BTBFuelHandler;
 import deathrat.mods.btbees.items.ItemRiceFood;
 import deathrat.mods.btbees.items.ItemRiceFoodBowl;
 import deathrat.mods.btbees.items.ItemRiceHusk;
@@ -95,6 +96,7 @@ public class BetterThanBees implements IUpdateableMod
 		initializeGui();
 
 		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
+		GameRegistry.registerFuelHandler(new BTBFuelHandler());
 
 		proxy.init();
 	}
@@ -143,6 +145,8 @@ public class BetterThanBees implements IUpdateableMod
 		cookedRiceRoll = new ItemRiceFood(cookedRiceRollID, 4, 7, false).setIconIndex(2).setItemName("riceRoll");
 		uncookedRice = new ItemRiceSeeds(uncookedRiceID, ricePlantID).setIconIndex(3).setItemName("uncookedRice");
 		riceHusk = new ItemRiceHusk(riceHuskID).setIconIndex(3).setItemName("riceHusk");
+
+
 		MinecraftForge.addGrassSeed(new ItemStack(uncookedRice),  8);
 	}
 

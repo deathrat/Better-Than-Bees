@@ -19,6 +19,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -147,8 +148,14 @@ public class BlockRicePlant extends net.minecraft.block.BlockContainer implement
     @Override
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int metaData)
     {
+    	Side side = FMLCommonHandler.instance().getEffectiveSide();
     	if (metaData >= 3)
     		canDrop = true;
+
+    	if(canDrop && side == Side.SERVER)
+    	{
+    		world.spawnEntityInWorld(new EntityItem(world, (double)x, (double)y, (double)z, new ItemStack(BetterThanBees.riceHusk, 1)));
+    	}
     }
 
     @Override
