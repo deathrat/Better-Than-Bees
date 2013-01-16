@@ -9,12 +9,11 @@ public class CommonProxy implements IGuiHandler
 {
 	public void preInit()
 	{
-		registerRenderInformation();
 	}
 
 	public void init()
 	{
-
+		registerRenderInformation();
 	}
 
 	public void postInit()

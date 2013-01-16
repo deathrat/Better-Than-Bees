@@ -19,6 +19,9 @@ public class TileEntityWok extends TileEntity implements IInventory
 {
 	private ItemStack[] inv;
 	private int fireLevel;
+	public int furnaceCookTime;
+	public int furnaceBurnTime;
+	public int currentItemBurnTime;
 
 	public TileEntityWok()
 	{

@@ -149,6 +149,7 @@ public class BlockRicePlant extends net.minecraft.block.BlockContainer implement
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int metaData)
     {
     	Side side = FMLCommonHandler.instance().getEffectiveSide();
+
     	if (metaData >= 3)
     		canDrop = true;
 

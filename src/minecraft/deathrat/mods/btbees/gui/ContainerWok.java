@@ -1,5 +1,7 @@
 package deathrat.mods.btbees.gui;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -98,5 +100,24 @@ public class ContainerWok extends Container
 		}
 		return stack;
 	}
+
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int par1, int par2)
+    {
+        if (par1 == 0)
+        {
+            this.tileEntity.furnaceCookTime = par2;
+        }
+
+        if (par1 == 1)
+        {
+            this.tileEntity.furnaceBurnTime = par2;
+        }
+
+        if (par1 == 2)
+        {
+            this.tileEntity.currentItemBurnTime = par2;
+        }
+    }
 
 }

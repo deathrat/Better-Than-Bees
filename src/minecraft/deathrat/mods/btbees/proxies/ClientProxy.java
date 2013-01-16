@@ -6,6 +6,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.blocks.TileEntityRicePlant;
 import deathrat.mods.btbees.render.BTBRenderRice;
+import deathrat.mods.btbees.render.ItemRenderRice;
 import deathrat.mods.btbees.render.RiceBaseRender;
 
 public class ClientProxy extends CommonProxy
@@ -16,8 +17,10 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.preloadTexture(BetterThanBees.getTerrainTextures());
 		MinecraftForgeClient.preloadTexture(BetterThanBees.getItemTextures());
 		MinecraftForgeClient.preloadTexture("/deathrat/mods/btbees/gui_wok.png");
+//		MinecraftForgeClient.registerItemRenderer(BetterThanBees.uncookedRice.itemID, new ItemRenderRice());
 		RenderingRegistry.registerBlockHandler(new BTBRenderRice());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRicePlant.class, new RiceBaseRender());
+
 //		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBoiler.class, new BoilerRender());
 	}
 }
