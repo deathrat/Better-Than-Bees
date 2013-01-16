@@ -1,21 +1,14 @@
 package deathrat.mods.btbees.blocks;
 
-import java.util.logging.Level;
-
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.IScheduledTickHandler;
-import cpw.mods.fml.common.network.Player;
-import deathrat.mods.btbees.network.ServerPacketHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
+
+import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.common.network.Player;
 
 public class TileEntityRicePlant extends TileEntity
 {

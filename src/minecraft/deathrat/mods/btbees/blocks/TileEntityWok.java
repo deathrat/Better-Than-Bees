@@ -1,11 +1,5 @@
 package deathrat.mods.btbees.blocks;
 
-import com.google.common.io.ByteArrayDataInput;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.Player;
-import cpw.mods.fml.relauncher.Side;
-import deathrat.mods.btbees.network.ServerPacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -14,6 +8,13 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
+
+import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
+import deathrat.mods.btbees.network.ServerPacketHandler;
 
 public class TileEntityWok extends TileEntity implements IInventory
 {

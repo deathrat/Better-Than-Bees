@@ -1,34 +1,21 @@
 package deathrat.mods.btbees.blocks;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-
-import powercrystals.minefactoryreloaded.api.FertilizerType;
-import powercrystals.minefactoryreloaded.api.HarvestType;
-import powercrystals.minefactoryreloaded.api.IFactoryFertilizable;
-import powercrystals.minefactoryreloaded.api.IFactoryHarvestable;
-import powercrystals.minefactoryreloaded.api.IFactoryPlantable;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.render.BTBRenderRice;

@@ -3,11 +3,9 @@ package deathrat.mods.btbees.updater;
 import java.util.EnumSet;
 
 import net.minecraft.entity.player.EntityPlayer;
-
 import powercrystals.core.CoreCore;
 import powercrystals.core.updater.IUpdateableMod;
 import powercrystals.core.updater.UpdateCheckThread;
-
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
 

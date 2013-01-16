@@ -1,10 +1,5 @@
 package deathrat.mods.btbees.items;
 
-import powercrystals.minefactoryreloaded.api.FertilizerType;
-import powercrystals.minefactoryreloaded.api.IFactoryFertilizer;
-import deathrat.mods.btbees.BetterThanBees;
-import deathrat.mods.btbees.blocks.BlockRicePlant;
-import deathrat.mods.btbees.blocks.TileEntityRicePlant;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDirectional;
@@ -19,6 +14,10 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.entity.player.BonemealEvent;
+import powercrystals.minefactoryreloaded.api.FertilizerType;
+import powercrystals.minefactoryreloaded.api.IFactoryFertilizer;
+import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.blocks.BlockRicePlant;
 
 public class ItemRiceHusk extends Item implements IFactoryFertilizer
 {

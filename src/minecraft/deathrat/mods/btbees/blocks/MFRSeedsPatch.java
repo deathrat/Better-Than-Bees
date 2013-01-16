@@ -1,10 +1,10 @@
 package deathrat.mods.btbees.blocks;
 
-import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import powercrystals.minefactoryreloaded.api.IFactoryPlantable;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class MFRSeedsPatch implements IFactoryPlantable
 {

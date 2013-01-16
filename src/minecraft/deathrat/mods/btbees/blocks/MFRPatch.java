@@ -4,16 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import deathrat.mods.btbees.BetterThanBees;
-
-import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import powercrystals.minefactoryreloaded.api.FertilizerType;
 import powercrystals.minefactoryreloaded.api.HarvestType;
 import powercrystals.minefactoryreloaded.api.IFactoryFertilizable;
 import powercrystals.minefactoryreloaded.api.IFactoryHarvestable;
-import powercrystals.minefactoryreloaded.api.IFactoryPlantable;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class MFRPatch implements IFactoryHarvestable, IFactoryFertilizable
 {

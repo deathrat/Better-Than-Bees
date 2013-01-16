@@ -1,6 +1,5 @@
 package deathrat.mods.btbees.items;
 
-import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +10,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class ItemRiceSeeds extends Item implements IPlantable
 {
