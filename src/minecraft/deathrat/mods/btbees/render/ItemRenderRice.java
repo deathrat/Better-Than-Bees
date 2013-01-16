@@ -29,7 +29,24 @@ public class ItemRenderRice implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glDepthMask(false);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
+		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glColor4f(0F, 0F, 0F, 0.5F);
+
+		GL11.glVertex3d(0D, 0D, 1D);
+		GL11.glVertex3d(0D, 0D, 1D);
+		GL11.glVertex3d(0D, 8D, 1D);
+		GL11.glVertex3d(8D, 8D, 1D);
+		GL11.glVertex3d(8D, 0D, 1D);
+
+		GL11.glEnd();
+
+		GL11.glDepthMask(false);
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 
 }

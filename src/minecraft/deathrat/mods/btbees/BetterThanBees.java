@@ -115,6 +115,7 @@ public class BetterThanBees implements IUpdateableMod
 	private void initializeRecipes()
 	{
 		GameRegistry.addSmelting(uncookedRiceID, new ItemStack(cookedRiceBall), 0.0F);
+		GameRegistry.addShapelessRecipe(new ItemStack(uncookedRice, 1), new ItemStack(this.riceHusk));
 	}
 
 	private void initializeLanguageSetup()

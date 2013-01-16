@@ -52,10 +52,10 @@ public class ItemRiceSeeds extends Item implements IPlantable
         else if (world.canPlaceEntityOnSide(this.blockType, x, y, z, false, side, entityPlayer))
         {
             Block var12 = Block.blocksList[this.blockType];
-            int var13 = this.getMetadata(itemStack.getItemDamage());
-            int var14 = Block.blocksList[this.blockType].onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, var13);
+            int itemmeta = this.getMetadata(itemStack.getItemDamage());
+            int meta = Block.blocksList[this.blockType].onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, itemmeta);
 
-            if (placeBlockAt(itemStack, entityPlayer, world, x, y, z, side, hitX, hitY, hitZ, var14))
+            if (placeBlockAt(itemStack, entityPlayer, world, x, y, z, side, hitX, hitY, hitZ, meta))
             {
                 world.playSoundEffect((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), var12.stepSound.getPlaceSound(), (var12.stepSound.getVolume() + 1.0F) / 2.0F, var12.stepSound.getPitch() * 0.8F);
                 --itemStack.stackSize;
@@ -107,7 +107,7 @@ public class ItemRiceSeeds extends Item implements IPlantable
 
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
     {
-       if (!world.setBlockAndMetadataWithNotify(x, y+1, z, this.blockType, metadata))
+       if (!world.setBlockAndMetadataWithNotify(x, y+1, z, this.blockType, 0))
        {
                return false;
        }
@@ -115,7 +115,7 @@ public class ItemRiceSeeds extends Item implements IPlantable
        if (world.getBlockId(x, y, z) == this.blockType)
        {
            Block.blocksList[this.blockType].onBlockPlacedBy(world, x, y, z, player);
-           Block.blocksList[this.blockType].onPostBlockPlaced(world, x, y, z, metadata);
+           Block.blocksList[this.blockType].onPostBlockPlaced(world, x, y, z, 0);
        }
 
        return true;

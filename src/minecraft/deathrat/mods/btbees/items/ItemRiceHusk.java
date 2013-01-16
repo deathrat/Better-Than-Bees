@@ -166,6 +166,7 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
         if(block == BetterThanBees.ricePlantID)
         {
         	BlockRicePlant.setPlantMeta(world, x, y, z, 3);
+        	--itemStack.stackSize;
         }
 
         return false;

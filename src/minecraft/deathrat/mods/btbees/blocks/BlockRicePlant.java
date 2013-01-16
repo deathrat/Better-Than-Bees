@@ -47,8 +47,6 @@ public class BlockRicePlant extends net.minecraft.block.BlockContainer implement
         float var4 = 0.2F;
         this.setBlockBounds(0.0F, -0.2F, 0.0F, 1.0F, 0.0F, 1.0F);
         this.tileRice = tileRice;
-
-
 	}
 
 	public String getTextureFile()
@@ -152,17 +150,12 @@ public class BlockRicePlant extends net.minecraft.block.BlockContainer implement
 
     	if (metaData >= 3)
     		canDrop = true;
-
-    	if(canDrop && side == Side.SERVER)
-    	{
-    		world.spawnEntityInWorld(new EntityItem(world, (double)x, (double)y, (double)z, new ItemStack(BetterThanBees.riceHusk, 1)));
-    	}
     }
 
     @Override
     public int idDropped(int par1, Random par2Random, int par3)
     {
-    	return BetterThanBees.uncookedRice.itemID;
+    	return BetterThanBees.riceHusk.itemID;
     }
 
     @Override
