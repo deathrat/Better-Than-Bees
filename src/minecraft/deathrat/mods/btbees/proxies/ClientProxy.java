@@ -20,7 +20,6 @@ public class ClientProxy extends CommonProxy
 //		MinecraftForgeClient.registerItemRenderer(BetterThanBees.uncookedRice.itemID, new ItemRenderRice());
 		RenderingRegistry.registerBlockHandler(new BTBRenderRice());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRicePlant.class, new RiceBaseRender());
-
 //		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBoiler.class, new BoilerRender());
 	}
 }
