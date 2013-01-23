@@ -102,7 +102,6 @@ public class BetterThanBees implements IUpdateableMod
 		initializeGui();
 
 		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
-		GameRegistry.registerFuelHandler(new BTBFuelHandler());
 		GameRegistry.registerWorldGenerator(worldGen);
 
 		proxy.init();
@@ -124,12 +123,13 @@ public class BetterThanBees implements IUpdateableMod
 	{
 		GameRegistry.addSmelting(uncookedRiceID, new ItemStack(cookedRiceBall), 0.0F);
 		GameRegistry.addShapelessRecipe(new ItemStack(uncookedRice, 1), new ItemStack(this.riceHusk));
+		GameRegistry.registerFuelHandler(new BTBFuelHandler());
 	}
 
 	private void initializeLanguageSetup()
 	{
 		LanguageRegistry.addName(riceHusk, "Rice Husk");
-		LanguageRegistry.addName(uncookedRice, "Uncooked Rice");
+		LanguageRegistry.addName(uncookedRice, "Rice");
 		LanguageRegistry.addName(cookedRiceBall, "Rice Ball");
 		LanguageRegistry.addName(cookedRiceBowl, "Bowl of Rice");
 		LanguageRegistry.addName(cookedRiceRoll, "California Roll");
