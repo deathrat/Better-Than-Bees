@@ -97,7 +97,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 	@Override
 	public String getInvName()
 	{
-		return "deathrat.tileentitywok";
+		return "Wok";
 	}
 
 
@@ -117,14 +117,12 @@ public class TileEntityWok extends TileEntity implements IInventory
 	@Override
 	public void openChest()
 	{
-
 	}
 
 
 	@Override
 	public void closeChest()
 	{
-
 	}
 
 	@Override

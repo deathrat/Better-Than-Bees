@@ -16,6 +16,7 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.preloadTexture(BetterThanBees.getTerrainTextures());
 		MinecraftForgeClient.preloadTexture(BetterThanBees.getItemTextures());
 		MinecraftForgeClient.preloadTexture("/deathrat/mods/btbees/gui_wok.png");
+		MinecraftForgeClient.preloadTexture("/deathrat/mods/btbees/gui_boiler.png");
 //		MinecraftForgeClient.registerItemRenderer(BetterThanBees.uncookedRice.itemID, new ItemRenderRice());
 		RenderingRegistry.registerBlockHandler(new BTBRenderRice());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRicePlant.class, new RiceBaseRender());

@@ -1,5 +1,6 @@
 package deathrat.mods.btbees.blocks;
 
+import deathrat.mods.btbees.api.IMachine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -7,22 +8,33 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityBoiler extends TileEntity implements IInventory
+public class TileEntityBoiler extends TileEntity implements IInventory, IMachine
 {
 	private ItemStack[] inv;
-	private int fireLevel;
-	private int waterLevel;
-	private int energyLevel;
-	private int waterLevelMax = 100;
-	private int fireLevelMax = 100;
-	private int energyLevelMax = 100;
+	public int fireLevel;
+	public int waterLevel;
+	public int energyLevel;
+	public int waterLevelMax = 100;
+	public int fireLevelMax = 100;
+	public int energyLevelMax = 100;
+
+	public boolean isReceivingPower;
 
 	public TileEntityBoiler()
 	{
-		inv = new ItemStack[30];
-		fireLevel = 0;
-		waterLevel = 0;
-		energyLevel = 0;
+		inv = new ItemStack[31];
+		fireLevel = 61;
+		waterLevel = 21;
+		energyLevel = 61;
+	}
+
+	@Override
+	public void updateEntity()
+	{
+	    super.updateEntity();
+
+	    if(waterLevel > waterLevelMax)
+	    	waterLevel = waterLevelMax;
 	}
 
 	@Override
@@ -83,7 +95,7 @@ public class TileEntityBoiler extends TileEntity implements IInventory
 	@Override
 	public String getInvName()
 	{
-		return "deathrat.tileentityboiler";
+		return "Boiler";
 	}
 
 
@@ -104,14 +116,12 @@ public class TileEntityBoiler extends TileEntity implements IInventory
 	@Override
 	public void openChest()
 	{
-
 	}
 
 
 	@Override
 	public void closeChest()
 	{
-
 	}
 
 	@Override
@@ -156,4 +166,80 @@ public class TileEntityBoiler extends TileEntity implements IInventory
 		fireLevel = tagCompound.getInteger("fireLevel");
 		waterLevel = tagCompound.getInteger("waterLevel");
 	}
+
+	@Override
+    public boolean hasOutput()
+    {
+	    return false;
+    }
+
+	@Override
+    public boolean hasInput()
+    {
+	    return true;
+    }
+
+	@Override
+    public int getPower()
+    {
+	    return energyLevel;
+    }
+
+	@Override
+    public void setPower(int power)
+    {
+		energyLevel = power;
+    }
+
+	@Override
+    public int getMaxPower()
+    {
+	    return energyLevelMax;
+    }
+
+	@Override
+    public int getMachineId()
+    {
+	    return blockType.blockID;
+    }
+
+	@Override
+    public boolean isReceivingPower()
+    {
+	    return isReceivingPower;
+    }
+
+	@Override
+    public boolean isOutputtingPower()
+    {
+	    return false;
+    }
+
+	public boolean hasWater()
+	{
+		return waterLevel > 0;
+	}
+
+	public int getScaledWaterLevel(int par1)
+	{
+        if (this.waterLevel == 0)
+            this.waterLevel = 200;
+        return this.waterLevel * par1 / this.waterLevelMax;
+	}
+
+	public int getScaledEnergyLevel(int par1)
+	{
+		if(this.energyLevel == 0)
+			this.energyLevel = 200;
+		return this.energyLevel * par1 / this.energyLevelMax;
+	}
+
+	public int getScaledFireLevel(int par1)
+	{
+		if(this.fireLevel == 0)
+			this.fireLevel = 200;
+		return this.fireLevel * par1 / this.fireLevelMax;
+	}
+
+
 }

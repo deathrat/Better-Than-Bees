@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
+import deathrat.mods.btbees.blocks.TileEntityBoiler;
 import deathrat.mods.btbees.blocks.TileEntityWok;
 
 public class BTBGuiHandler implements IGuiHandler
@@ -17,6 +18,10 @@ public class BTBGuiHandler implements IGuiHandler
 		{
 			return new ContainerWok(player.inventory, (TileEntityWok) tileEntity);
 		}
+		if(tileEntity instanceof TileEntityBoiler)
+		{
+			return new ContainerBoiler(player.inventory, (TileEntityBoiler) tileEntity);
+		}
 		return null;
 	}
 
@@ -27,6 +32,10 @@ public class BTBGuiHandler implements IGuiHandler
 		if(tileEntity instanceof TileEntityWok)
 		{
 			return new GuiWok(player.inventory, (TileEntityWok) tileEntity);
+		}
+		if(tileEntity instanceof TileEntityBoiler)
+		{
+			return new GuiBoiler(player.inventory, (TileEntityBoiler) tileEntity);
 		}
 		return null;
 	}
