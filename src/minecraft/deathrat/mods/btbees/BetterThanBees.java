@@ -40,6 +40,7 @@ import deathrat.mods.btbees.items.ItemRiceSeeds;
 import deathrat.mods.btbees.network.BTBConnectionHandler;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.proxies.CommonProxy;
+import deathrat.mods.btbees.render.RenderWok;
 import deathrat.mods.btbees.render.RiceBaseRender;
 import deathrat.mods.btbees.updater.UpdateManager;
 import deathrat.mods.btbees.world.WorldGen;
@@ -203,9 +204,12 @@ public class BetterThanBees implements IUpdateableMod
 	public static int cookedRiceBallID;
 	public static int cookedRiceBowlID;
 	public static int cookedRiceRollID;
+	public static int pepperSeedID;
+
 
 	//Block IDs
 	public static int ricePlantID;
+	public static int pepperPlantID;
 	public static int wokID;
 	public static int boilerID;
 	public static int saltID;
@@ -216,9 +220,11 @@ public class BetterThanBees implements IUpdateableMod
 	public static Item cookedRiceBall;
 	public static Item cookedRiceBowl;
 	public static Item cookedRiceRoll;
+	public static Item pepperSeeds;
 
 	//Blocks
 	public static Block ricePlant;
+	public static Block pepperPlant;
 	public static Block wok;
 	public static Block boiler;
 	public static Block salt;
@@ -228,6 +234,8 @@ public class BetterThanBees implements IUpdateableMod
 
 	//Renders
 	public static RiceBaseRender riceRender = new RiceBaseRender();
+	public static RenderWok wokRender = new RenderWok();
+
 
 	//World Generation
 	public static WorldGen worldGen = new WorldGen();

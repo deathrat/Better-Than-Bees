@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
@@ -18,9 +19,9 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.network.ServerPacketHandler;
-import deathrat.mods.btbees.render.BTBRenderRice;
+import deathrat.mods.btbees.render.RenderRice;
 
-public class BlockRicePlant extends net.minecraft.block.BlockContainer implements IPlantable
+public class BlockRicePlant extends BlockContainer implements IPlantable
 {
 	public Class tileRice;
 	boolean canDrop;
@@ -49,7 +50,7 @@ public class BlockRicePlant extends net.minecraft.block.BlockContainer implement
     @Override
     public int getRenderType()
     {
-    	return BTBRenderRice.renderId;
+    	return RenderRice.renderId;
     }
 
     @Override

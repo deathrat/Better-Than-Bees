@@ -28,7 +28,23 @@ public class BlockWok extends BlockContainer
 		setBlockName("blockWok");
 	}
 
+	@Override
+	public boolean renderAsNormalBlock()
+	{
+	    return false;
+	}
 
+	@Override
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
+
+	@Override
+	public int getRenderType()
+	{
+		return -1;
+	}
 
 	@Override
 	public String getTextureFile()

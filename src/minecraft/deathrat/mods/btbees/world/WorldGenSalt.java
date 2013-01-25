@@ -24,7 +24,7 @@ public class WorldGenSalt extends WorldGenerator
 
     public boolean generate(World world, Random random, int x, int y, int z)
     {
-        if (world.getBlockId(x, y - 1, z) != Block.sand.blockID )
+        if (world.getBlockId(x, y, z) != Block.sand.blockID )
         {
             return false;
         }
@@ -42,11 +42,11 @@ public class WorldGenSalt extends WorldGenerator
 
                     if (newTempX * newTempX + newTempZ * newTempZ <= randomX * randomX)
                     {
-                        for (int var12 = y - var7; var12 <= y + var7; ++var12)
+                        for (int var12 = y - 1; var12 <= y + 1; ++var12)
                         {
                             int var13 = world.getBlockId(tempX, var12, tempZ);
 
-                            if (var13 == Block.dirt.blockID || var13 == Block.blockClay.blockID)
+                            if (var13 == Block.dirt.blockID || var13 == BetterThanBees.salt.blockID)
                             {
                                 world.setBlock(tempX, var12, tempZ, this.clayBlockId);
                             }

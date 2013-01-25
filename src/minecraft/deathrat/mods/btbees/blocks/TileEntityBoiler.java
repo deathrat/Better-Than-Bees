@@ -14,7 +14,7 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IMachine
 	public int fireLevel;
 	public int waterLevel;
 	public int energyLevel;
-	public int waterLevelMax = 100;
+	public int waterLevelMax = 15;
 	public int fireLevelMax = 100;
 	public int energyLevelMax = 100;
 

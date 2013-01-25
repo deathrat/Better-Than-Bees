@@ -11,9 +11,9 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.blocks.TileEntityRicePlant;
 
-public class BTBRenderRice implements ISimpleBlockRenderingHandler
+public class RenderRice implements ISimpleBlockRenderingHandler
 {
-	public BTBRenderRice()
+	public RenderRice()
 	{
 		renderId = RenderingRegistry.getNextAvailableRenderId();
 	}
