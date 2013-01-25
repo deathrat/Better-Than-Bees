@@ -22,29 +22,44 @@
 
 	<property name="lib.dir" value="${src.dir}/lib" />
 
+	<property file="${forge.dir}/forgeversion.properties" />
+	<condition property="forge.already.installed">
+		<equals arg1="${forge.build.number}" arg2="497" />
+	</condition>
+
 	<!--<property name="verclass.dir" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded" />-->
 	<!--<property name="verclass.name value="MineFactoryReloadedCore.java"/>-->
 	<property name="verclass.dir" value="${mcpsrc.dir}/deathrat/mods/btbees" />
 	<property name="verclass.name" value="BetterThanBees.java"/>
-	
+
 
 	<mkdir dir="${download.dir}"/>
 	<mkdir dir="${build.dir}" />
 
+	<condition property="have-apis">
+		<and>
+			<available file="${download.dir}/PowerCrystalsCore-master.zip"/>
+			<available file="${download.dir}/BuildCraft-master.zip"/>
+		</and>
+	</condition>
 
-	<target name="get-coremod" depends="get-version">
+	<target name="get-dependencies" depends="get-version" unless="${have-apis}">
 		<echo message="Downloading PowerCrystalsCore... " />
 		<get src="https://github.com/powercrystals/PowerCrystalsCore/archive/master.zip" dest="${download.dir}/PowerCrystalsCore-master.zip"/>
-		<unzip src="${download.dir}/PowerCrystalsCore-master.zip" dest="${download.dir}"/>
-		<move file="${download.dir}/PowerCrystalsCore-master/src/powercrystals/core" todir="${mcpsrc.dir}/powercrystals/"/>
-		<delete file="${download.dir}/PowerCrystalsCore-master.zip"/>
 		<echo message="Downloading BuildCraft API..." />
 		<get src="https://github.com/BuildCraft/BuildCraft/archive/master.zip" dest="${download.dir}/BuildCraft-master.zip"/>
+	</target>
+
+	<target name="extract-dependencies" depends="setup-forge,get-dependencies">
+		<echo message="Extracting PowerCrystalsCore... " />
+		<unzip src="${download.dir}/PowerCrystalsCore-master.zip" dest="${download.dir}"/>
+		<move file="${download.dir}/PowerCrystalsCore-master/src/powercrystals/core" todir="${mcpsrc.dir}/powercrystals/"/>
+		<echo message="Extracting BuildCraft API..." />
 		<unzip src="${download.dir}/BuildCraft-master.zip" dest="${download.dir}"/>
 		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
 		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
 	</target>
-	
+
 	<target name="get-version" depends="setup-forge">
 		<exec dir="${verclass.dir}" executable="sh" osfamily="unix" outputproperty="grep.out">
 			<arg value="-c"/>
@@ -71,7 +86,7 @@
 		<delete dir="${classes.dir}" />
 	</target>
 
-	<target name="build" depends="get-coremod" unless="already-compiled">
+	<target name="build" depends="extract-dependencies" unless="already-compiled">
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
 			<arg line="/c recompile.bat"/>
@@ -110,7 +125,7 @@
 		<property name="build.number" value="CUSTOM_BUILD" />
 	</target>
 
-	<target name="setup-forge" depends="download-forge,build-number-there,build-number-not-there" unless="already-compiled">
+	<target name="setup-forge" depends="download-forge,build-number-there,build-number-not-there" unless="forge.already.installed">
 
 		<property name="build.full" value="${build.number}" />
 		<unzip dest="${build.dir}">
@@ -156,7 +171,7 @@
 		<copy todir="${mcpsrc.dir}/powercrystals" >
 			<fileset dir="${src.dir}/minecraft/powercrystals"/>
 		</copy>
-		
+
 		<!-- Copy libraries -->
 		<copy todir="${mcp.dir}/lib" >
 			<fileset dir="lib" >
