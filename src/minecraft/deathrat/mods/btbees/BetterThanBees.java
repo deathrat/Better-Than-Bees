@@ -39,7 +39,7 @@ import deathrat.mods.btbees.items.ItemRiceHusk;
 import deathrat.mods.btbees.items.ItemRiceSeeds;
 import deathrat.mods.btbees.network.BTBConnectionHandler;
 import deathrat.mods.btbees.network.ServerPacketHandler;
-import deathrat.mods.btbees.proxies.CommonProxy;
+import deathrat.mods.btbees.proxy.CommonProxy;
 import deathrat.mods.btbees.render.RenderWok;
 import deathrat.mods.btbees.render.RiceBaseRender;
 import deathrat.mods.btbees.updater.UpdateManager;
@@ -52,7 +52,7 @@ public class BetterThanBees implements IUpdateableMod
 	@Instance("BetterThanBees")
 	public static BetterThanBees instance;
 
-	@SidedProxy(clientSide = "deathrat.mods.btbees.proxies.ClientProxy", serverSide = "deathrat.mods.btbees.proxies.CommonProxy")
+	@SidedProxy(clientSide = "deathrat.mods.btbees.proxy.ClientProxy", serverSide = "deathrat.mods.btbees.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	public final static String modId = "BetterThanBees";

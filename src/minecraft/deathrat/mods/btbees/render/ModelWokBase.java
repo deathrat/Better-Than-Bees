@@ -13,7 +13,7 @@ public class ModelWokBase extends ModelBase
 	public ModelWokBase()
     {
 		Wok = new NMTModelRenderer(this);
-		Wok.addModelOBJ(Minecraft.getMinecraftDir().toURI().toString() + "/resources/models/wok.obj");
+		Wok.addModelOBJ(Minecraft.getMinecraftDir().toURI().toString() + "/e100.obj");
     }
 
 	@Override
@@ -21,14 +21,12 @@ public class ModelWokBase extends ModelBase
 	{
 	    super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-		Wok.render(f5);
-
+//		Wok.render(f5);
 	}
 
 	public void render2(Float f)
 	{
 		Wok.render(f);
-
 	}
 
 }

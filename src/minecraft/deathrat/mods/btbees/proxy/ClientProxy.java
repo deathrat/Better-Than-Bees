@@ -1,4 +1,4 @@
-package deathrat.mods.btbees.proxies;
+package deathrat.mods.btbees.proxy;
 
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
