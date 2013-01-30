@@ -2,7 +2,7 @@ package deathrat.mods.btbees.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import deathrat.mods.btbees.blocks.TileEntityBoiler;
+import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 

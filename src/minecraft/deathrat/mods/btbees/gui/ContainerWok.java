@@ -7,7 +7,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import deathrat.mods.btbees.blocks.TileEntityWok;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class ContainerWok extends Container
 {

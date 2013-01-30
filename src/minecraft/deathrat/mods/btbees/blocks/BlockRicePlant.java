@@ -20,6 +20,7 @@ import cpw.mods.fml.relauncher.Side;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.render.RenderRice;
+import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 public class BlockRicePlant extends BlockContainer implements IPlantable
 {

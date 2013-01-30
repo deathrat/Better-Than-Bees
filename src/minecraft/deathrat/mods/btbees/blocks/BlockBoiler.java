@@ -3,6 +3,7 @@ package deathrat.mods.btbees.blocks;
 import java.util.Random;
 
 import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;

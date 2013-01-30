@@ -4,8 +4,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
-import deathrat.mods.btbees.blocks.TileEntityBoiler;
-import deathrat.mods.btbees.blocks.TileEntityWok;
+import deathrat.mods.btbees.tileentity.TileEntityBoiler;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class BTBGuiHandler implements IGuiHandler
 {

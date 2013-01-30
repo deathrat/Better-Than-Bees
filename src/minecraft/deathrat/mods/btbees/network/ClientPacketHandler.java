@@ -13,7 +13,7 @@ import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import deathrat.mods.btbees.blocks.TileEntityRicePlant;
+import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 @SideOnly(Side.CLIENT)
 public class ClientPacketHandler implements IPacketHandler

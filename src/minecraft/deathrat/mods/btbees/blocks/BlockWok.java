@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class BlockWok extends BlockContainer
 {

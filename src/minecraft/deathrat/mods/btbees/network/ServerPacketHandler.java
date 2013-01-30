@@ -19,8 +19,8 @@ import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
-import deathrat.mods.btbees.blocks.TileEntityRicePlant;
-import deathrat.mods.btbees.blocks.TileEntityWok;
+import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class ServerPacketHandler implements IPacketHandler
 {

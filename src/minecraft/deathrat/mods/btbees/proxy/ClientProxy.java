@@ -4,11 +4,11 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import deathrat.mods.btbees.BetterThanBees;
-import deathrat.mods.btbees.blocks.TileEntityRicePlant;
-import deathrat.mods.btbees.blocks.TileEntityWok;
 import deathrat.mods.btbees.render.RenderRice;
 import deathrat.mods.btbees.render.RenderWok;
 import deathrat.mods.btbees.render.RiceBaseRender;
+import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class ClientProxy extends CommonProxy
 {

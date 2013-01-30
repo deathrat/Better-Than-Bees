@@ -2,8 +2,8 @@ package deathrat.mods.btbees.gui;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import deathrat.mods.btbees.blocks.TileEntityBoiler;
-import deathrat.mods.btbees.blocks.TileEntityWok;
+import deathrat.mods.btbees.tileentity.TileEntityBoiler;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

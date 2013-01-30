@@ -5,7 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 
 import org.lwjgl.opengl.GL11;
 
-import deathrat.mods.btbees.blocks.TileEntityWok;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class GuiWok extends GuiContainer
 {

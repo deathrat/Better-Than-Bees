@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.overminddl1.minecraft.libs.NMT.NMTModelBase;
 
-import deathrat.mods.btbees.blocks.TileEntityWok;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;

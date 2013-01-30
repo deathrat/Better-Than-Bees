@@ -9,7 +9,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import deathrat.mods.btbees.BetterThanBees;
-import deathrat.mods.btbees.blocks.TileEntityRicePlant;
+import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 public class RenderRice implements ISimpleBlockRenderingHandler
 {
