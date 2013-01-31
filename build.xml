@@ -63,7 +63,7 @@
 		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
 		<echo message="Extracting Thermal Expansion... " />
 		<unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
-		<move file = "${download.dir}/thermalexpansion" dest="${mcpsrc.dir}" />
+		<move file = "${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
 	</target>
 
 	<target name="get-version" depends="setup-forge">
