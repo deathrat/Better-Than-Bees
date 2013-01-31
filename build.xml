@@ -40,7 +40,8 @@
 		<and>
 			<available file="${download.dir}/PowerCrystalsCore-master.zip"/>
 			<available file="${download.dir}/BuildCraft-master.zip"/>
-			<available file="${download.dir}/thermalexpansion.zip"/>
+			<available file="${download.dir}/thermalexpansiongui.zip"/>
+      <available file="${download.dir}/thermalexpansion.zip"/>
 		</and>
 	</condition>
 
@@ -49,8 +50,10 @@
 		<get src="https://github.com/powercrystals/PowerCrystalsCore/archive/master.zip" dest="${download.dir}/PowerCrystalsCore-master.zip"/>
 		<echo message="Downloading BuildCraft API..." />
 		<get src="https://github.com/BuildCraft/BuildCraft/archive/master.zip" dest="${download.dir}/BuildCraft-master.zip"/>
-		<echo message="Downloading Thermal Expansion... " />
-		<get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Source/ThermalExpansion-SRC-2.1.7-GUI.zip" dest="${download.dir}/thermalexpansion.zip" />
+		<echo message="Downloading Thermal Expansion GUI... " />
+		<get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Source/ThermalExpansion-SRC-2.1.7-GUI.zip" dest="${download.dir}/thermalexpansiongui.zip" />
+    <echo message="Downloading Thermal Expansion API... " />
+    <get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Release/ThermalExpansion-API-2.2.0.zip" dest="${download.dir}/thermalexpansion.zip" />
 	</target>
 
 	<target name="extract-dependencies" depends="setup-forge,get-dependencies">
@@ -61,9 +64,12 @@
 		<unzip src="${download.dir}/BuildCraft-master.zip" dest="${download.dir}"/>
 		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
 		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
-		<echo message="Extracting Thermal Expansion... " />
-		<unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
+		<echo message="Extracting Thermal Expansion GUI... " />
+		<unzip src="${download.dir}/thermalexpansiongui.zip" dest="${download.dir}" />
 		<move file = "${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
+    <echo message="Extraction Thermal Expansion API... " />
+    <unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
+    <move file="${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
 	</target>
 
 	<target name="get-version" depends="setup-forge">
