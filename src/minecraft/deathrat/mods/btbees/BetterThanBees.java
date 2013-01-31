@@ -28,7 +28,7 @@ import deathrat.mods.btbees.blocks.BlockRicePlant;
 import deathrat.mods.btbees.blocks.BlockSalt;
 import deathrat.mods.btbees.blocks.BlockWok;
 import deathrat.mods.btbees.gui.BTBGuiHandler;
-import deathrat.mods.btbees.gui.BTBTab;
+import deathrat.mods.btbees.gui.BTBCreativeTab;
 import deathrat.mods.btbees.items.BTBFuelHandler;
 import deathrat.mods.btbees.items.ItemRiceFood;
 import deathrat.mods.btbees.items.ItemRiceFoodBowl;
@@ -110,7 +110,7 @@ public class BetterThanBees implements IUpdateableMod
 
 	private void initializeCustomCreative()
 	{
-		customTab = new BTBTab(CreativeTabs.getNextID(), "btbTab");
+		customTab = new BTBCreativeTab(CreativeTabs.getNextID(), "btbTab");
 		uncookedRice.setCreativeTab(customTab);
 		riceHusk.setCreativeTab(customTab);
 		cookedRiceBall.setCreativeTab(customTab);

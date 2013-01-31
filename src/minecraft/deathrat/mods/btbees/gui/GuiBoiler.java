@@ -2,11 +2,13 @@ package deathrat.mods.btbees.gui;
 
 import org.lwjgl.opengl.GL11;
 
+import thermalexpansion.core.gui.GuiTE;
+
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 
-public class GuiBoiler extends GuiContainer
+public class GuiBoiler extends GuiTE
 {
     public TileEntityBoiler tileEntity;
 
@@ -18,6 +20,8 @@ public class GuiBoiler extends GuiContainer
         this.ySize = 193;
 
         this.tileEntity = tileEntity;
+
+        addTab(new BoilerTab(this, this.tileEntity));
     }
 
     @Override
@@ -55,12 +59,18 @@ public class GuiBoiler extends GuiContainer
         this.drawTexturedModalRect(x + 176, y + 43, 211, 27, 12, 42);
 
         //Energy bar
-        int energyLevel = tileEntity.getScaledEnergyLevel(14);
+        int energyLevel = tileEntity.getScaledEnergyStored(14);
         this.drawTexturedModalRect(x + 98, y + 6 + 14 - energyLevel, 199, 26 - energyLevel, 14, energyLevel);
 
         //Fire bar
         int fireLevel = tileEntity.getScaledFireLevel(12);
         this.drawTexturedModalRect(x + 81, y + 6 + 12 - fireLevel, 199, 12 - fireLevel, 14, fireLevel);
+
+    }
+
+	@Override
+    protected void drawTooltips()
+    {
 
     }
 }

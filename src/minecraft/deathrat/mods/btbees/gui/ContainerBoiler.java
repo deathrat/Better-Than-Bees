@@ -15,7 +15,7 @@ public class ContainerBoiler extends Container
 {
 	protected TileEntityBoiler tileEntity;
 	private int lastFireLevel;
-	private int lastEnergyLevel;
+	private float lastEnergyLevel;
 	private int lastWaterLevel;
 
 	public ContainerBoiler(InventoryPlayer invPlayer, TileEntityBoiler te)
@@ -115,7 +115,7 @@ public class ContainerBoiler extends Container
         super.addCraftingToCrafters(par1ICrafting);
         par1ICrafting.sendProgressBarUpdate(this, 0, this.tileEntity.waterLevel);
         par1ICrafting.sendProgressBarUpdate(this, 1, this.tileEntity.fireLevel);
-        par1ICrafting.sendProgressBarUpdate(this, 2, this.tileEntity.energyLevel);
+        par1ICrafting.sendProgressBarUpdate(this, 2, Math.round(this.tileEntity.getEnergy()));
     }
 
     public void detectAndSendChanges()
@@ -136,15 +136,15 @@ public class ContainerBoiler extends Container
                 var2.sendProgressBarUpdate(this, 1, this.tileEntity.fireLevel);
             }
 
-            if (this.lastEnergyLevel != this.tileEntity.energyLevel)
+            if (this.lastEnergyLevel != this.tileEntity.getEnergy())
             {
-                var2.sendProgressBarUpdate(this, 2, this.tileEntity.energyLevel);
+                var2.sendProgressBarUpdate(this, 2, Math.round(this.tileEntity.getEnergy()));
             }
         }
 
         this.lastWaterLevel = this.tileEntity.waterLevel;
         this.lastFireLevel = this.tileEntity.fireLevel;
-        this.lastEnergyLevel = this.tileEntity.energyLevel;
+        this.lastEnergyLevel = this.tileEntity.getEnergy();
     }
 
 
@@ -164,7 +164,7 @@ public class ContainerBoiler extends Container
 	    }
 	    if(bar == 2)
 	    {
-	    	this.tileEntity.energyLevel = value;
+	    	this.tileEntity.powerProvider.setEnergyStored(value);
 	    }
 
 	}

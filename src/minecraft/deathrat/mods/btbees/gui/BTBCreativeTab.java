@@ -5,9 +5,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.BetterThanBees;
 
-public class BTBTab extends CreativeTabs
+public class BTBCreativeTab extends CreativeTabs
 {
-	public BTBTab(int l, String uniqueID)
+	public BTBCreativeTab(int l, String uniqueID)
 	{
 		super(l, uniqueID);
 	}
