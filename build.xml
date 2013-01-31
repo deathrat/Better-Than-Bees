@@ -84,6 +84,7 @@
 	<target name="install" depends="build">
 		<jar destfile="${dist.dir}/BetterThanBees-${grep.out}-${build.number}.jar" basedir="${classes.dir}"/>
 		<delete dir="${classes.dir}" />
+		<delete dir="${mcp.dir}/reobf/minecraft"/>
 	</target>
 
 	<target name="build" depends="extract-dependencies" unless="already-compiled">

@@ -60,7 +60,7 @@ public class GuiBoiler extends GuiTE
 
         //Energy bar
         int energyLevel = tileEntity.getScaledEnergyStored(14);
-        this.drawTexturedModalRect(x + 98, y + 6 + 14 - energyLevel, 199, 26 - energyLevel, 14, energyLevel);
+//        this.drawTexturedModalRect(x + 98, y + 6 + 14 - energyLevel, 199, 26 - energyLevel, 14, energyLevel);
 
         //Fire bar
         int fireLevel = tileEntity.getScaledFireLevel(12);

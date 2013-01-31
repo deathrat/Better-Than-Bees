@@ -36,6 +36,8 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 		powerProvider = new PowerProviderBTB();
 
 		powerProvider.configure(10 * 2, 2 * 1200);
+
+		powerProvider.setEnergyStored(0F);
 	}
 
 	@Override
