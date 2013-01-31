@@ -48,6 +48,8 @@
 		<get src="https://github.com/powercrystals/PowerCrystalsCore/archive/master.zip" dest="${download.dir}/PowerCrystalsCore-master.zip"/>
 		<echo message="Downloading BuildCraft API..." />
 		<get src="https://github.com/BuildCraft/BuildCraft/archive/master.zip" dest="${download.dir}/BuildCraft-master.zip"/>
+		<echo message="Downloading Thermal Expansion... " />
+		<get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Source/ThermalExpansion-SRC-2.1.7-GUI.zip" dest="${download.dir}/thermalexpansion.zip" />
 	</target>
 
 	<target name="extract-dependencies" depends="setup-forge,get-dependencies">
@@ -58,6 +60,9 @@
 		<unzip src="${download.dir}/BuildCraft-master.zip" dest="${download.dir}"/>
 		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
 		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
+		<echo message="Extracting Thermal Expansion... " />
+		<unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
+		<move file = "${download.dir}/thermalexpansion" dest="${mcpsrc.dir}" />
 	</target>
 
 	<target name="get-version" depends="setup-forge">
@@ -108,6 +113,7 @@
 
 		<delete dir="${mcp.dir}/reobf/minecraft/powercrystals/core"/>
 		<delete dir="${mcp.dir}/reobf/minecraft/buildcraft"/>
+		<delete dir="${mcp.dir}/reobf/minecraft/thermalexpansion"/>
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>
