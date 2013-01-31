@@ -40,6 +40,7 @@
 		<and>
 			<available file="${download.dir}/PowerCrystalsCore-master.zip"/>
 			<available file="${download.dir}/BuildCraft-master.zip"/>
+			<available file="${download.dir}/thermalexpansion.zip"/>
 		</and>
 	</condition>
 
