@@ -52,6 +52,8 @@ public class GuiBoiler extends GuiTE
             this.drawTexturedModalRect(x + 176, y + 43 + 46 - waterLevel, 199, 73 - waterLevel, 12, waterLevel + 5);
         }
 
+        //drawTexturedModalRect(xPos, yPos, u, v, width, height)
+
         //Middle bar
         this.drawTexturedModalRect(x + 180, y + 42, 199, 78, 4, 43);
 
@@ -59,12 +61,15 @@ public class GuiBoiler extends GuiTE
         this.drawTexturedModalRect(x + 176, y + 43, 211, 27, 12, 42);
 
         //Energy bar
-        int energyLevel = tileEntity.getScaledEnergyStored(14);
-        this.drawTexturedModalRect(x + 98, y + 6 + 14 - energyLevel, 199, 26 - energyLevel, 14, energyLevel);
+        int energyScale = 42;
+        int energyLevel = tileEntity.getScaledEnergyStored(energyScale);
+        if(energyLevel > 0)
+        	this.drawTexturedModalRect(x + 118, y + 24, 200 + energyScale - energyLevel, 184, energyLevel-1, 14);
 
         //Fire bar
-        int fireLevel = tileEntity.getScaledFireLevel(12);
-        this.drawTexturedModalRect(x + 81, y + 6 + 12 - fireLevel, 199, 12 - fireLevel, 14, fireLevel);
+        int fireScale = 12;
+        int fireLevel = tileEntity.getScaledFireLevel(fireScale);
+        this.drawTexturedModalRect(x + 81, y + 6 + fireScale - fireLevel, 199, fireScale - fireLevel, 14, fireLevel);
 
     }
 

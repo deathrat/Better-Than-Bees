@@ -37,7 +37,7 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 
 		powerProvider.configure(10 * 2, 2 * 1200);
 
-		powerProvider.setEnergyStored(0F);
+		powerProvider.setEnergyStored(600F);
 	}
 
 	@Override
@@ -174,9 +174,16 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
                 }
         }
 
-		this.powerProvider.setEnergyStored(tagCompound.getFloat("energyLevel"));
-		if(Float.isNaN(tagCompound.getFloat("energyLevel")))
-			powerProvider.setEnergyStored(0.0F);
+        try
+        {
+    		this.powerProvider.setEnergyStored(tagCompound.getFloat("energyLevel"));
+    		if(Float.isNaN(powerProvider.getEnergyStored()))
+    			powerProvider.setEnergyStored(0.0F);
+        }
+        catch(Exception e)
+        {
+        	powerProvider.setEnergyStored(0.0F);
+        }
 		fireLevel = tagCompound.getInteger("fireLevel");
 		waterLevel = tagCompound.getInteger("waterLevel");
 	}
