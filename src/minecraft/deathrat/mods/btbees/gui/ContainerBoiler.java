@@ -19,7 +19,7 @@ public class ContainerBoiler extends Container
 	private int lastWaterLevel;
 
 	public ContainerBoiler(InventoryPlayer invPlayer, TileEntityBoiler te)
-    {
+	{
 		tileEntity = te;
 
 
@@ -41,7 +41,7 @@ public class ContainerBoiler extends Container
 		addSlotToContainer(new Slot(tileEntity, this.inventorySlots.size() + 1, 174, 96));
 
 		bindPlayerInventory(invPlayer);
-    }
+	}
 
 	protected void bindPlayerInventory(InventoryPlayer invPlayer)
 	{
@@ -62,10 +62,10 @@ public class ContainerBoiler extends Container
 	}
 
 	@Override
-    public boolean canInteractWith(EntityPlayer player)
-    {
-	    return tileEntity.isUseableByPlayer(player);
-    }
+	public boolean canInteractWith(EntityPlayer player)
+	{
+		return tileEntity.isUseableByPlayer(player);
+	}
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot)
@@ -110,67 +110,67 @@ public class ContainerBoiler extends Container
 		return stack;
 	}
 
-    public void addCraftingToCrafters(ICrafting par1ICrafting)
-    {
-        super.addCraftingToCrafters(par1ICrafting);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileEntity.waterLevel);
-        par1ICrafting.sendProgressBarUpdate(this, 1, this.tileEntity.fireLevel);
-        par1ICrafting.sendProgressBarUpdate(this, 2, Math.round(this.tileEntity.getEnergy()));
-    }
+	public void addCraftingToCrafters(ICrafting par1ICrafting)
+	{
+		super.addCraftingToCrafters(par1ICrafting);
+		par1ICrafting.sendProgressBarUpdate(this, 0, this.tileEntity.waterLevel);
+		par1ICrafting.sendProgressBarUpdate(this, 1, this.tileEntity.fireLevel);
+		par1ICrafting.sendProgressBarUpdate(this, 2, Math.round(this.tileEntity.getEnergy()));
+	}
 
-    public void detectAndSendChanges()
-    {
-        super.detectAndSendChanges();
+	public void detectAndSendChanges()
+	{
+		super.detectAndSendChanges();
 
-        for (int var1 = 0; var1 < this.crafters.size(); var1++)
-        {
-            ICrafting var2 = (ICrafting)this.crafters.get(var1);
+		for (int var1 = 0; var1 < this.crafters.size(); var1++)
+		{
+			ICrafting var2 = (ICrafting)this.crafters.get(var1);
 
-            if (this.lastWaterLevel != this.tileEntity.waterLevel)
-            {
-                var2.sendProgressBarUpdate(this, 0, this.tileEntity.waterLevel);
-            }
+			if (this.lastWaterLevel != this.tileEntity.waterLevel)
+			{
+				var2.sendProgressBarUpdate(this, 0, this.tileEntity.waterLevel);
+			}
 
-            if (this.lastFireLevel != this.tileEntity.fireLevel)
-            {
-                var2.sendProgressBarUpdate(this, 1, this.tileEntity.fireLevel);
-            }
+			if (this.lastFireLevel != this.tileEntity.fireLevel)
+			{
+				var2.sendProgressBarUpdate(this, 1, this.tileEntity.fireLevel);
+			}
 
-            if (this.lastEnergyLevel != this.tileEntity.getEnergy())
-            {
-                var2.sendProgressBarUpdate(this, 2, Math.round(this.tileEntity.getEnergy()));
-            }
-        }
+			if (this.lastEnergyLevel != this.tileEntity.getEnergy())
+			{
+				var2.sendProgressBarUpdate(this, 2, Math.round(this.tileEntity.getEnergy()));
+			}
+		}
 
-        this.lastWaterLevel = this.tileEntity.waterLevel;
-        this.lastFireLevel = this.tileEntity.fireLevel;
-        this.lastEnergyLevel = this.tileEntity.getEnergy();
+		this.lastWaterLevel = this.tileEntity.waterLevel;
+		this.lastFireLevel = this.tileEntity.fireLevel;
+		this.lastEnergyLevel = this.tileEntity.getEnergy();
 
 
-    }
+	}
 
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int bar, int value)
 	{
-	    super.updateProgressBar(bar, value);
+		super.updateProgressBar(bar, value);
 
-	    if(bar == 0)
-	    {
-	    	this.tileEntity.waterLevel = value;
-	    }
-	    if(bar == 1)
-	    {
-	    	this.tileEntity.fireLevel = value;
-	    }
-	    if(bar == 2)
-	    {
-	    	this.tileEntity.powerProvider.setEnergyStored(value);
-	    }
+		if(bar == 0)
+		{
+			this.tileEntity.waterLevel = value;
+		}
+		if(bar == 1)
+		{
+			this.tileEntity.fireLevel = value;
+		}
+		if(bar == 2)
+		{
+			this.tileEntity.powerProvider.setEnergyStored(value);
+		}
 
 
-	    tileEntity.receiveGuiNetworkData(bar, value);
+		tileEntity.receiveGuiNetworkData(bar, value);
 	}
 
 }

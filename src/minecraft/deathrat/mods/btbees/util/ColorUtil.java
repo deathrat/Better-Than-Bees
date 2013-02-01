@@ -5,7 +5,6 @@ import java.awt.Color;
 public class ColorUtil
 {
 
-
 	public static Color colorIntToColor(int colorint)
 	{
 		int blue = colorint & 255;
@@ -14,7 +13,5 @@ public class ColorUtil
 
 		return new Color(red, green, blue);
 	}
-
-
 
 }

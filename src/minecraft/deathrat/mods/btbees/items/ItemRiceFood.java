@@ -11,10 +11,10 @@ public class ItemRiceFood extends ItemFood
 		super(par1, par2, par3);
 	}
 
-    public ItemRiceFood(int par1, int par2, int par3, boolean par4)
-    {
-    	super(par1, par2, par3, par4);
-    }
+	public ItemRiceFood(int par1, int par2, int par3, boolean par4)
+	{
+		super(par1, par2, par3, par4);
+	}
 
 	public String getTextureFile()
 	{

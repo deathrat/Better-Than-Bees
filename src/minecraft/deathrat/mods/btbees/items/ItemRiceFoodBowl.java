@@ -11,21 +11,21 @@ public class ItemRiceFoodBowl extends ItemFood
 {
 
 
-    public ItemRiceFoodBowl(int par1, int par2, boolean par3)
-    {
+	public ItemRiceFoodBowl(int par1, int par2, boolean par3)
+	{
 		super(par1, par2, par3);
 	}
 
-    public ItemRiceFoodBowl(int par1, int par2, int par3, boolean par4)
-    {
-    	super(par1, par2, par3, par4);
-    }
+	public ItemRiceFoodBowl(int par1, int par2, int par3, boolean par4)
+	{
+		super(par1, par2, par3, par4);
+	}
 
-    public ItemStack onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-    {
-        super.onFoodEaten(par1ItemStack, par2World, par3EntityPlayer);
-        return new ItemStack(Item.bowlEmpty);
-    }
+	public ItemStack onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+	{
+		super.onFoodEaten(par1ItemStack, par2World, par3EntityPlayer);
+		return new ItemStack(Item.bowlEmpty);
+	}
 
 	public String getTextureFile()
 	{

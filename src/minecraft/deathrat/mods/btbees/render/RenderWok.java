@@ -15,9 +15,9 @@ public class RenderWok extends TileEntitySpecialRenderer
 	private ModelWokBase modelBase;
 
 	public RenderWok()
-    {
+	{
 		modelBase = new ModelWokBase();
-    }
+	}
 
 	public void renderWokModel(TileEntity tileEntity, double x, double y, double z, float var5)
 	{
@@ -34,8 +34,8 @@ public class RenderWok extends TileEntitySpecialRenderer
 	}
 
 	@Override
-    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float idk)
+	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float idk)
 	{
 		renderWokModel((TileEntityWok)tileEntity, x, y, z, idk);
-    }
+	}
 }

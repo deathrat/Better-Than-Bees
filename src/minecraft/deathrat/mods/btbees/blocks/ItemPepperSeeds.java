@@ -17,10 +17,10 @@ public class ItemPepperSeeds extends Item implements IPlantable
 	private int blockType;
 
 	public ItemPepperSeeds(int par1, int par2)
-    {
-	    super(par1);
-	    this.blockType = par2;
-    }
+	{
+		super(par1);
+		this.blockType = par2;
+	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -30,20 +30,20 @@ public class ItemPepperSeeds extends Item implements IPlantable
 	}
 
 	@Override
-    public EnumPlantType getPlantType(World world, int x, int y, int z)
-    {
-	    return EnumPlantType.Crop;
-    }
+	public EnumPlantType getPlantType(World world, int x, int y, int z)
+	{
+		return EnumPlantType.Crop;
+	}
 
 	@Override
-    public int getPlantID(World world, int x, int y, int z)
-    {
-	    return BetterThanBees.pepperPlantID;
-    }
+	public int getPlantID(World world, int x, int y, int z)
+	{
+		return BetterThanBees.pepperPlantID;
+	}
 
 	@Override
-    public int getPlantMetadata(World world, int x, int y, int z)
-    {
-	    return 0;
-    }
+	public int getPlantMetadata(World world, int x, int y, int z)
+	{
+		return 0;
+	}
 }

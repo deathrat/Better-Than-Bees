@@ -13,11 +13,11 @@ public class BlockSalt extends Block
 {
 
 	public BlockSalt(int id, Material material)
-    {
-	    super(id, material);
-	    setHardness(0.0F);
-	    setResistance(0.0F);
-    }
+	{
+		super(id, material);
+		setHardness(0.0F);
+		setResistance(0.0F);
+	}
 
 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int metaData)
 	{
@@ -33,7 +33,7 @@ public class BlockSalt extends Block
 	@Override
 	public String getTextureFile()
 	{
-	    return BetterThanBees.terrainTextures;
+		return BetterThanBees.terrainTextures;
 	}
 
 }

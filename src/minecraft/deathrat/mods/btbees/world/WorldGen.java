@@ -17,8 +17,8 @@ public class WorldGen implements IWorldGenerator
 	public WorldGenClay saltGen = new WorldGenClay(BetterThanBees.saltID);
 
 	@Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
-    {
+	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
+	{
 //		BiomeGenBase biome = world.getBiomeGenForCoords(chunkX, chunkZ);
 //		String biomeName = biome.biomeName;
 //		int x = chunkX + random.nextInt(16) + 8;
@@ -31,10 +31,10 @@ public class WorldGen implements IWorldGenerator
 			generateSalt(world, random, chunkX, chunkZ);
 
 		}
-    }
+	}
 
 	private void generateSalt(World world, Random random, int chunkX, int chunkZ)
-    {
+	{
 		for(int i = 0; i < 30; i++)
 		{
 			int randomX = chunkX + random.nextInt(16) + 8;
@@ -47,7 +47,7 @@ public class WorldGen implements IWorldGenerator
 			if(topBlock == Block.sand.blockID)
 				saltGen.generate(world, random, randomX, world.getTopSolidOrLiquidBlock(randomX, randomZ), randomZ);
 		}
-    }
+	}
 
 
 

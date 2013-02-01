@@ -56,18 +56,18 @@ public class TileEntityWok extends TileEntity implements IInventory
 	@Override
 	public ItemStack decrStackSize(int slot, int amt)
 	{
-        ItemStack stack = getStackInSlot(slot);
-        if (stack != null) {
-                if (stack.stackSize <= amt) {
-                        setInventorySlotContents(slot, null);
-                } else {
-                        stack = stack.splitStack(amt);
-                        if (stack.stackSize == 0) {
-                                setInventorySlotContents(slot, null);
-                        }
-                }
-        }
-        return stack;
+		ItemStack stack = getStackInSlot(slot);
+		if (stack != null) {
+				if (stack.stackSize <= amt) {
+						setInventorySlotContents(slot, null);
+				} else {
+						stack = stack.splitStack(amt);
+						if (stack.stackSize == 0) {
+								setInventorySlotContents(slot, null);
+						}
+				}
+		}
+		return stack;
 	}
 
 
@@ -130,14 +130,14 @@ public class TileEntityWok extends TileEntity implements IInventory
 	{
 		super.readFromNBT(tagCompound);
 
-        NBTTagList tagList = tagCompound.getTagList("Inventory");
-        for (int i = 0; i < tagList.tagCount(); i++) {
-                NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
-                byte slot = tag.getByte("Slot");
-                if (slot >= 0 && slot < inv.length) {
-                        inv[slot] = ItemStack.loadItemStackFromNBT(tag);
-                }
-        }
+		NBTTagList tagList = tagCompound.getTagList("Inventory");
+		for (int i = 0; i < tagList.tagCount(); i++) {
+				NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+				byte slot = tag.getByte("Slot");
+				if (slot >= 0 && slot < inv.length) {
+						inv[slot] = ItemStack.loadItemStackFromNBT(tag);
+				}
+		}
 	}
 
 	@Override
@@ -162,7 +162,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 
 
 	public void handlePacketData(INetworkManager manager, Packet250CustomPayload packet, Player player, ByteArrayDataInput data, int fireLevel)
-    {
+	{
 		try
 		{
 			this.fireLevel = fireLevel;
@@ -171,5 +171,5 @@ public class TileEntityWok extends TileEntity implements IInventory
 		{
 			e.printStackTrace();
 		}
-    }
+	}
 }

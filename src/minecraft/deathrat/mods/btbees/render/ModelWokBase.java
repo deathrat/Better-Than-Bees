@@ -13,15 +13,15 @@ public class ModelWokBase extends ModelBase
 	NMTModelRenderer Wok;
 
 	public ModelWokBase()
-    {
+	{
 		Wok = new NMTModelRenderer(this);
 //		Wok.addModelOBJ("/deathrat/mods/btbees/pan_obj.obj");
-    }
+	}
 
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
-	    super.render(entity, f, f1, f2, f3, f4, f5);
+		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 //		Wok.render(f5);
 	}

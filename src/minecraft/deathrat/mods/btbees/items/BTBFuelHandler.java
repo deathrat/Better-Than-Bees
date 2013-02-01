@@ -7,8 +7,8 @@ import deathrat.mods.btbees.BetterThanBees;
 public class BTBFuelHandler implements IFuelHandler
 {
 	@Override
-    public int getBurnTime(ItemStack fuel)
-    {
+	public int getBurnTime(ItemStack fuel)
+	{
 		if(fuel.itemID == BetterThanBees.riceHusk.itemID)
 		{
 			return 140;
@@ -17,5 +17,5 @@ public class BTBFuelHandler implements IFuelHandler
 		{
 			return 0;
 		}
-    }
+	}
 }
