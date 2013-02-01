@@ -27,8 +27,6 @@
 		<equals arg1="${forge.build.number}" arg2="497" />
 	</condition>
 
-	<!--<property name="verclass.dir" value="${mcpsrc.dir}/powercrystals/minefactoryreloaded" />-->
-	<!--<property name="verclass.name value="MineFactoryReloadedCore.java"/>-->
 	<property name="verclass.dir" value="${mcpsrc.dir}/deathrat/mods/btbees" />
 	<property name="verclass.name" value="BetterThanBees.java"/>
 
@@ -110,7 +108,7 @@
 	<target name="install" depends="build">
 		<jar destfile="${dist.dir}/BetterThanBees-${grep.out}-${build.number}.jar" basedir="${classes.dir}"/>
 		<delete dir="${classes.dir}" />
-		<delete dir="${mcp.dir}/reobf/minecraft"/>
+		<delete dir="${mcp.dir}/reobf"/>
 	</target>
 
 	<target name="build" depends="extract-dependencies" unless="already-compiled">
@@ -134,7 +132,6 @@
 
 		<delete dir="${mcp.dir}/reobf/minecraft/powercrystals/core"/>
 		<delete dir="${mcp.dir}/reobf/minecraft/buildcraft"/>
-		<delete dir="${mcp.dir}/reobf/minecraft/thermalexpansion"/>
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>
@@ -191,10 +188,10 @@
 		<chmod file="${mcp.dir}/runtime/bin/jad-osx" perm="+x" />
 		<!-- Copy source -->
 		<mkdir dir="${mcpsrc.dir}/deathrat" />
-		<copy todir="${mcpsrc.dir}/deathrat">
+		<copy todir="${mcpsrc.dir}/deathrat" overwrite="true">
 			<fileset dir="${src.dir}/minecraft/deathrat"/>
 		</copy>
-		<copy todir="${mcpsrc.dir}" file="mcmod.info"/>
+		<copy todir="${mcpsrc.dir}" file="mcmod.info" overwrite="true"/>
 		<mkdir dir="${mcpsrc.dir}/powercrystals" />
 		<copy todir="${mcpsrc.dir}/powercrystals" >
 			<fileset dir="${src.dir}/minecraft/powercrystals"/>

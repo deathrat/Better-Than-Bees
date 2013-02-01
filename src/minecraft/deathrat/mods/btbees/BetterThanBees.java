@@ -56,7 +56,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static CommonProxy proxy;
 
 	public final static String modId = "BetterThanBees";
-	public final static String version = "1.4.7R0.2.2";
+	public final static String version = "1.4.7R0.2.3";
 	public final static String modName = "Better Than Bees";
 
 	@PreInit
