@@ -109,6 +109,7 @@
 		<jar destfile="${dist.dir}/BetterThanBees-${grep.out}-${build.number}.jar" basedir="${classes.dir}"/>
 		<delete dir="${classes.dir}" />
 		<delete dir="${mcp.dir}/reobf"/>
+		<delete dir="${mcpsrc.dir}" />
 	</target>
 
 	<target name="build" depends="extract-dependencies" unless="already-compiled">
