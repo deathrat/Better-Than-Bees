@@ -13,6 +13,7 @@ import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 @SideOnly(Side.CLIENT)
@@ -40,6 +41,12 @@ public class ClientPacketHandler implements IPacketHandler
 					if(tileEntity instanceof TileEntityRicePlant)
 					{
 						((TileEntityRicePlant)tileEntity).handlePacketData(manager, packet, player, data, meta);
+					}
+
+					if(tileEntity instanceof TileEntityBoiler)
+					{
+						float energyLevel = data.readFloat();
+						((TileEntityBoiler)tileEntity).handlePacketData(manager, packet, player, data, energyLevel);
 					}
 				}
 			}

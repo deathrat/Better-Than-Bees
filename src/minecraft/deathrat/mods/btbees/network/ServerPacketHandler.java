@@ -19,6 +19,7 @@ import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
+import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 import deathrat.mods.btbees.tileentity.TileEntityWok;
 
@@ -62,6 +63,11 @@ public class ServerPacketHandler implements IPacketHandler
 					{
 						int fireLevel = data.readInt();
 						((TileEntityWok)tileEntity).handlePacketData(manager, packet, player, data, fireLevel);
+					}
+					if(tileEntity instanceof TileEntityBoiler)
+					{
+						float energyLevel = data.readFloat();
+						((TileEntityBoiler)tileEntity).handlePacketData(manager, packet, player, data, energyLevel);
 					}
 				}
 			}

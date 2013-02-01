@@ -18,9 +18,9 @@ public class PowerProviderBTB extends PowerProvider implements IPowerProviderAdv
 
 
 	public void configure(int maxEnergyReceived, int maxStoredEnergy)
-    {
-	    super.configure(0, 0, maxEnergyReceived, 0, maxStoredEnergy);
-    }
+	{
+		super.configure(0, 0, maxEnergyReceived, 0, maxStoredEnergy);
+	}
 
 	@Override
 	public boolean update(IPowerReceptor receptor)
@@ -38,38 +38,44 @@ public class PowerProviderBTB extends PowerProvider implements IPowerProviderAdv
 	}
 
 	@Override
-    public void addEnergy(float quantity)
-    {
+	public void addEnergy(float quantity)
+	{
 		energyStored += quantity;
 
 		if(energyStored > maxEnergyStored)
 			energyStored = maxEnergyStored;
-    }
+	}
 
 	@Override
-    public void subtractEnergy(float quantity)
-    {
+	public void subtractEnergy(float quantity)
+	{
 		energyStored -= quantity;
 
 		if(energyStored < 0.0F)
 			energyStored = 0.0F;
-    }
+	}
 
 	@Override
-    public void setEnergyStored(float quantity)
-    {
+	public void setEnergyStored(float quantity)
+	{
 		energyStored = quantity;
 
 		if(energyStored > maxEnergyStored)
 			energyStored = maxEnergyStored;
 		else if(energyStored < 0.0F)
 			energyStored = 0.0F;
-    }
+	}
 
 	@Override
-    public void roundEnergyStored()
-    {
+	public void roundEnergyStored()
+	{
 		energyStored = Math.round(energyStored);
-    }
+	}
+
+	@Override
+	public float getEnergyStored()
+	{
+		return energyStored;
+	}
 
 }

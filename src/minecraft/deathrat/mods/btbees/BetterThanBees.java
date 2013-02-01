@@ -241,26 +241,26 @@ public class BetterThanBees implements IUpdateableMod
 	public static WorldGen worldGen = new WorldGen();
 
 	@Override
-    public String getModId()
-    {
-	    return modId;
-    }
+	public String getModId()
+	{
+		return modId;
+	}
 
 	@Override
-    public String getModName()
-    {
-	    return modName;
-    }
+	public String getModName()
+	{
+		return modName;
+	}
 
 	@Override
-    public String getModFolder()
-    {
-	    return "Better-Than-Bees";
-    }
+	public String getModFolder()
+	{
+		return "Better-Than-Bees";
+	}
 
 	@Override
-    public String getModVersion()
-    {
-	    return version;
-    }
+	public String getModVersion()
+	{
+		return version;
+	}
 }

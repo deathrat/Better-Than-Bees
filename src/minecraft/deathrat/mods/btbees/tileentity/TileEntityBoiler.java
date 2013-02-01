@@ -1,5 +1,8 @@
 package deathrat.mods.btbees.tileentity;
 
+import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.common.network.Player;
 import deathrat.mods.btbees.power.PowerProviderBTB;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
@@ -8,6 +11,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityBoiler extends TileEntity implements IInventory, IPowerReceptor
@@ -36,17 +41,15 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 		powerProvider = new PowerProviderBTB();
 
 		powerProvider.configure(10 * 2, 2 * 1200);
-
-		powerProvider.setEnergyStored(600F);
 	}
 
 	@Override
 	public void updateEntity()
 	{
-	    super.updateEntity();
+		super.updateEntity();
 
-	    if(waterLevel > waterLevelMax)
-	    	waterLevel = waterLevelMax;
+		if(waterLevel > waterLevelMax)
+			waterLevel = waterLevelMax;
 	}
 
 	@Override
@@ -66,18 +69,18 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 	@Override
 	public ItemStack decrStackSize(int slot, int amt)
 	{
-        ItemStack stack = getStackInSlot(slot);
-        if (stack != null) {
-                if (stack.stackSize <= amt) {
-                        setInventorySlotContents(slot, null);
-                } else {
-                        stack = stack.splitStack(amt);
-                        if (stack.stackSize == 0) {
-                                setInventorySlotContents(slot, null);
-                        }
-                }
-        }
-        return stack;
+		ItemStack stack = getStackInSlot(slot);
+		if (stack != null) {
+				if (stack.stackSize <= amt) {
+						setInventorySlotContents(slot, null);
+				} else {
+						stack = stack.splitStack(amt);
+						if (stack.stackSize == 0) {
+								setInventorySlotContents(slot, null);
+						}
+				}
+		}
+		return stack;
 	}
 
 
@@ -155,7 +158,8 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 		}
 
 		tagCompound.setTag("Inventory", itemList);
-		tagCompound.setFloat("energyLevel", this.powerProvider.getMaxEnergyStored());
+		float energy = this.powerProvider.getEnergyStored();
+		tagCompound.setFloat("energyLevel", energy);
 		tagCompound.setInteger("fireLevel", fireLevel);
 		tagCompound.setInteger("waterLevel", waterLevel);
 	}
@@ -165,25 +169,26 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 	{
 		super.readFromNBT(tagCompound);
 
-        NBTTagList tagList = tagCompound.getTagList("Inventory");
-        for (int i = 0; i < tagList.tagCount(); i++) {
-                NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
-                byte slot = tag.getByte("Slot");
-                if (slot >= 0 && slot < inv.length) {
-                        inv[slot] = ItemStack.loadItemStackFromNBT(tag);
-                }
-        }
+		NBTTagList tagList = tagCompound.getTagList("Inventory");
+		for (int i = 0; i < tagList.tagCount(); i++) {
+				NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+				byte slot = tag.getByte("Slot");
+				if (slot >= 0 && slot < inv.length) {
+						inv[slot] = ItemStack.loadItemStackFromNBT(tag);
+				}
+		}
 
-        try
-        {
-    		this.powerProvider.setEnergyStored(tagCompound.getFloat("energyLevel"));
-    		if(Float.isNaN(powerProvider.getEnergyStored()))
-    			powerProvider.setEnergyStored(0.0F);
-        }
-        catch(Exception e)
-        {
-        	powerProvider.setEnergyStored(0.0F);
-        }
+		try
+		{
+			float energy = tagCompound.getFloat("energyLevel");
+			this.powerProvider.setEnergyStored(energy);
+			if(Float.isNaN(powerProvider.getEnergyStored()))
+				powerProvider.setEnergyStored(0.0F);
+		}
+		catch(Exception e)
+		{
+			powerProvider.setEnergyStored(0.0F);
+		}
 		fireLevel = tagCompound.getInteger("fireLevel");
 		waterLevel = tagCompound.getInteger("waterLevel");
 	}
@@ -195,9 +200,9 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 
 	public int getScaledWaterLevel(int par1)
 	{
-        if (this.waterLevel == 0)
-            this.waterLevel = 200;
-        return this.waterLevel * par1 / this.waterLevelMax;
+		if (this.waterLevel == 0)
+			this.waterLevel = 200;
+		return this.waterLevel * par1 / this.waterLevelMax;
 	}
 
 	public int getScaledEnergyStored(int scale)
@@ -243,32 +248,44 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 	}
 
 	@Override
-    public void setPowerProvider(IPowerProvider provider)
-    {
-    }
+	public void setPowerProvider(IPowerProvider provider)
+	{
+	}
 
 	@Override
-    public IPowerProvider getPowerProvider()
-    {
-	    return powerProvider;
-    }
+	public IPowerProvider getPowerProvider()
+	{
+		return powerProvider;
+	}
 
 	@Override
-    public void doWork()
-    {
-    }
+	public void doWork()
+	{
+	}
 
 	@Override
-    public int powerRequest()
-    {
+	public int powerRequest()
+	{
 		if (powerProvider.getEnergyStored() == powerProvider.getMaxEnergyStored())
 		{
-	        return 0;
+			return 0;
 		}
 		return (int)Math.ceil(Math.min(powerProvider.getMaxEnergyReceived(), powerProvider.getMaxEnergyStored() - powerProvider.getEnergyStored()));
-    }
+	}
 
 	public void receiveGuiNetworkData(int bar, int value)
-    {
-    }
+	{
+	}
+
+	public void handlePacketData(INetworkManager manager, Packet250CustomPayload packet, Player player, ByteArrayDataInput data, float energyLevel)
+	{
+		try
+		{
+			this.powerProvider.setEnergyStored(energyLevel);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

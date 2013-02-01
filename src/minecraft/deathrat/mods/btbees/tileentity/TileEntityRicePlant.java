@@ -31,8 +31,6 @@ public class TileEntityRicePlant extends TileEntity
 		}
 	}
 
-
-
 	public void handlePacketData(INetworkManager manager, Packet250CustomPayload packet, Player player, ByteArrayDataInput data, int meta)
 	{
 		try

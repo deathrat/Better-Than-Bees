@@ -122,7 +122,7 @@ public class ContainerBoiler extends Container
     {
         super.detectAndSendChanges();
 
-        for (int var1 = 0; var1 < this.crafters.size(); ++var1)
+        for (int var1 = 0; var1 < this.crafters.size(); var1++)
         {
             ICrafting var2 = (ICrafting)this.crafters.get(var1);
 
@@ -145,6 +145,8 @@ public class ContainerBoiler extends Container
         this.lastWaterLevel = this.tileEntity.waterLevel;
         this.lastFireLevel = this.tileEntity.fireLevel;
         this.lastEnergyLevel = this.tileEntity.getEnergy();
+
+
     }
 
 

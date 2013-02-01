@@ -1,5 +1,7 @@
 package deathrat.mods.btbees.render;
 
+import java.net.MalformedURLException;
+
 import com.overminddl1.minecraft.libs.NMT.NMTModelRenderer;
 
 import net.minecraft.client.Minecraft;
@@ -13,14 +15,7 @@ public class ModelWokBase extends ModelBase
 	public ModelWokBase()
     {
 		Wok = new NMTModelRenderer(this);
-		try
-		{
-			Wok.addModelOBJ("/deathrat/mods/btbees/pan_obj.obj");
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+//		Wok.addModelOBJ("/deathrat/mods/btbees/pan_obj.obj");
     }
 
 	@Override
