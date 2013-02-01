@@ -84,16 +84,6 @@
 		<move file="${download.dir}/Nitro-Model-Thingy-master/src/com" todir="${mcpsrc.dir}" />
 
 		<echo message="Copying sources... " />
-		<!-- Copy source -->
-		<mkdir dir="${mcpsrc.dir}/deathrat" />
-		<copy todir="${mcpsrc.dir}/deathrat" overwrite="true">
-			<fileset dir="${src.dir}/minecraft/deathrat"/>
-		</copy>
-		<copy todir="${mcpsrc.dir}" file="mcmod.info" overwrite="true"/>
-		<mkdir dir="${mcpsrc.dir}/powercrystals" />
-		<copy todir="${mcpsrc.dir}/powercrystals" >
-			<fileset dir="${src.dir}/minecraft/powercrystals"/>
-		</copy>
 	</target>
 
 	<target name="get-version" depends="setup-forge">
@@ -125,6 +115,17 @@
 	</target>
 
 	<target name="build" depends="extract-dependencies" unless="already-compiled">
+		<!-- Copy source -->
+		<mkdir dir="${mcpsrc.dir}/deathrat" />
+		<copy todir="${mcpsrc.dir}/deathrat" overwrite="true">
+			<fileset dir="${src.dir}/minecraft/deathrat"/>
+		</copy>
+		<copy todir="${mcpsrc.dir}" file="mcmod.info" overwrite="true"/>
+		<mkdir dir="${mcpsrc.dir}/powercrystals" />
+		<copy todir="${mcpsrc.dir}/powercrystals" >
+			<fileset dir="${src.dir}/minecraft/powercrystals"/>
+		</copy>
+
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
 			<arg line="/c recompile.bat"/>
@@ -171,9 +172,8 @@
 				<include name="minecraftforge-src-${forge.version}.zip"/>
 			</fileset>
 		</unzip>
-
-
-
+		
+		
 		<!-- Change executables' permitions -->
 
 		<chmod file="${forge.dir}/install.sh" perm="+x"/>
@@ -199,6 +199,17 @@
 		<chmod file="${mcp.dir}/reobfuscate.sh" perm="+x"/>
 		<chmod file="${mcp.dir}/runtime/bin/astyle-osx" perm="+x" />
 		<chmod file="${mcp.dir}/runtime/bin/jad-osx" perm="+x" />
+
+		<!-- Copy source -->
+		<mkdir dir="${mcpsrc.dir}/deathrat" />
+		<copy todir="${mcpsrc.dir}/deathrat" overwrite="true">
+			<fileset dir="${src.dir}/minecraft/deathrat"/>
+		</copy>
+		<copy todir="${mcpsrc.dir}" file="mcmod.info" overwrite="true"/>
+		<mkdir dir="${mcpsrc.dir}/powercrystals" />
+		<copy todir="${mcpsrc.dir}/powercrystals" >
+			<fileset dir="${src.dir}/minecraft/powercrystals"/>
+		</copy>
 
 		<!-- Copy libraries -->
 		<copy todir="${mcp.dir}/lib" >
