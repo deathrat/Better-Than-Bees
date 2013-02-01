@@ -36,7 +36,7 @@ public class GuiBoiler extends GuiTE
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
+    protected void drawGuiContainerBackgroundLayer(float var1, int xCoord, int yCoord)
     {
         int texture = mc.renderEngine.getTexture("/deathrat/mods/btbees/gui_boiler.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -74,8 +74,9 @@ public class GuiBoiler extends GuiTE
     }
 
 	@Override
-    protected void drawTooltips()
+	protected void drawTooltips()
     {
-
+		if ((mouseX >= 10) && (mouseX < 22) && (mouseY >= 9) && (mouseY < 49))
+			drawTooltip("" + (int)tileEntity.getEnergy() + " / " + (int)tileEntity.getMaxEnergy() + " MJ");
     }
 }

@@ -13,7 +13,14 @@ public class ModelWokBase extends ModelBase
 	public ModelWokBase()
     {
 		Wok = new NMTModelRenderer(this);
-		Wok.addModelOBJ(Minecraft.getMinecraftDir().toURI().toString() + "/e100.obj");
+		try
+		{
+			Wok.addModelOBJ("/deathrat/mods/btbees/pan_obj.obj");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
     }
 
 	@Override

@@ -167,6 +167,8 @@ public class ContainerBoiler extends Container
 	    	this.tileEntity.powerProvider.setEnergyStored(value);
 	    }
 
+
+	    tileEntity.receiveGuiNetworkData(bar, value);
 	}
 
 }

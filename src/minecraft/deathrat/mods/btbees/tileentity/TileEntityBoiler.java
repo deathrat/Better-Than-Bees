@@ -267,4 +267,8 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 		}
 		return (int)Math.ceil(Math.min(powerProvider.getMaxEnergyReceived(), powerProvider.getMaxEnergyStored() - powerProvider.getEnergyStored()));
     }
+
+	public void receiveGuiNetworkData(int bar, int value)
+    {
+    }
 }

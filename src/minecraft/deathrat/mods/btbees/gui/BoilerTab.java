@@ -20,6 +20,8 @@ public class BoilerTab extends Tab
 	    maxHeight = 92;
 	    maxWidth = 100;
 	    overlayColor = 685776;
+	    leftSide = false;
+
     }
 
 	@Override
