@@ -24,18 +24,16 @@ import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 public class BlockRicePlant extends BlockContainer implements IPlantable
 {
-	public Class tileRice;
 	boolean canDrop;
 	public static int metaData;
 
 
-	public BlockRicePlant(int par1, int par2, Class tileRice)
+	public BlockRicePlant(int par1, int par2)
 	{
 		super(par1, par2, Material.plants);
 		setTickRandomly(true);
 		float var4 = 0.2F;
 		this.setBlockBounds(0.0F, -0.2F, 0.0F, 1.0F, 0.0F, 1.0F);
-		this.tileRice = tileRice;
 	}
 
 	public String getTextureFile()
@@ -207,13 +205,6 @@ public class BlockRicePlant extends BlockContainer implements IPlantable
 	@Override
 	public TileEntity createNewTileEntity(World var1)
 	{
-		try
-		{
-			return (TileEntityRicePlant)tileRice.newInstance();
-		}
-		catch(Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+		return new TileEntityRicePlant();
 	}
 }

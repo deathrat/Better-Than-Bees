@@ -46,6 +46,8 @@ public class BoilerTab extends Tab
 	@Override
 	public String getTooltip()
 	{
+		if(!isFullyOpened())
+			return "Energy";
 		return null;
 	}
 

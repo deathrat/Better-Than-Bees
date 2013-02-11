@@ -1,9 +1,12 @@
 package deathrat.mods.btbees.blocks;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.api.IBoilerModule;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
+import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -16,17 +19,55 @@ import net.minecraft.world.World;
 
 public class BlockBoiler extends BlockContainer
 {
-	private Class tileEntity;
-
-	public BlockBoiler(int id, Material mat, Class te)
+	
+	public BlockBoiler(int id, Material mat)
 	{
 		super(id, mat);
-
-		this.tileEntity = te;
 
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setBlockName("blockBoiler");
+	}
+	
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, int blockID)
+	{
+		super.onNeighborBlockChange(world, x, y, z, blockID);
+		
+		
+		addNeighborModule(world, x, y, z);
+	}
+	
+	public void addNeighborModule(World world, int x, int y, int z)
+	{
+		//North = -z, West = -x
+		ArrayList<IBoilerModule> arrayList = new ArrayList();
+		if(world.getBlockTileEntity(x + 1, y, z) instanceof IBoilerModule)
+		{
+			arrayList.add((IBoilerModule)world.getBlockTileEntity(x + 1, y, z));
+			System.out.println("BoilerModule placed to East");
+		}
+		else if(world.getBlockTileEntity(x - 1, y, z) instanceof IBoilerModule)
+		{
+			arrayList.add((IBoilerModule)world.getBlockTileEntity(x - 1, y, z));
+			System.out.println("BoilerModule placed to West");
+		}
+		else if(world.getBlockTileEntity(x, y, z + 1) instanceof IBoilerModule)
+		{
+			arrayList.add((IBoilerModule)world.getBlockTileEntity(x, y, z + 1));
+			System.out.println("BoilerModule placed to South");
+		}
+		else if(world.getBlockTileEntity(x, y, z - 1) instanceof IBoilerModule)
+		{
+			arrayList.add((IBoilerModule)world.getBlockTileEntity(x, y, z - 1));
+			System.out.println("BoilerModule placed to North");
+		}
+		else if(world.getBlockTileEntity(x, y + 1, z) instanceof TileEntityBoilerTank)
+		{
+			TileEntityBoiler te = (TileEntityBoiler) world.getBlockTileEntity(x, y, z);
+			
+		}
+		((TileEntityBoiler)world.getBlockTileEntity(x, y, z)).setBoilerModules(arrayList);
 	}
 
 	@Override
@@ -99,14 +140,6 @@ public class BlockBoiler extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World var1)
 	{
-		try
-		{
-			return (TileEntityBoiler)tileEntity.newInstance();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return null;
+		return new TileEntityBoiler();
 	}
 }

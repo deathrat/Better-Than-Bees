@@ -1,8 +1,11 @@
 package deathrat.mods.btbees.tileentity;
 
+import java.util.ArrayList;
+
 import com.google.common.io.ByteArrayDataInput;
 
 import cpw.mods.fml.common.network.Player;
+import deathrat.mods.btbees.api.IBoilerModule;
 import deathrat.mods.btbees.power.PowerProviderBTB;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
@@ -14,42 +17,54 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 
-public class TileEntityBoiler extends TileEntity implements IInventory, IPowerReceptor
+public class TileEntityBoiler extends TileEntityMachine implements IInventory
 {
 	private ItemStack[] inv;
-	public PowerProviderBTB powerProvider;
+	public ArrayList<IBoilerModule> boilerModules;
 	public int fireLevel;
-	public int waterLevel;
-	public int waterLevelMax = 15;
+//	public int waterLevel;
+//	public int waterLevelMax = 12000;
 	public int fireLevelMax = 100;
 
 	public boolean isActive;
+	
+	public TileEntityBoilerTank boilerTank;
 
-	private float minPower = 0.5F;
-	private int maxPower = 2;
-	private int maxEnergy = maxPower * 1200;
-	private int minPowerLevel = (2 * maxEnergy / 10);
-	private int maxPowerLevel = (8 * maxEnergy / 10);
-	private int energyRamp = (maxPowerLevel / maxPower);
 
 	public TileEntityBoiler()
 	{
 		inv = new ItemStack[31];
 		fireLevel = 61;
-		waterLevel = 21;
-		powerProvider = new PowerProviderBTB();
+//		waterLevel = 50;
 
-		powerProvider.configure(10 * 2, 2 * 1200);
+		powerProvider.configure(10 * maxPower, 2 * 1200);
 	}
-
+	
+	public void setBoilerTank(TileEntityBoilerTank boilerTank)
+	{
+		this.boilerTank = boilerTank;
+	}
+	
+	public void setBoilerModules(ArrayList<IBoilerModule> list)
+	{
+		boilerModules = list;
+	}
+	
+	public IBoilerModule getBoilerModule(World world, ForgeDirection side)
+	{
+		return (IBoilerModule) world.getBlockTileEntity(xCoord + side.offsetX, yCoord, zCoord + side.offsetZ);
+	}
+	
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
 
-		if(waterLevel > waterLevelMax)
-			waterLevel = waterLevelMax;
+//		if(waterLevel > waterLevelMax)
+//			waterLevel = waterLevelMax;
 	}
 
 	@Override
@@ -158,10 +173,8 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 		}
 
 		tagCompound.setTag("Inventory", itemList);
-		float energy = this.powerProvider.getEnergyStored();
-		tagCompound.setFloat("energyLevel", energy);
 		tagCompound.setInteger("fireLevel", fireLevel);
-		tagCompound.setInteger("waterLevel", waterLevel);
+//		tagCompound.setInteger("waterLevel", waterLevel);
 	}
 
 	@Override
@@ -178,114 +191,43 @@ public class TileEntityBoiler extends TileEntity implements IInventory, IPowerRe
 				}
 		}
 
-		try
-		{
-			float energy = tagCompound.getFloat("energyLevel");
-			this.powerProvider.setEnergyStored(energy);
-			if(Float.isNaN(powerProvider.getEnergyStored()))
-				powerProvider.setEnergyStored(0.0F);
-		}
-		catch(Exception e)
-		{
-			powerProvider.setEnergyStored(0.0F);
-		}
 		fireLevel = tagCompound.getInteger("fireLevel");
-		waterLevel = tagCompound.getInteger("waterLevel");
+//		waterLevel = tagCompound.getInteger("waterLevel");
 	}
 
-	public boolean hasWater()
+//	public boolean hasWater()
+//	{
+//		return waterLevel > 0;
+//	}
+
+//	public int getScaledWaterLevel(int par1)
+//	{
+//		return this.waterLevel * par1 / this.waterLevelMax;
+//	}
+//	
+//	public int getWaterLevel()
+//	{
+//		return this.waterLevel;
+//	}
+	
+	public int getFireLevel()
 	{
-		return waterLevel > 0;
+		return this.fireLevel;
 	}
-
-	public int getScaledWaterLevel(int par1)
-	{
-		if (this.waterLevel == 0)
-			this.waterLevel = 200;
-		return this.waterLevel * par1 / this.waterLevelMax;
-	}
-
-	public int getScaledEnergyStored(int scale)
-	{
-		return Math.round(powerProvider.getEnergyStored() * scale / powerProvider.getMaxEnergyStored());
-	}
-
+	
 	public int getScaledFireLevel(int par1)
 	{
-		if(this.fireLevel == 0)
-			this.fireLevel = 200;
 		return this.fireLevel * par1 / this.fireLevelMax;
 	}
 
-	public float getEnergy()
-	{
-		return powerProvider.getEnergyStored();
-	}
-
-	public float getMaxEnergy()
-	{
-		return maxEnergy;
-	}
-
-	public float getPower()
-	{
-		if(!isActive)
-		{
-			return 0.0F;
-		}
-		if(powerProvider.getMaxEnergyStored() > maxPowerLevel)
-			return maxPower;
-		if(powerProvider.getMaxEnergyStored() < minPowerLevel)
-			return minPower;
-
-		int intPower = (int)(10.0F * powerProvider.getEnergyStored() / energyRamp);
-		return intPower / 10.0F;
-	}
-
-	public float getMaxPower()
-	{
-		return maxPower;
-	}
-
-	@Override
-	public void setPowerProvider(IPowerProvider provider)
-	{
-	}
-
-	@Override
-	public IPowerProvider getPowerProvider()
-	{
-		return powerProvider;
-	}
-
-	@Override
-	public void doWork()
-	{
-	}
-
-	@Override
-	public int powerRequest()
-	{
-		if (powerProvider.getEnergyStored() == powerProvider.getMaxEnergyStored())
-		{
-			return 0;
-		}
-		return (int)Math.ceil(Math.min(powerProvider.getMaxEnergyReceived(), powerProvider.getMaxEnergyStored() - powerProvider.getEnergyStored()));
-	}
 
 	public void receiveGuiNetworkData(int bar, int value)
 	{
 	}
 
-	public void handlePacketData(INetworkManager manager, Packet250CustomPayload packet, Player player, ByteArrayDataInput data, float energyLevel)
+	public int getMaxWater()
 	{
-		try
-		{
-			this.powerProvider.setEnergyStored(energyLevel);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		return this.getMaxWater();
 	}
+
 }

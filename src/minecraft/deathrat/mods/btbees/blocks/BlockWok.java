@@ -16,13 +16,9 @@ import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class BlockWok extends BlockContainer
 {
-	private Class tileEntity;
-
-	public BlockWok(int id, Material mat, Class te)
+	public BlockWok(int id, Material mat)
 	{
 		super(id, mat);
-
-		this.tileEntity = te;
 
 		setHardness(2.0F);
 		setResistance(5.0F);
@@ -114,16 +110,9 @@ public class BlockWok extends BlockContainer
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1)
+	public TileEntity createNewTileEntity(World world)
 	{
-		try
-		{
-			return (TileEntityWok)tileEntity.newInstance();
-		}
-		catch(Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+		return new TileEntityWok();
 	}
 
 }

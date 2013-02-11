@@ -46,9 +46,9 @@ public class GuiBoiler extends GuiTE
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
 		//Water meter
-		if(tileEntity.hasWater())
+		if(tileEntity.boilerTank.hasWater())
 		{
-			int waterLevel = tileEntity.getScaledWaterLevel(46);
+			int waterLevel = tileEntity.boilerTank.getScaledWaterLevel(46);
 			this.drawTexturedModalRect(x + 176, y + 43 + 46 - waterLevel, 199, 73 - waterLevel, 12, waterLevel + 5);
 		}
 
@@ -76,7 +76,10 @@ public class GuiBoiler extends GuiTE
 	@Override
 	protected void drawTooltips()
 	{
-		if ((mouseX >= 10) && (mouseX < 22) && (mouseY >= 9) && (mouseY < 49))
+		if ((mouseX >= 118) && (mouseX < 159) && (mouseY >= 24) && (mouseY < 37))
 			drawTooltip("" + (int)tileEntity.getEnergy() + " / " + (int)tileEntity.getMaxEnergy() + " MJ");
+		
+		if ((mouseX >= 173) && (mouseX < 190) && (mouseY >= 40) && (mouseY < 91))
+			drawTooltip("" + (int)tileEntity.boilerTank.tank.getLiquid().amount + " / " + (int)tileEntity.boilerTank.tank.getCapacity() + " mB");
 	}
 }

@@ -26,6 +26,7 @@ import cpw.mods.fml.relauncher.Side;
 import deathrat.mods.btbees.blocks.BlockBoiler;
 import deathrat.mods.btbees.blocks.BlockRicePlant;
 import deathrat.mods.btbees.blocks.BlockSalt;
+import deathrat.mods.btbees.blocks.BlockSteamer;
 import deathrat.mods.btbees.blocks.BlockWok;
 import deathrat.mods.btbees.gui.BTBGuiHandler;
 import deathrat.mods.btbees.gui.BTBCreativeTab;
@@ -41,6 +42,7 @@ import deathrat.mods.btbees.render.RenderWok;
 import deathrat.mods.btbees.render.RiceBaseRender;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
+import deathrat.mods.btbees.tileentity.TileEntitySteamer;
 import deathrat.mods.btbees.tileentity.TileEntityWok;
 import deathrat.mods.btbees.updater.UpdateManager;
 import deathrat.mods.btbees.world.WorldGen;
@@ -79,6 +81,7 @@ public class BetterThanBees implements IUpdateableMod
 		wokID = config.getBlock("wok", 3877).getInt();
 		boilerID = config.getBlock("boiler", 3878).getInt();
 		saltID = config.getBlock("salt", 3879).getInt();
+		steamerID = config.getBlock("steamer", 3880).getInt();
 	}
 
 	private void initializeItemConfig(Configuration config)
@@ -118,6 +121,8 @@ public class BetterThanBees implements IUpdateableMod
 		cookedRiceRoll.setCreativeTab(customTab);
 		wok.setCreativeTab(customTab);
 		boiler.setCreativeTab(customTab);
+		steamer.setCreativeTab(customTab);
+		salt.setCreativeTab(customTab);
 	}
 
 	private void initializeRecipes()
@@ -136,21 +141,27 @@ public class BetterThanBees implements IUpdateableMod
 		LanguageRegistry.addName(cookedRiceRoll, "California Roll");
 		LanguageRegistry.addName(wok, "Wok");
 		LanguageRegistry.addName(boiler, "Boiler");
+		LanguageRegistry.addName(salt, "Salt");
+		LanguageRegistry.addName(steamer, "Steamer");
 	}
 
 	private void initializeBlocks()
 	{
-		ricePlant = new BlockRicePlant(ricePlantID, 0, TileEntityRicePlant.class);
+		ricePlant = new BlockRicePlant(ricePlantID, 0);
 		GameRegistry.registerBlock(ricePlant, "ricePlant");
 		GameRegistry.registerTileEntity(TileEntityRicePlant.class, "RicePlant");
 
-		wok = new BlockWok(wokID, Material.iron, TileEntityWok.class);
+		wok = new BlockWok(wokID, Material.iron);
 		GameRegistry.registerBlock(wok, "wok");
 		GameRegistry.registerTileEntity(TileEntityWok.class, "Wok");
 
-		boiler = new BlockBoiler(boilerID, Material.iron, TileEntityBoiler.class);
+		boiler = new BlockBoiler(boilerID, Material.iron);
 		GameRegistry.registerBlock(boiler, "Boiler");
 		GameRegistry.registerTileEntity(TileEntityBoiler.class, "Boiler");
+		
+		steamer = new BlockSteamer(steamerID, Material.iron);
+		GameRegistry.registerBlock(steamer, "Steamer");
+		GameRegistry.registerTileEntity(TileEntitySteamer.class, "Steamer");
 
 		salt = new BlockSalt(saltID, Material.sand);
 		GameRegistry.registerBlock(salt, "Salt");
@@ -163,8 +174,7 @@ public class BetterThanBees implements IUpdateableMod
 		cookedRiceRoll = new ItemRiceFood(cookedRiceRollID, 4, 7, false).setIconIndex(2).setItemName("riceRoll");
 		uncookedRice = new ItemRiceSeeds(uncookedRiceID, ricePlantID).setIconIndex(3).setItemName("uncookedRice");
 		riceHusk = new ItemRiceHusk(riceHuskID).setIconIndex(4).setItemName("riceHusk");
-
-
+		
 		MinecraftForge.addGrassSeed(new ItemStack(uncookedRice),  8);
 	}
 
@@ -212,6 +222,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static int pepperPlantID;
 	public static int wokID;
 	public static int boilerID;
+	public static int steamerID;
 	public static int saltID;
 
 	//Items
@@ -227,6 +238,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static Block pepperPlant;
 	public static Block wok;
 	public static Block boiler;
+	public static Block steamer;
 	public static Block salt;
 
 	//Creative Tabs
