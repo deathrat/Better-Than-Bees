@@ -1,9 +1,5 @@
 package deathrat.mods.btbees.blocks;
 
-import java.util.Random;
-
-import deathrat.mods.btbees.BetterThanBees;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class BlockSalt extends Block
 {

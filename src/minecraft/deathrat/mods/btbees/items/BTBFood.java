@@ -1,11 +1,11 @@
 package deathrat.mods.btbees.items;
 
-import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class BTBFood extends ItemFood
 {

@@ -3,7 +3,6 @@ package deathrat.mods.btbees.world;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import deathrat.mods.btbees.BetterThanBees;

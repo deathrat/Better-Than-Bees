@@ -1,14 +1,12 @@
 package deathrat.mods.btbees.render;
 
-import org.lwjgl.opengl.GL11;
-
-import com.overminddl1.minecraft.libs.NMT.NMTModelBase;
-
-import deathrat.mods.btbees.tileentity.TileEntityWok;
-
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.ForgeHooksClient;
+
+import org.lwjgl.opengl.GL11;
+
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class RenderWok extends TileEntitySpecialRenderer
 {

@@ -1,7 +1,7 @@
 package deathrat.mods.btbees.items;
 
-import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.item.Item;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class ItemSalt extends Item
 {

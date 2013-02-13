@@ -24,14 +24,13 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.blocks.BlockBoiler;
 import deathrat.mods.btbees.blocks.BlockRicePlant;
 import deathrat.mods.btbees.blocks.BlockSalt;
 import deathrat.mods.btbees.blocks.BlockSteamer;
 import deathrat.mods.btbees.blocks.BlockWok;
-import deathrat.mods.btbees.gui.BTBGuiHandler;
 import deathrat.mods.btbees.gui.BTBCreativeTab;
+import deathrat.mods.btbees.gui.BTBGuiHandler;
 import deathrat.mods.btbees.items.BTBFood;
 import deathrat.mods.btbees.items.BTBFuelHandler;
 import deathrat.mods.btbees.items.ItemRiceHusk;
@@ -41,14 +40,11 @@ import deathrat.mods.btbees.items.ItemSheepMeat;
 import deathrat.mods.btbees.network.BTBConnectionHandler;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.proxy.CommonProxy;
-import deathrat.mods.btbees.render.RenderWok;
-import deathrat.mods.btbees.render.RiceBaseRender;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 import deathrat.mods.btbees.tileentity.TileEntitySteamer;
 import deathrat.mods.btbees.tileentity.TileEntityWok;
 import deathrat.mods.btbees.updater.UpdateManager;
-import deathrat.mods.btbees.world.WorldGen;
 
 @Mod(modid = "btbees", name = BetterThanBees.modName, version = BetterThanBees.version, dependencies = "required-after:PowerCrystalsCore")
 @NetworkMod(serverSideRequired=true, clientSideRequired=true, channels={"btbees"}, packetHandler=ServerPacketHandler.class, connectionHandler=BTBConnectionHandler.class)

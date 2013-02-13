@@ -1,10 +1,9 @@
 package deathrat.mods.btbees.tileentity;
 
-import deathrat.mods.btbees.api.IBoilerModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import deathrat.mods.btbees.api.IBoilerModule;
 
 public class TileEntitySteamer extends TileEntityMachine implements IBoilerModule, IInventory
 {

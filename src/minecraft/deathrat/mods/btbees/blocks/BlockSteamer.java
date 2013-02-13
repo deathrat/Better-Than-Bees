@@ -1,11 +1,11 @@
 package deathrat.mods.btbees.blocks;
 
-import deathrat.mods.btbees.BetterThanBees;
-import deathrat.mods.btbees.tileentity.TileEntitySteamer;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.tileentity.TileEntitySteamer;
 
 public class BlockSteamer extends BlockContainer
 {

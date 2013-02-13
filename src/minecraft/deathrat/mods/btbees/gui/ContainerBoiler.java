@@ -1,15 +1,14 @@
 package deathrat.mods.btbees.gui;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import deathrat.mods.btbees.tileentity.TileEntityBoiler;
-import deathrat.mods.btbees.tileentity.TileEntityWok;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 
 public class ContainerBoiler extends Container
 {

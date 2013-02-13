@@ -1,12 +1,11 @@
 package deathrat.mods.btbees.gui;
 
+import net.minecraft.entity.player.InventoryPlayer;
+
 import org.lwjgl.opengl.GL11;
 
 import thermalexpansion.core.gui.GuiTE;
-
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiBoiler extends GuiTE
 {

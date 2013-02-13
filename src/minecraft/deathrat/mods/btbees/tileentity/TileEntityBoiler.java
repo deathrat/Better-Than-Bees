@@ -2,23 +2,14 @@ package deathrat.mods.btbees.tileentity;
 
 import java.util.ArrayList;
 
-import com.google.common.io.ByteArrayDataInput;
-
-import cpw.mods.fml.common.network.Player;
-import deathrat.mods.btbees.api.IBoilerModule;
-import deathrat.mods.btbees.power.PowerProviderBTB;
-import buildcraft.api.power.IPowerProvider;
-import buildcraft.api.power.IPowerReceptor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import deathrat.mods.btbees.api.IBoilerModule;
 
 public class TileEntityBoiler extends TileEntityMachine implements IInventory
 {

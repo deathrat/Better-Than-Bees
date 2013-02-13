@@ -1,15 +1,16 @@
 package deathrat.mods.btbees.tileentity;
 
-import com.google.common.io.ByteArrayDataInput;
-
-import cpw.mods.fml.common.network.Player;
-import buildcraft.api.power.IPowerProvider;
-import buildcraft.api.power.IPowerReceptor;
-import deathrat.mods.btbees.power.PowerProviderBTB;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
+import buildcraft.api.power.IPowerProvider;
+import buildcraft.api.power.IPowerReceptor;
+
+import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.common.network.Player;
+import deathrat.mods.btbees.power.PowerProviderBTB;
 
 public class TileEntityMachine extends TileEntity implements IPowerReceptor
 {

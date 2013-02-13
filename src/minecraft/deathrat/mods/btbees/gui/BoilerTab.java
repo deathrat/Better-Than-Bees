@@ -1,8 +1,8 @@
 package deathrat.mods.btbees.gui;
 
-import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import net.minecraft.client.gui.Gui;
 import thermalexpansion.core.gui.Tab;
+import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 
 public class BoilerTab extends Tab
 {

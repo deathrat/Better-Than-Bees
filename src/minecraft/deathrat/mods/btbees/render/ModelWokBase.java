@@ -1,12 +1,9 @@
 package deathrat.mods.btbees.render;
 
-import java.net.MalformedURLException;
-
-import com.overminddl1.minecraft.libs.NMT.NMTModelRenderer;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
+
+import com.overminddl1.minecraft.libs.NMT.NMTModelRenderer;
 
 public class ModelWokBase extends ModelBase
 {

@@ -2,14 +2,12 @@ package deathrat.mods.btbees.items;
 
 import java.util.List;
 
-import thermalexpansion.core.gui.Tab;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class ItemSheepMeat extends ItemFood
 {

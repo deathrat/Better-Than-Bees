@@ -3,10 +3,6 @@ package deathrat.mods.btbees.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
-import deathrat.mods.btbees.BetterThanBees;
-import deathrat.mods.btbees.api.IBoilerModule;
-import deathrat.mods.btbees.tileentity.TileEntityBoiler;
-import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -16,6 +12,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.api.IBoilerModule;
+import deathrat.mods.btbees.tileentity.TileEntityBoiler;
+import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 
 public class BlockBoiler extends BlockContainer
 {

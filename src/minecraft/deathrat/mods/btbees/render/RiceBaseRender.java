@@ -6,8 +6,6 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.SideOnly;
-
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 public class RiceBaseRender extends TileEntitySpecialRenderer

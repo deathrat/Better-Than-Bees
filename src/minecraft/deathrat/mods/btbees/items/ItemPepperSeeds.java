@@ -2,15 +2,15 @@ package deathrat.mods.btbees.items;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import deathrat.mods.btbees.BetterThanBees;
 
 public class ItemPepperSeeds extends Item implements IPlantable
 {
