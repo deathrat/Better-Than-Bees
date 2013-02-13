@@ -192,24 +192,8 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 		}
 
 		fireLevel = tagCompound.getInteger("fireLevel");
-//		waterLevel = tagCompound.getInteger("waterLevel");
 	}
 
-//	public boolean hasWater()
-//	{
-//		return waterLevel > 0;
-//	}
-
-//	public int getScaledWaterLevel(int par1)
-//	{
-//		return this.waterLevel * par1 / this.waterLevelMax;
-//	}
-//	
-//	public int getWaterLevel()
-//	{
-//		return this.waterLevel;
-//	}
-	
 	public int getFireLevel()
 	{
 		return this.fireLevel;
@@ -229,5 +213,5 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 	{
 		return this.getMaxWater();
 	}
-
+	
 }

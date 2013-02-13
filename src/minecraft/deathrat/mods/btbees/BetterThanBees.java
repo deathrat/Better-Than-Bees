@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import powercrystals.core.updater.IUpdateableMod;
@@ -23,6 +24,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.blocks.BlockBoiler;
 import deathrat.mods.btbees.blocks.BlockRicePlant;
 import deathrat.mods.btbees.blocks.BlockSalt;
@@ -30,11 +32,12 @@ import deathrat.mods.btbees.blocks.BlockSteamer;
 import deathrat.mods.btbees.blocks.BlockWok;
 import deathrat.mods.btbees.gui.BTBGuiHandler;
 import deathrat.mods.btbees.gui.BTBCreativeTab;
+import deathrat.mods.btbees.items.BTBFood;
 import deathrat.mods.btbees.items.BTBFuelHandler;
-import deathrat.mods.btbees.items.ItemRiceFood;
-import deathrat.mods.btbees.items.ItemRiceFoodBowl;
 import deathrat.mods.btbees.items.ItemRiceHusk;
 import deathrat.mods.btbees.items.ItemRiceSeeds;
+import deathrat.mods.btbees.items.ItemSalt;
+import deathrat.mods.btbees.items.ItemSheepMeat;
 import deathrat.mods.btbees.network.BTBConnectionHandler;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.proxy.CommonProxy;
@@ -65,6 +68,8 @@ public class BetterThanBees implements IUpdateableMod
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		proxy.preInit();
+		
+		MinecraftForge.EVENT_BUS.register(new BTBEvents());
 
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
@@ -80,7 +85,7 @@ public class BetterThanBees implements IUpdateableMod
 		ricePlantID = config.getBlock("ricePlant", 3876).getInt();
 		wokID = config.getBlock("wok", 3877).getInt();
 		boilerID = config.getBlock("boiler", 3878).getInt();
-		saltID = config.getBlock("salt", 3879).getInt();
+		blockSaltID = config.getBlock("salt", 3879).getInt();
 		steamerID = config.getBlock("steamer", 3880).getInt();
 	}
 
@@ -91,6 +96,8 @@ public class BetterThanBees implements IUpdateableMod
 		cookedRiceBowlID = config.getItem("riceBowl", 8025).getInt();
 		cookedRiceRollID = config.getItem("riceRoll", 8026).getInt();
 		riceHuskID = config.getItem("riceHusk", 8027).getInt();
+		itemSaltID = config.getItem("itemSalt", 8028).getInt();
+		sheepMeatID = config.getItem("sheepMeat", 8029).getInt();
 	}
 
 	@Init
@@ -106,7 +113,7 @@ public class BetterThanBees implements IUpdateableMod
 		initializeGui();
 
 		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
-		GameRegistry.registerWorldGenerator(worldGen);
+//		GameRegistry.registerWorldGenerator(worldGen);
 
 		proxy.init();
 	}
@@ -122,12 +129,16 @@ public class BetterThanBees implements IUpdateableMod
 		wok.setCreativeTab(customTab);
 		boiler.setCreativeTab(customTab);
 		steamer.setCreativeTab(customTab);
-		salt.setCreativeTab(customTab);
+		blockSalt.setCreativeTab(customTab);
+		sheepMeat.setCreativeTab(customTab);
+		itemSalt.setCreativeTab(customTab);
 	}
 
 	private void initializeRecipes()
 	{
-		GameRegistry.addSmelting(uncookedRiceID, new ItemStack(cookedRiceBall), 0.0F);
+		GameRegistry.addSmelting(uncookedRiceID, new ItemStack(cookedRiceBall), 2.0F);
+		FurnaceRecipes.smelting().addSmelting(sheepMeat.itemID, 0, new ItemStack(sheepMeat, 1, 1), 0.0F);
+		FurnaceRecipes.smelting().addSmelting(sheepMeat.itemID, 2, new ItemStack(sheepMeat, 1, 3), 0.0F);
 		GameRegistry.addShapelessRecipe(new ItemStack(uncookedRice, 1), new ItemStack(this.riceHusk));
 		GameRegistry.registerFuelHandler(new BTBFuelHandler());
 	}
@@ -139,10 +150,16 @@ public class BetterThanBees implements IUpdateableMod
 		LanguageRegistry.addName(cookedRiceBall, "Rice Ball");
 		LanguageRegistry.addName(cookedRiceBowl, "Bowl of Rice");
 		LanguageRegistry.addName(cookedRiceRoll, "California Roll");
+		LanguageRegistry.addName(itemSalt, "Salt");
 		LanguageRegistry.addName(wok, "Wok");
 		LanguageRegistry.addName(boiler, "Boiler");
-		LanguageRegistry.addName(salt, "Salt");
+		LanguageRegistry.addName(blockSalt, "Salt");
 		LanguageRegistry.addName(steamer, "Steamer");
+		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 0), "Raw Mutton");
+		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 1), "Cooked Mutton");
+		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 2), "Raw Lamb");
+		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 3), "Cooked Lamb");
+		
 	}
 
 	private void initializeBlocks()
@@ -163,17 +180,20 @@ public class BetterThanBees implements IUpdateableMod
 		GameRegistry.registerBlock(steamer, "Steamer");
 		GameRegistry.registerTileEntity(TileEntitySteamer.class, "Steamer");
 
-		salt = new BlockSalt(saltID, Material.sand);
-		GameRegistry.registerBlock(salt, "Salt");
+		blockSalt = new BlockSalt(blockSaltID);
+		GameRegistry.registerBlock(blockSalt, "Salt");
 	}
 
 	private void initalizeItems()
 	{
-		cookedRiceBowl = new ItemRiceFoodBowl(cookedRiceBowlID, 4, 5, false).setIconIndex(0).setItemName("riceBowl");
-		cookedRiceBall = new ItemRiceFood(cookedRiceBallID, 4, 3, false).setIconIndex(1).setItemName("riceBall");
-		cookedRiceRoll = new ItemRiceFood(cookedRiceRollID, 4, 7, false).setIconIndex(2).setItemName("riceRoll");
+		cookedRiceBowl = new BTBFood(cookedRiceBowlID, 4, 5, false).setIconIndex(0).setItemName("riceBowl");
+		((BTBFood) cookedRiceBowl).setHasBowl(true);
+		cookedRiceBall = new BTBFood(cookedRiceBallID, 4, 3, false).setIconIndex(1).setItemName("riceBall");
+		cookedRiceRoll = new BTBFood(cookedRiceRollID, 4, 7, false).setIconIndex(2).setItemName("riceRoll");
 		uncookedRice = new ItemRiceSeeds(uncookedRiceID, ricePlantID).setIconIndex(3).setItemName("uncookedRice");
 		riceHusk = new ItemRiceHusk(riceHuskID).setIconIndex(4).setItemName("riceHusk");
+		itemSalt = new ItemSalt(itemSaltID).setIconIndex(6).setItemName("itemSalt");
+		sheepMeat = new ItemSheepMeat(sheepMeatID, 4, 7, true);
 		
 		MinecraftForge.addGrassSeed(new ItemStack(uncookedRice),  8);
 	}
@@ -215,6 +235,8 @@ public class BetterThanBees implements IUpdateableMod
 	public static int cookedRiceBowlID;
 	public static int cookedRiceRollID;
 	public static int pepperSeedID;
+	public static int itemSaltID;
+	public static int sheepMeatID;
 
 
 	//Block IDs
@@ -223,7 +245,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static int wokID;
 	public static int boilerID;
 	public static int steamerID;
-	public static int saltID;
+	public static int blockSaltID;
 
 	//Items
 	public static Item riceHusk;
@@ -232,6 +254,8 @@ public class BetterThanBees implements IUpdateableMod
 	public static Item cookedRiceBowl;
 	public static Item cookedRiceRoll;
 	public static Item pepperSeeds;
+	public static Item itemSalt;
+	public static Item sheepMeat;
 
 	//Blocks
 	public static Block ricePlant;
@@ -239,18 +263,13 @@ public class BetterThanBees implements IUpdateableMod
 	public static Block wok;
 	public static Block boiler;
 	public static Block steamer;
-	public static Block salt;
+	public static Block blockSalt;
 
 	//Creative Tabs
 	public static CreativeTabs customTab;
 
-	//Renders
-	public static RiceBaseRender riceRender = new RiceBaseRender();
-	public static RenderWok wokRender = new RenderWok();
-
-
 	//World Generation
-	public static WorldGen worldGen = new WorldGen();
+//	public static WorldGen worldGen = new WorldGen();
 
 	@Override
 	public String getModId()

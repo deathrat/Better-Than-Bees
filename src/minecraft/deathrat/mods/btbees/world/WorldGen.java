@@ -14,7 +14,7 @@ import deathrat.mods.btbees.BetterThanBees;
 
 public class WorldGen implements IWorldGenerator
 {
-	public WorldGenClay saltGen = new WorldGenClay(BetterThanBees.saltID);
+	public WorldGenClay saltGen = new WorldGenClay(BetterThanBees.blockSaltID);
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)

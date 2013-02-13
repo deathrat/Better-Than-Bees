@@ -113,7 +113,8 @@ public class ContainerBoiler extends Container
 	public void addCraftingToCrafters(ICrafting par1ICrafting)
 	{
 		super.addCraftingToCrafters(par1ICrafting);
-		par1ICrafting.sendProgressBarUpdate(this, 0, this.tileEntity.boilerTank.tank.getLiquid().amount);
+		if(this.tileEntity.boilerTank != null)
+			par1ICrafting.sendProgressBarUpdate(this, 0, this.tileEntity.boilerTank.tank.getLiquid().amount);
 		par1ICrafting.sendProgressBarUpdate(this, 1, this.tileEntity.fireLevel);
 		par1ICrafting.sendProgressBarUpdate(this, 2, Math.round(this.tileEntity.getEnergy()));
 	}
@@ -126,7 +127,7 @@ public class ContainerBoiler extends Container
 		{
 			ICrafting var2 = (ICrafting)this.crafters.get(var1);
 
-			if (this.lastWaterLevel != this.tileEntity.boilerTank.tank.getLiquid().amount)
+			if (this.tileEntity.boilerTank != null && this.lastWaterLevel != this.tileEntity.boilerTank.tank.getLiquid().amount)
 			{
 				var2.sendProgressBarUpdate(this, 0, this.tileEntity.boilerTank.tank.getLiquid().amount);
 			}
@@ -142,7 +143,8 @@ public class ContainerBoiler extends Container
 			}
 		}
 
-		this.lastWaterLevel = this.tileEntity.boilerTank.tank.getLiquid().amount;
+		if(this.tileEntity.boilerTank != null)
+			this.lastWaterLevel = this.tileEntity.boilerTank.tank.getLiquid().amount;
 		this.lastFireLevel = this.tileEntity.fireLevel;
 		this.lastEnergyLevel = this.tileEntity.getEnergy();
 
@@ -156,7 +158,7 @@ public class ContainerBoiler extends Container
 	{
 		super.updateProgressBar(bar, value);
 
-		if(bar == 0)
+		if(bar == 0 && this.tileEntity.boilerTank != null)
 		{
 			this.tileEntity.boilerTank.tank.getLiquid().amount = value;
 		}

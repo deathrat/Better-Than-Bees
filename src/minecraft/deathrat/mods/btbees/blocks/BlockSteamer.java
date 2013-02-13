@@ -24,7 +24,7 @@ public class BlockSteamer extends BlockContainer
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int par1, int par2)
 	{
-		return 6;
+		return 7;
 	}
 	
 	@Override
