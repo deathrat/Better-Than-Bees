@@ -9,6 +9,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import powercrystals.core.updater.IUpdateableMod;
+import thermalexpansion.api.crafting.CraftingManagers;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -33,6 +34,7 @@ import deathrat.mods.btbees.gui.BTBCreativeTab;
 import deathrat.mods.btbees.gui.BTBGuiHandler;
 import deathrat.mods.btbees.items.BTBFood;
 import deathrat.mods.btbees.items.BTBFuelHandler;
+import deathrat.mods.btbees.items.ItemBreadCrumbs;
 import deathrat.mods.btbees.items.ItemRiceHusk;
 import deathrat.mods.btbees.items.ItemRiceSeeds;
 import deathrat.mods.btbees.items.ItemSalt;
@@ -57,7 +59,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static CommonProxy proxy;
 
 	public final static String modId = "BetterThanBees";
-	public final static String version = "1.4.7R0.2.3";
+	public final static String version = "1.4.7R0.2.4";
 	public final static String modName = "Better Than Bees";
 
 	@PreInit
@@ -81,7 +83,7 @@ public class BetterThanBees implements IUpdateableMod
 		ricePlantID = config.getBlock("ricePlant", 3876).getInt();
 		wokID = config.getBlock("wok", 3877).getInt();
 		boilerID = config.getBlock("boiler", 3878).getInt();
-		blockSaltID = config.getBlock("salt", 3879).getInt();
+		saltBlockID = config.getBlock("salt", 3879).getInt();
 		steamerID = config.getBlock("steamer", 3880).getInt();
 	}
 
@@ -92,8 +94,9 @@ public class BetterThanBees implements IUpdateableMod
 		cookedRiceBowlID = config.getItem("riceBowl", 8025).getInt();
 		cookedRiceRollID = config.getItem("riceRoll", 8026).getInt();
 		riceHuskID = config.getItem("riceHusk", 8027).getInt();
-		itemSaltID = config.getItem("itemSalt", 8028).getInt();
+		saltItemID = config.getItem("itemSalt", 8028).getInt();
 		sheepMeatID = config.getItem("sheepMeat", 8029).getInt();
+		breadCrumbsID = config.getItem("breadCrumbs", 8030).getInt();
 	}
 
 	@Init
@@ -109,7 +112,6 @@ public class BetterThanBees implements IUpdateableMod
 		initializeGui();
 
 		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
-//		GameRegistry.registerWorldGenerator(worldGen);
 
 		proxy.init();
 	}
@@ -125,9 +127,10 @@ public class BetterThanBees implements IUpdateableMod
 		wok.setCreativeTab(customTab);
 		boiler.setCreativeTab(customTab);
 		steamer.setCreativeTab(customTab);
-		blockSalt.setCreativeTab(customTab);
+		saltBlock.setCreativeTab(customTab);
 		sheepMeat.setCreativeTab(customTab);
-		itemSalt.setCreativeTab(customTab);
+		saltItem.setCreativeTab(customTab);
+		breadCrumbs.setCreativeTab(customTab);
 	}
 
 	private void initializeRecipes()
@@ -146,15 +149,16 @@ public class BetterThanBees implements IUpdateableMod
 		LanguageRegistry.addName(cookedRiceBall, "Rice Ball");
 		LanguageRegistry.addName(cookedRiceBowl, "Bowl of Rice");
 		LanguageRegistry.addName(cookedRiceRoll, "California Roll");
-		LanguageRegistry.addName(itemSalt, "Salt");
+		LanguageRegistry.addName(saltItem, "Salt");
 		LanguageRegistry.addName(wok, "Wok");
 		LanguageRegistry.addName(boiler, "Boiler");
-		LanguageRegistry.addName(blockSalt, "Salt");
+		LanguageRegistry.addName(saltBlock, "Salt");
 		LanguageRegistry.addName(steamer, "Steamer");
 		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 0), "Raw Mutton");
 		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 1), "Cooked Mutton");
 		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 2), "Raw Lamb");
 		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 3), "Cooked Lamb");
+		LanguageRegistry.addName(breadCrumbs, "Bread Crumbs");
 		
 	}
 
@@ -176,8 +180,8 @@ public class BetterThanBees implements IUpdateableMod
 		GameRegistry.registerBlock(steamer, "Steamer");
 		GameRegistry.registerTileEntity(TileEntitySteamer.class, "Steamer");
 
-		blockSalt = new BlockSalt(blockSaltID);
-		GameRegistry.registerBlock(blockSalt, "Salt");
+		saltBlock = new BlockSalt(saltBlockID);
+		GameRegistry.registerBlock(saltBlock, "Salt");
 	}
 
 	private void initalizeItems()
@@ -188,8 +192,9 @@ public class BetterThanBees implements IUpdateableMod
 		cookedRiceRoll = new BTBFood(cookedRiceRollID, 4, 7, false).setIconIndex(2).setItemName("riceRoll");
 		uncookedRice = new ItemRiceSeeds(uncookedRiceID, ricePlantID).setIconIndex(3).setItemName("uncookedRice");
 		riceHusk = new ItemRiceHusk(riceHuskID).setIconIndex(4).setItemName("riceHusk");
-		itemSalt = new ItemSalt(itemSaltID).setIconIndex(6).setItemName("itemSalt");
+		saltItem = new ItemSalt(saltItemID).setIconIndex(6).setItemName("itemSalt");
 		sheepMeat = new ItemSheepMeat(sheepMeatID, 4, 7, true);
+		breadCrumbs = new ItemBreadCrumbs(breadCrumbsID).setIconIndex(9).setItemName("breadCrumbs");
 		
 		MinecraftForge.addGrassSeed(new ItemStack(uncookedRice),  8);
 	}
@@ -208,6 +213,8 @@ public class BetterThanBees implements IUpdateableMod
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		proxy.postInit();
+		if(CraftingManagers.pulverizerManager != null)
+			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(Item.bread), new ItemStack(breadCrumbs, 1), false);
 	}
 
 	public static String getTerrainTextures()
@@ -231,8 +238,9 @@ public class BetterThanBees implements IUpdateableMod
 	public static int cookedRiceBowlID;
 	public static int cookedRiceRollID;
 	public static int pepperSeedID;
-	public static int itemSaltID;
+	public static int saltItemID;
 	public static int sheepMeatID;
+	public static int breadCrumbsID;
 
 
 	//Block IDs
@@ -241,7 +249,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static int wokID;
 	public static int boilerID;
 	public static int steamerID;
-	public static int blockSaltID;
+	public static int saltBlockID;
 
 	//Items
 	public static Item riceHusk;
@@ -250,8 +258,9 @@ public class BetterThanBees implements IUpdateableMod
 	public static Item cookedRiceBowl;
 	public static Item cookedRiceRoll;
 	public static Item pepperSeeds;
-	public static Item itemSalt;
+	public static Item saltItem;
 	public static Item sheepMeat;
+	public static Item breadCrumbs;
 
 	//Blocks
 	public static Block ricePlant;
@@ -259,7 +268,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static Block wok;
 	public static Block boiler;
 	public static Block steamer;
-	public static Block blockSalt;
+	public static Block saltBlock;
 
 	//Creative Tabs
 	public static CreativeTabs customTab;

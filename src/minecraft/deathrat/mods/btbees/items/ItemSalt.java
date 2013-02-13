@@ -2,8 +2,10 @@ package deathrat.mods.btbees.items;
 
 import net.minecraft.item.Item;
 import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.api.CookingBuff;
+import deathrat.mods.btbees.api.ICookingSpice;
 
-public class ItemSalt extends Item
+public class ItemSalt extends Item implements ICookingSpice
 {
 
 	public ItemSalt(int par1)
@@ -16,6 +18,12 @@ public class ItemSalt extends Item
 	public String getTextureFile()
 	{
 		return BetterThanBees.itemTextures;
+	}
+
+	@Override
+	public CookingBuff getCookingBuff()
+	{
+		return null;
 	}
 	
 }

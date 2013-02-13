@@ -17,7 +17,7 @@ public class WorldGenSalt extends WorldGenerator
 
 	public WorldGenSalt(int par1)
 	{
-		this.clayBlockId = BetterThanBees.blockSalt.blockID;
+		this.clayBlockId = BetterThanBees.saltBlock.blockID;
 		this.numberOfBlocks = par1;
 	}
 
@@ -45,7 +45,7 @@ public class WorldGenSalt extends WorldGenerator
 						{
 							int var13 = world.getBlockId(tempX, var12, tempZ);
 
-							if (var13 == Block.dirt.blockID || var13 == BetterThanBees.blockSalt.blockID)
+							if (var13 == Block.dirt.blockID || var13 == BetterThanBees.saltBlock.blockID)
 							{
 								world.setBlock(tempX, var12, tempZ, this.clayBlockId);
 							}

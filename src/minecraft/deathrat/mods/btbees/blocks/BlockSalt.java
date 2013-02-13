@@ -51,7 +51,7 @@ public class BlockSalt extends Block
 	@Override
 	public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer entityPlayer)
 	{
-		dropBlockAsItem_do(world, x, y, z, new ItemStack(BetterThanBees.itemSalt, 1));
+		dropBlockAsItem_do(world, x, y, z, new ItemStack(BetterThanBees.saltItem, 1));
 		
 		if((meta - 1) > 0)
 		{

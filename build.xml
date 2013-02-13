@@ -211,11 +211,11 @@
 		</copy>
 
 		<!-- Copy libraries -->
-		<copy todir="${mcp.dir}/lib" >
+<!-- 		<copy todir="${mcp.dir}/lib" >
 			<fileset dir="lib" >
 				<patternset includes="*.jar" />
 			</fileset>
-		</copy>
+		</copy> -->
 	</target>
 
 	<target name="download-forge" depends="download-ant-contrib" unless="forge-exists">
