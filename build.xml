@@ -20,7 +20,7 @@
 
 	<property name="download.dir" value="downloads" />
 
-	<property name="lib.dir" value="${src.dir}/lib" />
+	<property name="lib.dir" value="${mcp.dir}/lib" />
 
 	<property file="${forge.dir}/forgeversion.properties" />
 	<condition property="forge.already.installed">
