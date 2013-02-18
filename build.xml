@@ -72,7 +72,7 @@
 	<target name="get-version" depends="setup-forge">
 		<mkdir dir="${mcpsrc.dir}/deathrat" />
 		<copy todir="${mcpsrc.dir}/deathrat" overwrite="true">
-			<fileset dir="${src.dir}/deathrat" />
+			<fileset dir="${src.dir}/minecraft/deathrat" />
 		</copy>
 		<copy todir="${mcpsrc.dir}" file="mcmod.info" overwrite="true"/>
 		
