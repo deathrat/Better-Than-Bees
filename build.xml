@@ -72,7 +72,7 @@
 	<target name="get-version" depends="setup-forge">
 		<mkdir dir="${mcpsrc.dir}/deathrat" />
 		<copy todir="${mcpsrc.dir}/deathrat" overwrite="true">
-			<fileset dir="{$src.dir}/deathrat" />
+			<fileset dir="${src.dir}/deathrat" />
 		</copy>
 		<copy todir="${mcpsrc.dir}" file="mcmod.info" overwrite="true"/>
 		
@@ -104,12 +104,6 @@
 	</target>
 
 	<target name="build" depends="extract-dependencies" unless="already-compiled">
-		<!-- Copy source -->
-		<mkdir dir="${mcpsrc.dir}/deathrat" />
-		<copy todir="${mcpsrc.dir}/deathrat" overwrite="true">
-			<fileset dir="${src.dir}/minecraft/deathrat"/>
-		</copy>
-		<copy todir="${mcpsrc.dir}" file="mcmod.info" overwrite="true"/>
 		<mkdir dir="${mcpsrc.dir}/powercrystals" />
 		<copy todir="${mcpsrc.dir}/powercrystals" >
 			<fileset dir="${src.dir}/minecraft/powercrystals"/>
@@ -188,17 +182,6 @@
 		<chmod file="${mcp.dir}/reobfuscate.sh" perm="+x"/>
 		<chmod file="${mcp.dir}/runtime/bin/astyle-osx" perm="+x" />
 		<chmod file="${mcp.dir}/runtime/bin/jad-osx" perm="+x" />
-
-		<!-- Copy source -->
-		<mkdir dir="${mcpsrc.dir}/deathrat" />
-		<copy todir="${mcpsrc.dir}/deathrat" overwrite="true">
-			<fileset dir="${src.dir}/minecraft/deathrat"/>
-		</copy>
-		<copy todir="${mcpsrc.dir}" file="mcmod.info" overwrite="true"/>
-		<mkdir dir="${mcpsrc.dir}/powercrystals" />
-		<copy todir="${mcpsrc.dir}/powercrystals" >
-			<fileset dir="${src.dir}/minecraft/powercrystals"/>
-		</copy>
 
 		<!-- Copy libraries -->
 <!-- 		<copy todir="${mcp.dir}/lib" >
