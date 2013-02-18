@@ -70,6 +70,12 @@
 	</target>
 
 	<target name="get-version" depends="setup-forge">
+		<mkdir dir="${mcpsrc.dir}/deathrat" />
+		<copy todir="${mcpsrc.dir}/deathrat" overwrite="true">
+			<fileset dir="{$src.dir}/deathrat" />
+		</copy>
+		<copy todir="${mcpsrc.dir}" file="mcmod.info" overwrite="true"/>
+		
 		<exec dir="${verclass.dir}" executable="sh" osfamily="unix" outputproperty="grep.out">
 			<arg value="-c"/>
 			<arg value="grep -o -P '[0-9.]+R[0-9.]+(RC[0-9]+)?(B[0-9]+)?' ${verclass.name}"/>
@@ -94,6 +100,7 @@
 		<jar destfile="${dist.dir}/BetterThanBees-${grep.out}-${build.number}.jar" basedir="${classes.dir}"/>
 		<delete dir="${classes.dir}" />
 		<delete dir="${mcp.dir}/reobf"/>
+		<delete dir="${mcpsrc}/deathrat/mods/btbees" />
 	</target>
 
 	<target name="build" depends="extract-dependencies" unless="already-compiled">
