@@ -16,8 +16,6 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 	private ItemStack[] inv;
 	public ArrayList<IBoilerModule> boilerModules;
 	public int fireLevel;
-//	public int waterLevel;
-//	public int waterLevelMax = 12000;
 	public int fireLevelMax = 100;
 
 	public boolean isActive;
@@ -29,7 +27,6 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 	{
 		inv = new ItemStack[31];
 		fireLevel = 61;
-//		waterLevel = 50;
 
 		powerProvider.configure(10 * maxPower, 2 * 1200);
 	}
@@ -53,9 +50,6 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 	public void updateEntity()
 	{
 		super.updateEntity();
-
-//		if(waterLevel > waterLevelMax)
-//			waterLevel = waterLevelMax;
 	}
 
 	@Override

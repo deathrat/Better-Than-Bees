@@ -40,32 +40,25 @@ public class BlockBoiler extends BlockContainer
 	
 	public void addNeighborModule(World world, int x, int y, int z)
 	{
-		//North = -z, West = -x
 		ArrayList<IBoilerModule> arrayList = new ArrayList();
 		if(world.getBlockTileEntity(x + 1, y, z) instanceof IBoilerModule)
 		{
 			arrayList.add((IBoilerModule)world.getBlockTileEntity(x + 1, y, z));
-			System.out.println("BoilerModule placed to East");
 		}
 		else if(world.getBlockTileEntity(x - 1, y, z) instanceof IBoilerModule)
 		{
 			arrayList.add((IBoilerModule)world.getBlockTileEntity(x - 1, y, z));
-			System.out.println("BoilerModule placed to West");
 		}
 		else if(world.getBlockTileEntity(x, y, z + 1) instanceof IBoilerModule)
 		{
 			arrayList.add((IBoilerModule)world.getBlockTileEntity(x, y, z + 1));
-			System.out.println("BoilerModule placed to South");
 		}
 		else if(world.getBlockTileEntity(x, y, z - 1) instanceof IBoilerModule)
 		{
 			arrayList.add((IBoilerModule)world.getBlockTileEntity(x, y, z - 1));
-			System.out.println("BoilerModule placed to North");
 		}
 		else if(world.getBlockTileEntity(x, y + 1, z) instanceof TileEntityBoilerTank)
 		{
-			TileEntityBoiler te = (TileEntityBoiler) world.getBlockTileEntity(x, y, z);
-			
 		}
 		((TileEntityBoiler)world.getBlockTileEntity(x, y, z)).setBoilerModules(arrayList);
 	}

@@ -1,9 +1,12 @@
 package deathrat.mods.btbees.render;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 
 import com.overminddl1.minecraft.libs.NMT.NMTModelRenderer;
+
+import deathrat.mods.btbees.BetterThanBees;
 
 public class ModelWokBase extends ModelBase
 {
@@ -12,7 +15,7 @@ public class ModelWokBase extends ModelBase
 	public ModelWokBase()
 	{
 		Wok = new NMTModelRenderer(this);
-//		Wok.addModelOBJ("/deathrat/mods/btbees/pan_obj.obj");
+		Wok.addModelOBJ(BetterThanBees.class.getResource(BetterThanBees.getResourcesPath()+"back.obj").toString());
 	}
 
 	@Override
@@ -20,7 +23,6 @@ public class ModelWokBase extends ModelBase
 	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-//		Wok.render(f5);
 	}
 
 	public void render2(Float f)

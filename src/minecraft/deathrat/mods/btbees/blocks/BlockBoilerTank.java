@@ -10,9 +10,14 @@ import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 public class BlockBoilerTank extends BlockContainer
 {
 
-	protected BlockBoilerTank(int id, Material material)
+	public BlockBoilerTank(int id, Material material)
 	{
 		super(id, material);
+	}
+	
+	public String getBlockName() 
+	{
+		return "Boiler Tank";
 	}
 	
 	@Override
@@ -25,6 +30,14 @@ public class BlockBoilerTank extends BlockContainer
 			((TileEntityBoiler) boilerTE).setBoilerTank((TileEntityBoilerTank) thisTE);
 		}
 		return super.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, meta);
+	}
+	
+	@Override
+	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta)
+	{
+		TileEntity boilerTE = world.getBlockTileEntity(x, y - 1 , z);
+		((TileEntityBoiler) boilerTE).setBoilerTank((TileEntityBoilerTank) null);
+		super.onBlockDestroyedByPlayer(world, x, y, z, meta);
 	}
 
 	@Override

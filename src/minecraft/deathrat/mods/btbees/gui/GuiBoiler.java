@@ -5,6 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
 
 import thermalexpansion.core.gui.GuiTE;
+import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 
 public class GuiBoiler extends GuiTE
@@ -37,7 +38,7 @@ public class GuiBoiler extends GuiTE
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int xCoord, int yCoord)
 	{
-		int texture = mc.renderEngine.getTexture("/deathrat/mods/btbees/gui_boiler.png");
+		int texture = mc.renderEngine.getTexture(BetterThanBees.getResourcesPath()+"gui_boiler.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(texture);
 		int x = (width - xSize) / 2;

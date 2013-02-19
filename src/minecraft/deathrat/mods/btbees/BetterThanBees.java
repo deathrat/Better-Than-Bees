@@ -26,6 +26,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import deathrat.mods.btbees.blocks.BlockBoiler;
+import deathrat.mods.btbees.blocks.BlockBoilerTank;
 import deathrat.mods.btbees.blocks.BlockRicePlant;
 import deathrat.mods.btbees.blocks.BlockSalt;
 import deathrat.mods.btbees.blocks.BlockSteamer;
@@ -43,12 +44,13 @@ import deathrat.mods.btbees.network.BTBConnectionHandler;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.proxy.CommonProxy;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
+import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 import deathrat.mods.btbees.tileentity.TileEntitySteamer;
 import deathrat.mods.btbees.tileentity.TileEntityWok;
 import deathrat.mods.btbees.updater.UpdateManager;
 
-@Mod(modid = "btbees", name = BetterThanBees.modName, version = BetterThanBees.version, dependencies = "required-after:PowerCrystalsCore")
+@Mod(modid = "btbees", name = BetterThanBees.modName, version = BetterThanBees.version, dependencies = "after:BuildCraft|Core;after:BuildCraft|Factory;after:BuildCraft|Energy;after:BuildCraft|Builders;after:BuildCraft|Transport;after:ThermalExpansion;required-after:PowerCrystalsCore")
 @NetworkMod(serverSideRequired=true, clientSideRequired=true, channels={"btbees"}, packetHandler=ServerPacketHandler.class, connectionHandler=BTBConnectionHandler.class)
 public class BetterThanBees implements IUpdateableMod
 {
@@ -85,6 +87,7 @@ public class BetterThanBees implements IUpdateableMod
 		boilerID = config.getBlock("boiler", 3878).getInt();
 		saltBlockID = config.getBlock("salt", 3879).getInt();
 		steamerID = config.getBlock("steamer", 3880).getInt();
+		boilerTankID = config.getBlock("boilerTank", 3881).getInt();
 	}
 
 	private void initializeItemConfig(Configuration config)
@@ -131,6 +134,7 @@ public class BetterThanBees implements IUpdateableMod
 		sheepMeat.setCreativeTab(customTab);
 		saltItem.setCreativeTab(customTab);
 		breadCrumbs.setCreativeTab(customTab);
+		boilerTank.setCreativeTab(customTab);
 	}
 
 	private void initializeRecipes()
@@ -159,6 +163,7 @@ public class BetterThanBees implements IUpdateableMod
 		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 2), "Raw Lamb");
 		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 3), "Cooked Lamb");
 		LanguageRegistry.addName(breadCrumbs, "Bread Crumbs");
+		LanguageRegistry.addName(boilerTank, "Boiler Tank");
 		
 	}
 
@@ -182,6 +187,10 @@ public class BetterThanBees implements IUpdateableMod
 
 		saltBlock = new BlockSalt(saltBlockID);
 		GameRegistry.registerBlock(saltBlock, "Salt");
+		
+		boilerTank = new BlockBoilerTank(boilerTankID, Material.iron);
+		GameRegistry.registerBlock(boilerTank, "Boiler Tank");
+		GameRegistry.registerTileEntity(TileEntityBoilerTank.class, "Boiler Tank");
 	}
 
 	private void initalizeItems()
@@ -217,19 +226,25 @@ public class BetterThanBees implements IUpdateableMod
 			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(Item.bread), new ItemStack(breadCrumbs, 1), false);
 	}
 
-	public static String getTerrainTextures()
+	public final static String getTerrainTextures()
 	{
 		return terrainTextures;
 	}
 
-	public static String getItemTextures()
+	public final static String getItemTextures()
 	{
 		return itemTextures;
 	}
+	
+	public final static String getResourcesPath()
+	{
+		return resourcesPath;
+	}
 
 	//Texture files
-	public static String terrainTextures = "/deathrat/mods/btbees/btb_terrain.png";
-	public static String itemTextures = "/deathrat/mods/btbees/btb_items.png";
+	public final static String terrainTextures = getResourcesPath()+"btb_terrain.png";
+	public final static String itemTextures = getResourcesPath()+"btb_items.png";
+	public final static String resourcesPath = "/deathrat/mods/btbees/resources/";
 
 	//Item IDs
 	public static int riceHuskID;
@@ -250,6 +265,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static int boilerID;
 	public static int steamerID;
 	public static int saltBlockID;
+	public static int boilerTankID;
 
 	//Items
 	public static Item riceHusk;
@@ -269,6 +285,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static Block boiler;
 	public static Block steamer;
 	public static Block saltBlock;
+	public static Block boilerTank;
 
 	//Creative Tabs
 	public static CreativeTabs customTab;

@@ -2,6 +2,7 @@ package deathrat.mods.btbees.gui;
 
 import net.minecraft.client.gui.Gui;
 import thermalexpansion.core.gui.Tab;
+import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 
 public class BoilerTab extends Tab
@@ -29,7 +30,7 @@ public class BoilerTab extends Tab
 	{
 		drawBackground(x, y);
 
-		drawIcon("/deathrat/mods/btbees/icons.png", 3, x + 2, y + 2);
+		drawIcon(BetterThanBees.getResourcesPath() + "/icons.png", 3, x + 2, y + 2);
 
 		if(!isFullyOpened())
 			return;

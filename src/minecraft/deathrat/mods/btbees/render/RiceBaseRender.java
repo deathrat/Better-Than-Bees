@@ -6,6 +6,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
+import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 public class RiceBaseRender extends TileEntitySpecialRenderer
@@ -27,7 +28,7 @@ public class RiceBaseRender extends TileEntitySpecialRenderer
 	{
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)x + 0.5F, (float)y + -1.65F, (float)z + 0.5F);
-		ForgeHooksClient.bindTexture("/deathrat/mods/btbees/btb_ricebase.png", 0);
+		ForgeHooksClient.bindTexture(BetterThanBees.getResourcesPath() + "btb_ricebase.png", 0);
 		GL11.glPushMatrix();
 		baseModel.render2(0.0625F);
 		GL11.glPopMatrix();

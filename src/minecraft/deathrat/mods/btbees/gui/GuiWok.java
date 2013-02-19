@@ -5,6 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 
 import org.lwjgl.opengl.GL11;
 
+import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class GuiWok extends GuiContainer
@@ -27,7 +28,7 @@ public class GuiWok extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
 	{
-		int texture = mc.renderEngine.getTexture("/deathrat/mods/btbees/gui_wok.png");
+		int texture = mc.renderEngine.getTexture(BetterThanBees.getResourcesPath()+"gui_wok.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(texture);
 		int x = (width - xSize) / 2;
