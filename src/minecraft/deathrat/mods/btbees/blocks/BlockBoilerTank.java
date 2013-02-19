@@ -21,6 +21,22 @@ public class BlockBoilerTank extends BlockContainer
 	}
 	
 	@Override
+	public boolean canPlaceBlockAt(World world, int x, int y, int z)
+	{
+		TileEntity tileEntity = world.getBlockTileEntity(x, y - 1, z);
+		if(tileEntity instanceof TileEntityBoiler)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	
+	@Override
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
 	{
 		TileEntity boilerTE = world.getBlockTileEntity(x, y - 1 , z);
@@ -29,6 +45,10 @@ public class BlockBoilerTank extends BlockContainer
 		{
 			((TileEntityBoiler) boilerTE).setBoilerTank((TileEntityBoilerTank) thisTE);
 		}
+		else
+		{
+			return 0;
+		}
 		return super.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, meta);
 	}
 	
@@ -36,7 +56,9 @@ public class BlockBoilerTank extends BlockContainer
 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta)
 	{
 		TileEntity boilerTE = world.getBlockTileEntity(x, y - 1 , z);
-		((TileEntityBoiler) boilerTE).setBoilerTank((TileEntityBoilerTank) null);
+		if(boilerTE instanceof TileEntityBoiler)
+			((TileEntityBoiler) boilerTE).setBoilerTank((TileEntityBoilerTank) null);
+			
 		super.onBlockDestroyedByPlayer(world, x, y, z, meta);
 	}
 

@@ -75,7 +75,7 @@ public class TileEntityBoilerTank extends TileEntity implements ITankContainer
 	{
 		super.writeToNBT(tagCompound);
 		
-		if(tank != null)
+		if(tank.getLiquid() != null)
 			tagCompound.setTag("tank", tank.getLiquid().writeToNBT(new NBTTagCompound()));
 	}
 	

@@ -83,8 +83,18 @@ public class BlockBoiler extends BlockContainer
 		{
 				return false;
 		}
-		player.openGui(BetterThanBees.instance, 1, world, x, y, z);
-		return true;
+		else if(player.getHeldItem().itemID == BetterThanBees.boilerTank.blockID && world.getBlockId(x, y + 1, z) == 0)
+		{
+			if(!player.capabilities.isCreativeMode)
+				--player.getHeldItem().stackSize;
+			world.setBlockWithNotify(x, y + 1, z, BetterThanBees.boilerTank.blockID);
+			return true;
+		}
+		else
+		{
+			player.openGui(BetterThanBees.instance, 1, world, x, y, z);
+			return true;
+		}
 	}
 
 	@Override
