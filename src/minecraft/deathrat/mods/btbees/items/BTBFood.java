@@ -6,10 +6,12 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.api.ICookingBuff;
 
 public class BTBFood extends ItemFood
 {
 	public boolean hasBowl = false;
+	public ICookingBuff buff = null;
 	
 	public BTBFood(int id, int healAmount, float saturation, boolean isWolfFood)
 	{
@@ -20,7 +22,17 @@ public class BTBFood extends ItemFood
     {
         this(id, healAmount, 0.6F, isWolfFood);
     }
-
+    
+    public void setCookingBuff(ICookingBuff buff)
+    {
+    	this.buff = buff;
+    }
+    
+    public ICookingBuff getCookingBuff()
+    {
+    	return buff;
+    }
+    
 	@Override
 	public String getTextureFile()
 	{

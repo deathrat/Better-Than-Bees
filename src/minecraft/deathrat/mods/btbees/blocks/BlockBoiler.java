@@ -3,6 +3,8 @@ package deathrat.mods.btbees.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
+import powercrystals.core.position.BlockPosition;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -12,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.api.IBoilerModule;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
@@ -40,28 +43,24 @@ public class BlockBoiler extends BlockContainer
 	
 	public void addNeighborModule(World world, int x, int y, int z)
 	{
+		ForgeDirection[] directions = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST};
 		ArrayList<IBoilerModule> arrayList = new ArrayList();
-		if(world.getBlockTileEntity(x + 1, y, z) instanceof IBoilerModule)
+		TileEntity thisTE = getTileEntity(world, x, y, z);
+		for(int i=0; i < 4; i++)
 		{
-			arrayList.add((IBoilerModule)world.getBlockTileEntity(x + 1, y, z));
+			ForgeDirection blockDirection = directions[i];
+			TileEntity te = BlockPosition.getAdjacentTileEntity(thisTE, directions[i]);
+			if(te instanceof IBoilerModule)
+			{
+				arrayList.add((IBoilerModule)te);
+			}
+			else if(te instanceof TileEntityBoilerTank) //Not used heh
+			{
+			}
 		}
-		else if(world.getBlockTileEntity(x - 1, y, z) instanceof IBoilerModule)
-		{
-			arrayList.add((IBoilerModule)world.getBlockTileEntity(x - 1, y, z));
-		}
-		else if(world.getBlockTileEntity(x, y, z + 1) instanceof IBoilerModule)
-		{
-			arrayList.add((IBoilerModule)world.getBlockTileEntity(x, y, z + 1));
-		}
-		else if(world.getBlockTileEntity(x, y, z - 1) instanceof IBoilerModule)
-		{
-			arrayList.add((IBoilerModule)world.getBlockTileEntity(x, y, z - 1));
-		}
-		else if(world.getBlockTileEntity(x, y + 1, z) instanceof TileEntityBoilerTank)
-		{
-		}
-		((TileEntityBoiler)world.getBlockTileEntity(x, y, z)).setBoilerModules(arrayList);
+		((TileEntityBoiler)thisTE).setBoilerModules(arrayList);
 	}
+	
 
 	@Override
 	public String getTextureFile()
@@ -83,7 +82,7 @@ public class BlockBoiler extends BlockContainer
 		{
 				return false;
 		}
-		else if(player.getHeldItem().itemID == BetterThanBees.boilerTank.blockID && world.getBlockId(x, y + 1, z) == 0)
+		else if(player.getHeldItem() != null && player.getHeldItem().itemID == BetterThanBees.boilerTank.blockID && world.getBlockId(x, y + 1, z) == 0)
 		{
 			if(!player.capabilities.isCreativeMode)
 				--player.getHeldItem().stackSize;
@@ -138,8 +137,12 @@ public class BlockBoiler extends BlockContainer
 				}
 		}
 	}
-
-
+	
+	public TileEntity getTileEntity(World world, int x, int y, int z)
+	{
+		return world.getBlockTileEntity(x, y, z);
+	}
+	
 	@Override
 	public TileEntity createNewTileEntity(World var1)
 	{

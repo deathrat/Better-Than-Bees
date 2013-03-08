@@ -4,8 +4,9 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.entity.CheapBoat;
+import deathrat.mods.btbees.entity.RenderCheapBoat;
 import deathrat.mods.btbees.render.RenderRice;
-import deathrat.mods.btbees.render.RenderWok;
 import deathrat.mods.btbees.render.RiceBaseRender;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 import deathrat.mods.btbees.tileentity.TileEntityWok;
@@ -20,8 +21,11 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.preloadTexture(BetterThanBees.getResourcesPath() + "gui_wok.png");
 		MinecraftForgeClient.preloadTexture(BetterThanBees.getResourcesPath() + "gui_boiler.png");
 		MinecraftForgeClient.preloadTexture(BetterThanBees.getResourcesPath() + "Map__0_RGB Tint.png");
+		MinecraftForgeClient.preloadTexture(BetterThanBees.getResourcesPath() + "endertanktex.png");
+		MinecraftForgeClient.preloadTexture(BetterThanBees.getResourcesPath() + "boatHull.uvw.png");
 		RenderingRegistry.registerBlockHandler(new RenderRice());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRicePlant.class, new RiceBaseRender());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWok.class, new RenderWok());
+//		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWok.class, new RenderWok());
+		RenderingRegistry.registerEntityRenderingHandler(CheapBoat.class, new RenderCheapBoat());
 	}
 }

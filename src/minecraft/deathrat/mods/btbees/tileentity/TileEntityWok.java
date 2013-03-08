@@ -26,7 +26,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 
 	public TileEntityWok()
 	{
-		inv = new ItemStack[31];
+		inv = new ItemStack[9];
 	}
 
 	@Override

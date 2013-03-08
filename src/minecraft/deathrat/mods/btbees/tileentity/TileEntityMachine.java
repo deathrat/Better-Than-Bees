@@ -12,7 +12,7 @@ import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.common.network.Player;
 import deathrat.mods.btbees.power.PowerProviderBTB;
 
-public class TileEntityMachine extends TileEntity implements IPowerReceptor
+public abstract class TileEntityMachine extends TileEntity implements IPowerReceptor
 {
 	public PowerProviderBTB powerProvider;
 	

@@ -2,7 +2,7 @@ package deathrat.mods.btbees.items;
 
 import net.minecraft.item.Item;
 import deathrat.mods.btbees.BetterThanBees;
-import deathrat.mods.btbees.api.CookingBuff;
+import deathrat.mods.btbees.api.ICookingBuff;
 import deathrat.mods.btbees.api.ICookingSpice;
 
 public class ItemSalt extends Item implements ICookingSpice
@@ -21,7 +21,7 @@ public class ItemSalt extends Item implements ICookingSpice
 	}
 
 	@Override
-	public CookingBuff getCookingBuff()
+	public ICookingBuff getCookingBuff()
 	{
 		return null;
 	}

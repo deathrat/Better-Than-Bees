@@ -26,6 +26,7 @@ public class TileEntityBoilerTank extends TileEntity implements ITankContainer
 	
 	public int getScaledWaterLevel(int i)
 	{
+		System.out.println("Scaled waterlevel: " + this.tank.getLiquid().amount * i / this.tank.getCapacity());
 		return this.tank.getLiquid().amount * i / this.tank.getCapacity();
 	}
 

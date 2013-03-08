@@ -6,10 +6,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.src.ModLoader;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import powercrystals.core.updater.IUpdateableMod;
 import thermalexpansion.api.crafting.CraftingManagers;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -21,6 +23,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -31,10 +34,13 @@ import deathrat.mods.btbees.blocks.BlockRicePlant;
 import deathrat.mods.btbees.blocks.BlockSalt;
 import deathrat.mods.btbees.blocks.BlockSteamer;
 import deathrat.mods.btbees.blocks.BlockWok;
+import deathrat.mods.btbees.entity.CheapBoat;
+import deathrat.mods.btbees.events.BTBEvents;
+import deathrat.mods.btbees.events.PlayerTracker;
 import deathrat.mods.btbees.gui.BTBCreativeTab;
 import deathrat.mods.btbees.gui.BTBGuiHandler;
 import deathrat.mods.btbees.items.BTBFood;
-import deathrat.mods.btbees.items.BTBFuelHandler;
+import deathrat.mods.btbees.items.BoatItem;
 import deathrat.mods.btbees.items.ItemBreadCrumbs;
 import deathrat.mods.btbees.items.ItemRiceHusk;
 import deathrat.mods.btbees.items.ItemRiceSeeds;
@@ -43,6 +49,7 @@ import deathrat.mods.btbees.items.ItemSheepMeat;
 import deathrat.mods.btbees.network.BTBConnectionHandler;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.proxy.CommonProxy;
+import deathrat.mods.btbees.recipe.BTBFuelHandler;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
@@ -70,6 +77,7 @@ public class BetterThanBees implements IUpdateableMod
 		proxy.preInit();
 		
 		MinecraftForge.EVENT_BUS.register(new BTBEvents());
+		GameRegistry.registerPlayerTracker(new PlayerTracker());
 
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
@@ -100,6 +108,7 @@ public class BetterThanBees implements IUpdateableMod
 		saltItemID = config.getItem("itemSalt", 8028).getInt();
 		sheepMeatID = config.getItem("sheepMeat", 8029).getInt();
 		breadCrumbsID = config.getItem("breadCrumbs", 8030).getInt();
+		boatItemID = config.getItem("boatItem", 8031).getInt();
 	}
 
 	@Init
@@ -113,10 +122,21 @@ public class BetterThanBees implements IUpdateableMod
 		initializeRecipes();
 		initializeCustomCreative();
 		initializeGui();
+		initializeEntities();
 
 		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
 
 		proxy.init();
+	}
+
+
+	private void initializeEntities()
+	{
+		EntityRegistry.registerModEntity(CheapBoat.class, "CheapBoat", 1, this, 250, 1, true);
+		
+//		ModLoader.registerEntityID(CheapBoat.class, "CheapBoat", ModLoader.getUniqueEntityId());
+		
+		LanguageRegistry.instance().addStringLocalization("entity.CheapBoat.name", "en_US", "Cheap Boat");
 	}
 
 	private void initializeCustomCreative()
@@ -135,6 +155,7 @@ public class BetterThanBees implements IUpdateableMod
 		saltItem.setCreativeTab(customTab);
 		breadCrumbs.setCreativeTab(customTab);
 		boilerTank.setCreativeTab(customTab);
+		boatItem.setCreativeTab(customTab);
 	}
 
 	private void initializeRecipes()
@@ -154,6 +175,7 @@ public class BetterThanBees implements IUpdateableMod
 		LanguageRegistry.addName(cookedRiceBowl, "Bowl of Rice");
 		LanguageRegistry.addName(cookedRiceRoll, "California Roll");
 		LanguageRegistry.addName(saltItem, "Salt");
+		LanguageRegistry.addName(boatItem, "Cheap Boat");
 		LanguageRegistry.addName(wok, "Wok");
 		LanguageRegistry.addName(boiler, "Boiler");
 		LanguageRegistry.addName(saltBlock, "Salt");
@@ -204,6 +226,7 @@ public class BetterThanBees implements IUpdateableMod
 		saltItem = new ItemSalt(saltItemID).setIconIndex(6).setItemName("itemSalt");
 		sheepMeat = new ItemSheepMeat(sheepMeatID, 4, 7, true);
 		breadCrumbs = new ItemBreadCrumbs(breadCrumbsID).setIconIndex(9).setItemName("breadCrumbs");
+		boatItem = new BoatItem(boatItemID).setIconIndex(10).setItemName("boatItem");
 		
 		MinecraftForge.addGrassSeed(new ItemStack(uncookedRice),  8);
 	}
@@ -225,7 +248,7 @@ public class BetterThanBees implements IUpdateableMod
 		if(CraftingManagers.pulverizerManager != null)
 			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(Item.bread), new ItemStack(breadCrumbs, 1), false);
 	}
-
+	
 	public final static String getTerrainTextures()
 	{
 		return terrainTextures;
@@ -266,6 +289,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static int steamerID;
 	public static int saltBlockID;
 	public static int boilerTankID;
+	public static int boatItemID;
 
 	//Items
 	public static Item riceHusk;
@@ -277,6 +301,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static Item saltItem;
 	public static Item sheepMeat;
 	public static Item breadCrumbs;
+	public static Item boatItem;
 
 	//Blocks
 	public static Block ricePlant;

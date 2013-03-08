@@ -16,6 +16,7 @@ import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class BlockWok extends BlockContainer
 {
+	
 	public BlockWok(int id, Material mat)
 	{
 		super(id, mat);
@@ -37,11 +38,11 @@ public class BlockWok extends BlockContainer
 		return false;
 	}
 
-	@Override
-	public int getRenderType()
-	{
-		return -1;
-	}
+//	@Override
+//	public int getRenderType()
+//	{
+//		return -1;
+//	}
 
 	@Override
 	public String getTextureFile()
@@ -63,7 +64,7 @@ public class BlockWok extends BlockContainer
 		{
 				return false;
 		}
-//		player.openGui(BetterThanBees.instance, 0, world, x, y, z);
+		player.openGui(BetterThanBees.instance, 0, world, x, y, z);
 		return true;
 	}
 

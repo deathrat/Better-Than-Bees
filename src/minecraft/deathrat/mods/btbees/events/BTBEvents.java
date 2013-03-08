@@ -1,5 +1,6 @@
-package deathrat.mods.btbees;
+package deathrat.mods.btbees.events;
 
+import deathrat.mods.btbees.BetterThanBees;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -26,5 +27,4 @@ public class BTBEvents
 			}
 		}
 	}
-
 }

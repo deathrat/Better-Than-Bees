@@ -1,36 +1,48 @@
 package deathrat.mods.btbees.gui;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import deathrat.mods.btbees.recipe.BTBFuelHandler;
+import deathrat.mods.btbees.recipe.IngredientRegistry;
 import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class ContainerWok extends Container
 {
 	protected TileEntityWok tileEntity;
+    private int lastCookTime = 0;
+    private int lastBurnTime = 0;
+    private int lastItemBurnTime = 0;
 
 	public ContainerWok(InventoryPlayer invPlayer, TileEntityWok te)
 	{
 		tileEntity = te;
-
-		for(int height=0; height < 3; height++)
+		
+		//Active Ingredient (0)
+		addSlotToContainer(new Slot(tileEntity, 0, 8, 29));
+		
+		//Heat Slot (1)
+		addSlotToContainer(new Slot(tileEntity, 1, 8, 64));
+		
+		//Spices Slot (2)
+		addSlotToContainer(new Slot(tileEntity, 2, 35, 29));
+		
+		//Ingredients (3-6)
+		for(int width=0; width < 4; width++)
 		{
-			for(int width = 0; width < 3; width++)
-			{
-				addSlotToContainer(new Slot(tileEntity, width + height * 3, 8 + width * 18, 8 + height * 18));
-			}
+			addSlotToContainer(new SlotIngredient(tileEntity, this.inventorySlots.size() + 1, 61 + width * 18, 29));
 		}
-
-		//Heat Slot
-		addSlotToContainer(new Slot(tileEntity, this.inventorySlots.size() + 1, 80, 64));
-
-		//Result Slot
-		addSlotToContainer(new Slot(tileEntity, this.inventorySlots.size() + 1, 114, 27));
-
+		
+		//Result Slot (7)
+		addSlotToContainer(new Slot(tileEntity, 7, 150, 29));
+		
 		bindPlayerInventory(invPlayer);
 	}
 
@@ -52,34 +64,114 @@ public class ContainerWok extends Container
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
+	public void updateProgressBar(int par1, int par2)
+	{
+		if (par1 == 0)
+		{
+			this.tileEntity.furnaceCookTime = par2;
+		}
+		
+		if (par1 == 1)
+		{
+			this.tileEntity.furnaceBurnTime = par2;
+		}
+		
+		if (par1 == 2)
+		{
+			this.tileEntity.currentItemBurnTime = par2;
+		}
+	}
+	
 	@Override
 	public boolean canInteractWith(EntityPlayer player)
 	{
 		return tileEntity.isUseableByPlayer(player);
 	}
-
+	
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slot)
+	public void addCraftingToCrafters(ICrafting crafting)
+	{
+		super.addCraftingToCrafters(crafting);
+		crafting.sendProgressBarUpdate(this, 0, this.tileEntity.furnaceCookTime);
+		crafting.sendProgressBarUpdate(this, 1, this.tileEntity.furnaceBurnTime);
+		crafting.sendProgressBarUpdate(this, 2, this.tileEntity.currentItemBurnTime);
+	}
+	
+    /**
+     * Looks for changes made in the container, sends them to every listener.
+     */
+    public void detectAndSendChanges()
+    {
+        super.detectAndSendChanges();
+
+        for (int var1 = 0; var1 < this.crafters.size(); ++var1)
+        {
+            ICrafting var2 = (ICrafting)this.crafters.get(var1);
+
+            if (this.lastCookTime != this.tileEntity.furnaceCookTime)
+            {
+                var2.sendProgressBarUpdate(this, 0, this.tileEntity.furnaceCookTime);
+            }
+
+            if (this.lastBurnTime != this.tileEntity.furnaceBurnTime)
+            {
+                var2.sendProgressBarUpdate(this, 1, this.tileEntity.furnaceBurnTime);
+            }
+
+            if (this.lastItemBurnTime != this.tileEntity.currentItemBurnTime)
+            {
+                var2.sendProgressBarUpdate(this, 2, this.tileEntity.currentItemBurnTime);
+            }
+        }
+
+        this.lastCookTime = this.tileEntity.furnaceCookTime;
+        this.lastBurnTime = this.tileEntity.furnaceBurnTime;
+        this.lastItemBurnTime = this.tileEntity.currentItemBurnTime;
+    }
+	
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex)
 	{
 		ItemStack stack = null;
-		Slot slotObject = (Slot) inventorySlots.get(slot);
+		Slot slotObject = (Slot) inventorySlots.get(slotIndex);
 
 		if(slotObject != null && slotObject.getHasStack())
 		{
 			ItemStack stackInSlot = slotObject.getStack();
 			stack = stackInSlot.copy();
 
-			if(slot < 9)
+			if(slotIndex < 9)
 			{
-				if(!this.mergeItemStack(stackInSlot, 9, 45, false))
+				if(!this.mergeItemStack(stackInSlot, 9, 44, true))
 				{
 					return null;
 				}
 			}
-
-			else if (!this.mergeItemStack(stackInSlot, 0, 9, false))
+			else if(slotIndex <= 44 && slotIndex >= 9)
 			{
-				return null;
+				if(GameRegistry.getFuelValue(stackInSlot) > 0)
+				{
+					if(!this.mergeItemStack(stackInSlot, 1, 2, false))
+					{
+						return null;
+					}
+				}
+				else if(IngredientRegistry.isItemSpice(stackInSlot))
+				{
+					System.out.println("Clicked item is spice");
+					if(!this.mergeItemStack(stackInSlot, 2, 3, false))
+					{
+						return null;
+					}
+				}
+				else
+				{
+					if (!this.mergeItemStack(stackInSlot, 0, 2, false))
+					{
+						return null;
+					}
+				}
 			}
 
 			if(stackInSlot.stackSize == 0)
@@ -100,24 +192,6 @@ public class ContainerWok extends Container
 		}
 		return stack;
 	}
-
-	@SideOnly(Side.CLIENT)
-	public void updateProgressBar(int par1, int par2)
-	{
-		if (par1 == 0)
-		{
-			this.tileEntity.furnaceCookTime = par2;
-		}
-
-		if (par1 == 1)
-		{
-			this.tileEntity.furnaceBurnTime = par2;
-		}
-
-		if (par1 == 2)
-		{
-			this.tileEntity.currentItemBurnTime = par2;
-		}
-	}
+	
 
 }
