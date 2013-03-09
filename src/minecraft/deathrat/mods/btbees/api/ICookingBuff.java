@@ -7,8 +7,11 @@ public interface ICookingBuff
 	public String getBuffName();
 	public void setBuffName(String buffName);
 	
-	public float getBuffDuration();
+	public int getBuffDuration();
+	
+	public boolean isActive();
 	
 	public void buffPlayer(EntityPlayer player);
+	public void unBuffPlayer(EntityPlayer player);
 	
 }

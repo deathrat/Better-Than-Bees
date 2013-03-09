@@ -1,6 +1,7 @@
 package deathrat.mods.btbees.buffs;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import net.minecraft.entity.player.EntityPlayer;
 import deathrat.mods.btbees.api.ICookingBuff;
@@ -8,6 +9,11 @@ import deathrat.mods.btbees.api.ICookingBuff;
 public class SpeedBuff implements ICookingBuff
 {
 	public String buffName;
+	public boolean isActive;
+	
+	public SpeedBuff()
+	{
+	}
 	
 	@Override
 	public String getBuffName()
@@ -24,14 +30,45 @@ public class SpeedBuff implements ICookingBuff
 	@Override
 	public void buffPlayer(EntityPlayer player)
 	{
-		Random rand = new Random();
 		player.landMovementFactor = 0.4F;
+		isActive = true;
+		updateBuff(player);
 	}
 
 	@Override
-	public float getBuffDuration()
+	public int getBuffDuration()
 	{
-		return 15.0F;
+		return 15;
+	}
+
+	@Override
+	public void unBuffPlayer(EntityPlayer player)
+	{
+		player.landMovementFactor = 0.0F;
+		isActive = false;
+	}
+
+	@Override
+	public boolean isActive()
+	{
+		return isActive;
+	}
+	
+	public void updateBuff(EntityPlayer entityPlayer)
+	{
+		long startingTime = System.currentTimeMillis();
+		while(isActive())
+		{
+			if(startingTime < startingTime + TimeUnit.SECONDS.toNanos(getBuffDuration()))
+			{
+				continue;
+			}
+			else if(startingTime >= startingTime + TimeUnit.SECONDS.toNanos(getBuffDuration()))
+			{
+				updateBuff(entityPlayer);
+			}
+		}
+		return;
 	}
 	
 }

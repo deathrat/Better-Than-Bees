@@ -28,11 +28,11 @@ public class ContainerWok extends Container
 		//Active Ingredient (0)
 		addSlotToContainer(new Slot(tileEntity, 0, 8, 29));
 		
-		//Heat Slot (1)
+		//Fuel Slot (1)
 		addSlotToContainer(new Slot(tileEntity, 1, 8, 64));
 		
 		//Spices Slot (2)
-		addSlotToContainer(new Slot(tileEntity, 2, 35, 29));
+		addSlotToContainer(new Slot(tileEntity, 2, 115, 51));
 		
 		//Ingredients (3-6)
 		for(int width=0; width < 4; width++)
@@ -41,7 +41,7 @@ public class ContainerWok extends Container
 		}
 		
 		//Result Slot (7)
-		addSlotToContainer(new Slot(tileEntity, 7, 150, 29));
+		addSlotToContainer(new SlotResult(tileEntity, 7, 150, 29));
 		
 		bindPlayerInventory(invPlayer);
 	}
@@ -159,7 +159,6 @@ public class ContainerWok extends Container
 				}
 				else if(IngredientRegistry.isItemSpice(stackInSlot))
 				{
-					System.out.println("Clicked item is spice");
 					if(!this.mergeItemStack(stackInSlot, 2, 3, false))
 					{
 						return null;
@@ -192,6 +191,4 @@ public class ContainerWok extends Container
 		}
 		return stack;
 	}
-	
-
 }

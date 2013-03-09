@@ -7,8 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.api.ICookingBuff;
+import deathrat.mods.btbees.api.ICookingResult;
 
-public class BTBFood extends ItemFood
+public class BTBFood extends ItemFood implements ICookingResult
 {
 	public boolean hasBowl = false;
 	public ICookingBuff buff = null;
@@ -52,6 +53,8 @@ public class BTBFood extends ItemFood
 			super.onFoodEaten(itemStack, world, entityPlayer);
 			return new ItemStack(Item.bowlEmpty);
 		}
+		buff.buffPlayer(entityPlayer);
+		
 		return super.onFoodEaten(itemStack, world, entityPlayer);
 	}
 }

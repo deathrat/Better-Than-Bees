@@ -10,10 +10,12 @@ import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class GuiWok extends GuiContainer
 {
+	TileEntityWok tileEntity;
 
 	public GuiWok(InventoryPlayer invPlayer, TileEntityWok tileEntity)
 	{
 		super(new ContainerWok(invPlayer, tileEntity));
+		this.tileEntity = tileEntity;
 	}
 
 	@Override
@@ -34,5 +36,13 @@ public class GuiWok extends GuiContainer
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+		
+		if(tileEntity.isBurning())
+		{
+			//Arrow
+			int cookTime = tileEntity.getCookProgressScaled(11);
+			drawTexturedModalRect(x + 133, y + 29, 176 + cookTime - cookTime, 14, cookTime-1, 16);
+		}
+
 	}
 }
