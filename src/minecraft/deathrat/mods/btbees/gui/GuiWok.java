@@ -39,10 +39,13 @@ public class GuiWok extends GuiContainer
 		
 		if(tileEntity.isBurning())
 		{
-			//Arrow
-			int cookTime = tileEntity.getCookProgressScaled(11);
-			drawTexturedModalRect(x + 133, y + 29, 176 + cookTime - cookTime, 14, cookTime-1, 16);
+			int burnTime = tileEntity.getBurnTimeRemainingScaled(14);
+			drawTexturedModalRect(x + 8, y + 47, 176, 0, 14, 14 - burnTime);
 		}
 
+		//Arrow
+		int cookTime = tileEntity.getCookProgressScaled(24);
+		if(cookTime > 0)
+			drawTexturedModalRect(x + 31, y + 28, 176 + cookTime - cookTime, 14, cookTime-1, 16);
 	}
 }

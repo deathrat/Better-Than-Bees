@@ -25,6 +25,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.network.ServerPacketHandler;
+import deathrat.mods.btbees.recipe.WokRecipes;
 
 public class TileEntityWok extends TileEntity implements IInventory
 {
@@ -42,8 +43,6 @@ public class TileEntityWok extends TileEntity implements IInventory
 	@Override
 	public void updateEntity()
 	{
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-
 		boolean isCooking = furnaceBurnTime > 0;
 		boolean hasChanged = false;
 
@@ -74,7 +73,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 				}
 			}
 
-			if (furnaceBurnTime > 0 && canCook())
+			if (isBurning() && canCook())
 			{
 				++furnaceCookTime;
 
@@ -89,13 +88,23 @@ public class TileEntityWok extends TileEntity implements IInventory
 			{
 				furnaceCookTime = 0;
 			}
-
-			if (hasChanged)
+			if (!canCook() && inv[3] != null)
 			{
-				onInventoryChanged();
+				updateResult();
+				hasChanged = true;
+			}
+
+			if (isCooking != furnaceBurnTime > 0)
+			{
+				hasChanged = true;
 			}
 
 			ServerPacketHandler.sendWokUpdate(this, this.fireLevel);
+		}
+
+		if (hasChanged)
+		{
+			onInventoryChanged();
 		}
 	}
 
@@ -144,6 +153,18 @@ public class TileEntityWok extends TileEntity implements IInventory
 			return GameRegistry.getFuelValue(par0ItemStack);
 		}
 	}
+	
+	public void clearBuffer()
+	{
+		for(int i=3; i < 7; i++)
+			inv[i] = null;
+	}
+	
+	@Override
+	public void onInventoryChanged()
+	{
+		super.onInventoryChanged();
+	}
 
 	@SideOnly(Side.CLIENT)
 	public int getCookProgressScaled(int par1)
@@ -160,11 +181,11 @@ public class TileEntityWok extends TileEntity implements IInventory
 
 		return this.furnaceBurnTime * par1 / this.currentItemBurnTime;
 	}
-	
-    public boolean isBurning()
-    {
-        return this.furnaceBurnTime > 0;
-    }
+
+	public boolean isBurning()
+	{
+		return this.furnaceBurnTime > 0;
+	}
 
 	public void cookIngredient()
 	{
@@ -172,16 +193,16 @@ public class TileEntityWok extends TileEntity implements IInventory
 		{
 			ItemStack smeltResult = FurnaceRecipes.smelting().getSmeltingResult(this.inv[0]);
 
-			for (int i = 3; i < 6; i++)
+			for (int i = 3; i < 7; i++)
 			{
-				if (this.inv[i] == null)
+				if (this.inv[i] != null)
+				{
+					continue;
+				}
+				else if (this.inv[i] == null)
 				{
 					this.inv[i] = smeltResult.copy();
 					break;
-				}
-				else
-				{
-					continue;
 				}
 			}
 
@@ -192,6 +213,27 @@ public class TileEntityWok extends TileEntity implements IInventory
 				this.inv[0] = null;
 			}
 		}
+	}
+
+	public void updateResult()
+	{
+		if(inv[3] != null)
+		{
+			ItemStack[] tempIs = new ItemStack[] { inv[3], inv[4], inv[5], inv[6] };
+			// if(WokRecipes.getResult(tempIs) != null)
+			// this.inv[7] = new ItemStack((Item)WokRecipes.getResult(tempIs), 1);
+			// else
+			this.inv[7] = createRandomResult(tempIs);
+		}
+		else
+		{
+			this.inv[7] = null;
+		}
+	}
+
+	private ItemStack createRandomResult(ItemStack[] tempIs)
+	{
+		return new ItemStack(Block.dirt, 1);
 	}
 
 	/**
@@ -210,19 +252,25 @@ public class TileEntityWok extends TileEntity implements IInventory
 			if (smeltResult == null)
 				return false;
 
-			for (int i = 3; i < 6; i++)
+			if (inv[6] == null)
 			{
-				if (this.inv[i] == null)
+				for (int i = 3; i < 7; i++)
 				{
-					return true;
-				}
-				else if ((i == 6) && (this.inv[i] != null))
-				{
-					return false;
+					if (inv[i] != null)
+					{
+						continue;
+					}
+					else if (inv[i] == null)
+					{
+						return true;
+					}
 				}
 			}
+			else
+			{
+				return false;
+			}
 		}
-
 		return false;
 	}
 

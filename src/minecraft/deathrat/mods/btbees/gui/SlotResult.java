@@ -3,6 +3,7 @@ package deathrat.mods.btbees.gui;
 import deathrat.mods.btbees.api.ICookingBuff;
 import deathrat.mods.btbees.api.ICookingResult;
 import deathrat.mods.btbees.api.ICookingSpice;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -22,16 +23,28 @@ public class SlotResult extends Slot
 	{
 		super.onPickupFromSlot(entityPlayer, is);
 		
-		Item spice = inventory.getStackInSlot(2).getItem();
-		ItemStack spiceStack = inventory.getStackInSlot(2);
-		
-		if((spice instanceof ICookingSpice))
+//		Item spice = inventory.getStackInSlot(2).getItem();
+//		ItemStack spiceStack = inventory.getStackInSlot(2);
+//		
+//		if((spice != null) && (spice instanceof ICookingSpice))
+//		{
+//			ICookingBuff buff = ((ICookingSpice)spice).getCookingBuff();
+//			ICookingResult cookingItem = (ICookingResult)is.getItem();
+//			
+//			cookingItem.setCookingBuff(buff);
+//			--spiceStack.stackSize;
+//			
+//		}
+//		--is.stackSize;
+		if(inventory.getStackInSlot(3) != null)
 		{
-			ICookingBuff buff = ((ICookingSpice)spice).getCookingBuff();
-			ICookingResult cookingItem = (ICookingResult)is.getItem();
+			((TileEntityWok) inventory).clearBuffer();
+			((TileEntityWok) inventory).updateResult();
+		}
+		
+		if(inventory.getStackInSlot(2) != null)
+		{
 			
-			cookingItem.setCookingBuff(buff);
-			--is.stackSize;
 		}
 	}
 	

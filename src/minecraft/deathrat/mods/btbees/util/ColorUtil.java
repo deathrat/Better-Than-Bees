@@ -14,4 +14,10 @@ public class ColorUtil
 		return new Color(red, green, blue);
 	}
 
+	public static float[] colorRGBToFloat(int r, int g, int b, int a)
+	{
+		float[] array = { (float) (r / 256), (float) (g / 256), (float) (b / 256), (float) (a / 256) };
+		return array;
+	}
+
 }

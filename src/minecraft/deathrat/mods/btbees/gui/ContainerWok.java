@@ -34,11 +34,12 @@ public class ContainerWok extends Container
 		//Spices Slot (2)
 		addSlotToContainer(new Slot(tileEntity, 2, 115, 51));
 		
+		
 		//Ingredients (3-6)
-		for(int width=0; width < 4; width++)
-		{
-			addSlotToContainer(new SlotIngredient(tileEntity, this.inventorySlots.size() + 1, 61 + width * 18, 29));
-		}
+		addSlotToContainer(new SlotIngredient(tileEntity, 3, 61 + 0 * 18, 29));
+		addSlotToContainer(new SlotIngredient(tileEntity, 4, 61 + 1 * 18, 29));
+		addSlotToContainer(new SlotIngredient(tileEntity, 5, 61 + 2 * 18, 29));
+		addSlotToContainer(new SlotIngredient(tileEntity, 6, 61 + 3 * 18, 29));
 		
 		//Result Slot (7)
 		addSlotToContainer(new SlotResult(tileEntity, 7, 150, 29));
