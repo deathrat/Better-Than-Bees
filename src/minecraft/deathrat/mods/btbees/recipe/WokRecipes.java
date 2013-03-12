@@ -7,27 +7,52 @@ import java.util.Iterator;
 
 import deathrat.mods.btbees.api.ICookingResult;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class WokRecipes
 {
-	public static HashMap<ItemStack[], ICookingResult> recipes;
+	public static ArrayList<WokRecipe> recipes = new ArrayList<WokRecipe>();
 	
-	public static ICookingResult getResult(ItemStack[] is)
+	public static ICookingResult getResult(Item[] is)
 	{
-		if(recipes.containsKey(is))
+		for(int i=0; i < recipes.size(); i++)
 		{
-			return recipes.get(is);
+			if(recipes.get(i).isEqual(is))
+			{
+				return recipes.get(i).getResult();
+			}
 		}
 		return null;
 	}
 	
-	
-	public static void addRecipe(ItemStack[] is, ICookingResult result)
+	public static boolean isInRecipe(Item is)
 	{
-		ItemStack[] tempIs = is;
-		Arrays.sort(tempIs);
-		recipes.put(tempIs, result);
+		for(int i=0; i < recipes.size(); i++)
+		{
+			if(recipes.get(i).getItems().contains(is))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean isRecipe(Item[] is)
+	{
+		for(int i=0; i < recipes.size(); i++)
+		{
+			if(recipes.get(i).isEqual(is))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static void addRecipe(Item[] is, ICookingResult result)
+	{
+		recipes.add(new WokRecipe(is, result));
 	}
 
 }

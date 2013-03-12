@@ -28,6 +28,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+import deathrat.mods.btbees.api.ICookingResult;
 import deathrat.mods.btbees.blocks.BlockBoiler;
 import deathrat.mods.btbees.blocks.BlockBoilerTank;
 import deathrat.mods.btbees.blocks.BlockRicePlant;
@@ -50,6 +51,7 @@ import deathrat.mods.btbees.network.BTBConnectionHandler;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.proxy.CommonProxy;
 import deathrat.mods.btbees.recipe.BTBFuelHandler;
+import deathrat.mods.btbees.recipe.WokRecipes;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
@@ -160,7 +162,8 @@ public class BetterThanBees implements IUpdateableMod
 
 	private void initializeRecipes()
 	{
-		GameRegistry.addSmelting(uncookedRiceID, new ItemStack(cookedRiceBall), 2.0F);
+//		GameRegistry.addSmelting(uncookedRiceID, new ItemStack(cookedRiceBall), 2.0F);
+		WokRecipes.addRecipe(new Item[] {uncookedRice}, (ICookingResult) cookedRiceBall);
 		FurnaceRecipes.smelting().addSmelting(sheepMeat.itemID, 0, new ItemStack(sheepMeat, 1, 1), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(sheepMeat.itemID, 2, new ItemStack(sheepMeat, 1, 3), 0.0F);
 		GameRegistry.addShapelessRecipe(new ItemStack(uncookedRice, 1), new ItemStack(this.riceHusk));
