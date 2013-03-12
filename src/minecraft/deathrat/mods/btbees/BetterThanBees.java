@@ -163,7 +163,8 @@ public class BetterThanBees implements IUpdateableMod
 	private void initializeRecipes()
 	{
 //		GameRegistry.addSmelting(uncookedRiceID, new ItemStack(cookedRiceBall), 2.0F);
-		WokRecipes.addRecipe(new Item[] {uncookedRice}, (ICookingResult) cookedRiceBall);
+//		WokRecipes.addRecipe(new Item[] {uncookedRice, uncookedRice, sheepMeat}, (ICookingResult) cookedRiceRoll);
+		WokRecipes.addRecipe((ICookingResult) cookedRiceBall, new Object[] {uncookedRice});
 		FurnaceRecipes.smelting().addSmelting(sheepMeat.itemID, 0, new ItemStack(sheepMeat, 1, 1), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(sheepMeat.itemID, 2, new ItemStack(sheepMeat, 1, 3), 0.0F);
 		GameRegistry.addShapelessRecipe(new ItemStack(uncookedRice, 1), new ItemStack(this.riceHusk));

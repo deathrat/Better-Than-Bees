@@ -1,6 +1,9 @@
 package deathrat.mods.btbees.recipe;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 import deathrat.mods.btbees.api.ICookingResult;
 
@@ -9,52 +12,68 @@ import net.minecraft.item.ItemStack;
 
 public class WokRecipe
 {
-	private HashSet<Item> items = new HashSet<Item>();
+	private List items;
 	private ICookingResult result;
-	
-	public WokRecipe(Item[] is, ICookingResult result)
+
+	public WokRecipe(List is)
 	{
-		for(int i=0; i < is.length; i++)
-		{
-			items.add(is[i]);
-		}
+		this.items = is;
+	}
+
+	public WokRecipe(List is, ICookingResult result)
+	{
+		this(is);
 		this.result = result;
 	}
-	
-	public WokRecipe(Item is1, Item is2, Item is3, Item is4, ICookingResult result)
-	{
-		this(new Item[] {is1, is2, is3, is4}, result);
-	}
-	
-	public HashSet<Item> getItems()
+
+	public List getItems()
 	{
 		return items;
 	}
-	
+
 	public ICookingResult getResult()
 	{
 		return result;
 	}
 	
-	public boolean isEqual(Item[] is)
+	public ItemStack getResultStack()
 	{
-		HashSet<Item> recipeItems = new HashSet<Item>();
-		for(int i=0; i < is.length; i++)
+		return new ItemStack((Item)result, 1).copy();
+	}
+	
+	public boolean matches(Object[] itemStacks)
+	{
+		ArrayList stackList = new ArrayList(items);
+		for(int i = 0; i < 4; i++)
 		{
-			if(is[i] != null)
-				recipeItems.add(is[i]);
-			else
-				break;
+			ItemStack is = (ItemStack)itemStacks[i];
+			
+			if(is != null)
+			{
+				boolean var1 = false;
+				Iterator it = stackList.iterator();
+				
+				while(it.hasNext())
+				{
+					ItemStack is2 = (ItemStack)it.next();
+					
+					if(is.itemID == is2.itemID && (is2.getItemDamage() == -1 || is.getItemDamage() == is2.getItemDamage()))
+					{
+						var1 = true;
+						stackList.remove(is2);
+						break;
+					}
+				}
+				
+				if(!var1)
+					return false;
+			}
 		}
-//		if(recipeItems.containsAll(this.getItems()))
-//		{
-//			return true;
-//		}
-		for(int i=0; i < getItems().size(); i++)
-		{
-			if(!getItems().contains(is[i]))
-				return false;
-		}
-		return true;
+		return stackList.isEmpty();
+	}
+	
+	public int getRecipeSize()
+	{
+		return this.items.size();
 	}
 }

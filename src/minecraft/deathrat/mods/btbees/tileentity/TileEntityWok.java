@@ -35,6 +35,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 	public int furnaceCookTime;
 	public int furnaceBurnTime;
 	public int currentItemBurnTime;
+	public boolean shouldSmelt = false;
 
 	public TileEntityWok()
 	{
@@ -194,8 +195,8 @@ public class TileEntityWok extends TileEntity implements IInventory
 		{
 			ItemStack smeltResult = FurnaceRecipes.smelting().getSmeltingResult(this.inv[0]);
 			boolean shouldSmelt = false;
-			
-			if(smeltResult != null)
+
+			if (smeltResult != null)
 				shouldSmelt = true;
 
 			for (int i = 3; i < 7; i++)
@@ -206,7 +207,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 				}
 				else if (this.inv[i] == null)
 				{
-					if(shouldSmelt)
+					if (shouldSmelt)
 					{
 						this.inv[i] = smeltResult.copy();
 					}
@@ -233,27 +234,15 @@ public class TileEntityWok extends TileEntity implements IInventory
 	{
 		if (inv[3] != null)
 		{
-			ItemStack[] tempIs = new ItemStack[] { inv[3], inv[4], inv[5], inv[6] };
-			int count=0;
-			for(int i=0; i < tempIs.length; i++)
+			Object[] tempIs = new Object[] { inv[3], inv[4], inv[5], inv[6] };
+			if (WokRecipes.isRecipe(tempIs))
 			{
-				if(tempIs[i] != null)
-				{
-					count++;
-					continue;
-				}
-				break;
+				this.inv[7] = WokRecipes.getRecipe(tempIs).getResultStack();
 			}
-			Item[] tempItems = new Item[count];
-			for(int i=0; i < count; i++)
-			{
-				tempItems[i] = tempIs[i].getItem();
-			}
-			ICookingResult result = WokRecipes.getResult(tempItems);
-			if (result != null)
-				this.inv[7] = new ItemStack((Item) result, 1);
 			else
-				this.inv[7] = createRandomResult(tempItems);
+			{
+				this.inv[7] = createRandomResult(tempIs);
+			}
 		}
 		else
 		{
@@ -261,7 +250,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 		}
 	}
 
-	private ItemStack createRandomResult(Item[] tempIs)
+	private ItemStack createRandomResult(Object[] tempIs)
 	{
 		return new ItemStack(Block.dirt, 1);
 	}
@@ -278,12 +267,6 @@ public class TileEntityWok extends TileEntity implements IInventory
 		}
 		else
 		{
-			ItemStack smeltResult = FurnaceRecipes.smelting().getSmeltingResult(this.inv[0]);
-			if ((smeltResult == null) && (!WokRecipes.isInRecipe(inv[0].getItem())))
-			{
-				return false;
-			}
-
 			if (inv[6] == null)
 			{
 				for (int i = 3; i < 7; i++)
