@@ -23,7 +23,7 @@ public class WorldGenSalt extends WorldGenerator
 
 	public boolean generate(World world, Random random, int x, int y, int z)
 	{
-		if (world.getBlockId(x, y, z) != Block.sand.blockID )
+		if (world.getBlockId(x, y, z) != Block.sand.blockID)
 		{
 			return false;
 		}

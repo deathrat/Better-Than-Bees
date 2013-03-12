@@ -19,9 +19,8 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 	public int fireLevelMax = 100;
 
 	public boolean isActive;
-	
-	public TileEntityBoilerTank boilerTank;
 
+	public TileEntityBoilerTank boilerTank;
 
 	public TileEntityBoiler()
 	{
@@ -30,22 +29,22 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 
 		powerProvider.configure(10 * maxPower, 2 * 1200);
 	}
-	
+
 	public void setBoilerTank(TileEntityBoilerTank boilerTank)
 	{
 		this.boilerTank = boilerTank;
 	}
-	
+
 	public void setBoilerModules(ArrayList<IBoilerModule> list)
 	{
 		boilerModules = list;
 	}
-	
+
 	public IBoilerModule getBoilerModule(World world, ForgeDirection side)
 	{
 		return (IBoilerModule) world.getBlockTileEntity(xCoord + side.offsetX, yCoord, zCoord + side.offsetZ);
 	}
-	
+
 	@Override
 	public void updateEntity()
 	{
@@ -58,54 +57,54 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 		return inv.length;
 	}
 
-
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
 		return inv[slot];
 	}
 
-
 	@Override
 	public ItemStack decrStackSize(int slot, int amt)
 	{
 		ItemStack stack = getStackInSlot(slot);
-		if (stack != null) {
-				if (stack.stackSize <= amt) {
-						setInventorySlotContents(slot, null);
-				} else {
-						stack = stack.splitStack(amt);
-						if (stack.stackSize == 0) {
-								setInventorySlotContents(slot, null);
-						}
+		if (stack != null)
+		{
+			if (stack.stackSize <= amt)
+			{
+				setInventorySlotContents(slot, null);
+			}
+			else
+			{
+				stack = stack.splitStack(amt);
+				if (stack.stackSize == 0)
+				{
+					setInventorySlotContents(slot, null);
 				}
+			}
 		}
 		return stack;
 	}
-
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot)
 	{
 		ItemStack stack = getStackInSlot(slot);
-		if(stack != null)
+		if (stack != null)
 		{
 			setInventorySlotContents(slot, null);
 		}
 		return stack;
 	}
 
-
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack)
 	{
 		inv[slot] = stack;
-		if(stack != null && stack.stackSize > getInventoryStackLimit())
+		if (stack != null && stack.stackSize > getInventoryStackLimit())
 		{
 			stack.stackSize = getInventoryStackLimit();
 		}
 	}
-
 
 	@Override
 	public String getInvName()
@@ -113,13 +112,11 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 		return "Boiler";
 	}
 
-
 	@Override
 	public int getInventoryStackLimit()
 	{
 		return 64;
 	}
-
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player)
@@ -127,12 +124,10 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
 	}
 
-
 	@Override
 	public void openChest()
 	{
 	}
-
 
 	@Override
 	public void closeChest()
@@ -145,10 +140,10 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 		super.writeToNBT(tagCompound);
 
 		NBTTagList itemList = new NBTTagList();
-		for(int i = 0; i < inv.length; i++)
+		for (int i = 0; i < inv.length; i++)
 		{
 			ItemStack stack = inv[i];
-			if(stack != null)
+			if (stack != null)
 			{
 				NBTTagCompound tag = new NBTTagCompound();
 				tag.setByte("Slot", (byte) i);
@@ -159,7 +154,7 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 
 		tagCompound.setTag("Inventory", itemList);
 		tagCompound.setInteger("fireLevel", fireLevel);
-//		tagCompound.setInteger("waterLevel", waterLevel);
+		// tagCompound.setInteger("waterLevel", waterLevel);
 	}
 
 	@Override
@@ -168,12 +163,14 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 		super.readFromNBT(tagCompound);
 
 		NBTTagList tagList = tagCompound.getTagList("Inventory");
-		for (int i = 0; i < tagList.tagCount(); i++) {
-				NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
-				byte slot = tag.getByte("Slot");
-				if (slot >= 0 && slot < inv.length) {
-						inv[slot] = ItemStack.loadItemStackFromNBT(tag);
-				}
+		for (int i = 0; i < tagList.tagCount(); i++)
+		{
+			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+			byte slot = tag.getByte("Slot");
+			if (slot >= 0 && slot < inv.length)
+			{
+				inv[slot] = ItemStack.loadItemStackFromNBT(tag);
+			}
 		}
 
 		fireLevel = tagCompound.getInteger("fireLevel");
@@ -183,12 +180,11 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 	{
 		return this.fireLevel;
 	}
-	
+
 	public int getScaledFireLevel(int par1)
 	{
 		return this.fireLevel * par1 / this.fireLevelMax;
 	}
-
 
 	public void receiveGuiNetworkData(int bar, int value)
 	{
@@ -198,5 +194,5 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 	{
 		return this.getMaxWater();
 	}
-	
+
 }

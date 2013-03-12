@@ -22,7 +22,7 @@ import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 
 public class BlockBoiler extends BlockContainer
 {
-	
+
 	public BlockBoiler(int id, Material mat)
 	{
 		super(id, mat);
@@ -31,36 +31,34 @@ public class BlockBoiler extends BlockContainer
 		setResistance(5.0F);
 		setBlockName("blockBoiler");
 	}
-	
+
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, int blockID)
 	{
 		super.onNeighborBlockChange(world, x, y, z, blockID);
-		
-		
+
 		addNeighborModule(world, x, y, z);
 	}
-	
+
 	public void addNeighborModule(World world, int x, int y, int z)
 	{
-		ForgeDirection[] directions = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST};
+		ForgeDirection[] directions = { ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST };
 		ArrayList<IBoilerModule> arrayList = new ArrayList();
 		TileEntity thisTE = getTileEntity(world, x, y, z);
-		for(int i=0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			ForgeDirection blockDirection = directions[i];
 			TileEntity te = BlockPosition.getAdjacentTileEntity(thisTE, directions[i]);
-			if(te instanceof IBoilerModule)
+			if (te instanceof IBoilerModule)
 			{
-				arrayList.add((IBoilerModule)te);
+				arrayList.add((IBoilerModule) te);
 			}
-			else if(te instanceof TileEntityBoilerTank) //Not used heh
+			else if (te instanceof TileEntityBoilerTank) // Not used heh
 			{
 			}
 		}
-		((TileEntityBoiler)thisTE).setBoilerModules(arrayList);
+		((TileEntityBoiler) thisTE).setBoilerModules(arrayList);
 	}
-	
 
 	@Override
 	public String getTextureFile()
@@ -80,11 +78,11 @@ public class BlockBoiler extends BlockContainer
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if (tileEntity == null || player.isSneaking())
 		{
-				return false;
+			return false;
 		}
-		else if(player.getHeldItem() != null && player.getHeldItem().itemID == BetterThanBees.boilerTank.blockID && world.getBlockId(x, y + 1, z) == 0)
+		else if (player.getHeldItem() != null && player.getHeldItem().itemID == BetterThanBees.boilerTank.blockID && world.getBlockId(x, y + 1, z) == 0)
 		{
-			if(!player.capabilities.isCreativeMode)
+			if (!player.capabilities.isCreativeMode)
 				--player.getHeldItem().stackSize;
 			world.setBlockWithNotify(x, y + 1, z, BetterThanBees.boilerTank.blockID);
 			return true;
@@ -108,41 +106,44 @@ public class BlockBoiler extends BlockContainer
 		Random rand = new Random();
 
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if (!(tileEntity instanceof IInventory)) {
-				return;
+		if (!(tileEntity instanceof IInventory))
+		{
+			return;
 		}
 		IInventory inventory = (IInventory) tileEntity;
 
-		for (int i = 0; i < inventory.getSizeInventory(); i++) {
-				ItemStack item = inventory.getStackInSlot(i);
+		for (int i = 0; i < inventory.getSizeInventory(); i++)
+		{
+			ItemStack item = inventory.getStackInSlot(i);
 
-				if (item != null && item.stackSize > 0) {
-						float rx = rand.nextFloat() * 0.8F + 0.1F;
-						float ry = rand.nextFloat() * 0.8F + 0.1F;
-						float rz = rand.nextFloat() * 0.8F + 0.1F;
+			if (item != null && item.stackSize > 0)
+			{
+				float rx = rand.nextFloat() * 0.8F + 0.1F;
+				float ry = rand.nextFloat() * 0.8F + 0.1F;
+				float rz = rand.nextFloat() * 0.8F + 0.1F;
 
-						EntityItem entityItem = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(item.itemID, item.stackSize, item.getItemDamage()));
+				EntityItem entityItem = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(item.itemID, item.stackSize, item.getItemDamage()));
 
-						if (item.hasTagCompound())
-						{
-								entityItem.func_92014_d().setTagCompound((NBTTagCompound)item.getTagCompound().copy());
-						}
-
-						float factor = 0.05F;
-						entityItem.motionX = rand.nextGaussian() * factor;
-						entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-						entityItem.motionZ = rand.nextGaussian() * factor;
-						world.spawnEntityInWorld(entityItem);
-						item.stackSize = 0;
+				if (item.hasTagCompound())
+				{
+					entityItem.func_92014_d().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
 				}
+
+				float factor = 0.05F;
+				entityItem.motionX = rand.nextGaussian() * factor;
+				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+				entityItem.motionZ = rand.nextGaussian() * factor;
+				world.spawnEntityInWorld(entityItem);
+				item.stackSize = 0;
+			}
 		}
 	}
-	
+
 	public TileEntity getTileEntity(World world, int x, int y, int z)
 	{
 		return world.getBlockTileEntity(x, y, z);
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World var1)
 	{

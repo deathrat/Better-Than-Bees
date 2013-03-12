@@ -38,35 +38,35 @@ public class GuiBoiler extends GuiTE
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int xCoord, int yCoord)
 	{
-		int texture = mc.renderEngine.getTexture(BetterThanBees.getResourcesPath()+"gui_boiler.png");
+		int texture = mc.renderEngine.getTexture(BetterThanBees.getResourcesPath() + "gui_boiler.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(texture);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
-		//Water meter
-		if(tileEntity.boilerTank != null && tileEntity.boilerTank.hasWater())
+		// Water meter
+		if (tileEntity.boilerTank != null && tileEntity.boilerTank.hasWater())
 		{
 			int waterLevel = tileEntity.boilerTank.getScaledWaterLevel(46);
 			this.drawTexturedModalRect(x + 176, y + 43 + 46 - waterLevel, 199, 73 - waterLevel, 12, waterLevel + 5);
 		}
 
-		//drawTexturedModalRect(xPos, yPos, u, v, width, height)
+		// drawTexturedModalRect(xPos, yPos, u, v, width, height)
 
-		//Middle bar
+		// Middle bar
 		this.drawTexturedModalRect(x + 180, y + 42, 199, 78, 4, 43);
 
-		//Glass Sheen
+		// Glass Sheen
 		this.drawTexturedModalRect(x + 176, y + 43, 211, 27, 12, 42);
 
-		//Energy bar
+		// Energy bar
 		int energyScale = 42;
 		int energyLevel = tileEntity.getScaledEnergyStored(energyScale);
-		if(energyLevel > 0)
-			this.drawTexturedModalRect(x + 118, y + 24, 200 + energyScale - energyLevel, 184, energyLevel-1, 14);
+		if (energyLevel > 0)
+			this.drawTexturedModalRect(x + 118, y + 24, 200 + energyScale - energyLevel, 184, energyLevel - 1, 14);
 
-		//Fire bar
+		// Fire bar
 		int fireScale = 12;
 		int fireLevel = tileEntity.getScaledFireLevel(fireScale);
 		this.drawTexturedModalRect(x + 81, y + 6 + fireScale - fireLevel, 199, fireScale - fireLevel, 14, fireLevel);
@@ -77,9 +77,9 @@ public class GuiBoiler extends GuiTE
 	protected void drawTooltips()
 	{
 		if ((mouseX >= 118) && (mouseX < 159) && (mouseY >= 24) && (mouseY < 37))
-			drawTooltip("" + (int)tileEntity.getEnergy() + " / " + (int)tileEntity.getMaxEnergy() + " MJ");
-		
+			drawTooltip("" + (int) tileEntity.getEnergy() + " / " + (int) tileEntity.getMaxEnergy() + " MJ");
+
 		if ((mouseX >= 173) && (mouseX < 190) && (mouseY >= 40) && (mouseY < 91) && this.tileEntity.boilerTank != null)
-			drawTooltip("" + (int)tileEntity.boilerTank.tank.getLiquid().amount + " / " + (int)tileEntity.boilerTank.tank.getCapacity() + " mB");
+			drawTooltip("" + (int) tileEntity.boilerTank.tank.getLiquid().amount + " / " + (int) tileEntity.boilerTank.tank.getCapacity() + " mB");
 	}
 }

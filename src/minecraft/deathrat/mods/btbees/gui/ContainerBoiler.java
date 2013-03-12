@@ -21,22 +21,21 @@ public class ContainerBoiler extends Container
 	{
 		tileEntity = te;
 
-
-		for(int height = 0; height < 3; height++)
+		for (int height = 0; height < 3; height++)
 		{
-			for(int width = 0; width < 9; width++)
+			for (int width = 0; width < 9; width++)
 			{
 				addSlotToContainer(new Slot(tileEntity, width + height * 3, 8 + width * 18, 43 + height * 18));
 			}
 		}
 
-		//Fire Slot
+		// Fire Slot
 		addSlotToContainer(new Slot(tileEntity, this.inventorySlots.size() + 1, 80, 23));
 
-		//Energy Slot
+		// Energy Slot
 		addSlotToContainer(new Slot(tileEntity, this.inventorySlots.size() + 1, 98, 23));
 
-		//Water Slot
+		// Water Slot
 		addSlotToContainer(new Slot(tileEntity, this.inventorySlots.size() + 1, 174, 96));
 
 		bindPlayerInventory(invPlayer);
@@ -44,17 +43,17 @@ public class ContainerBoiler extends Container
 
 	protected void bindPlayerInventory(InventoryPlayer invPlayer)
 	{
-		//Player Inventory
-		for(int height = 0; height < 3; height++)
+		// Player Inventory
+		for (int height = 0; height < 3; height++)
 		{
-			for(int width = 0; width < 9; width++)
+			for (int width = 0; width < 9; width++)
 			{
 				addSlotToContainer(new Slot(invPlayer, width + height * 9 + 9, 8 + width * 18, 111 + height * 18));
 			}
 		}
 
-		//Quickslots
-		for(int width = 0; width < 9; width++)
+		// Quickslots
+		for (int width = 0; width < 9; width++)
 		{
 			addSlotToContainer(new Slot(invPlayer, width, 8 + width * 18, 169));
 		}
@@ -72,14 +71,14 @@ public class ContainerBoiler extends Container
 		ItemStack stack = null;
 		Slot slotObject = (Slot) inventorySlots.get(slot);
 
-		if(slotObject != null && slotObject.getHasStack())
+		if (slotObject != null && slotObject.getHasStack())
 		{
 			ItemStack stackInSlot = slotObject.getStack();
 			stack = stackInSlot.copy();
 
-			if(slot < 9)
+			if (slot < 9)
 			{
-				if(!this.mergeItemStack(stackInSlot, 9, 45, false))
+				if (!this.mergeItemStack(stackInSlot, 9, 45, false))
 				{
 					return null;
 				}
@@ -90,7 +89,7 @@ public class ContainerBoiler extends Container
 				return null;
 			}
 
-			if(stackInSlot.stackSize == 0)
+			if (stackInSlot.stackSize == 0)
 			{
 				slotObject.putStack(null);
 			}
@@ -99,7 +98,7 @@ public class ContainerBoiler extends Container
 				slotObject.onSlotChanged();
 			}
 
-			if(stackInSlot.stackSize == stack.stackSize)
+			if (stackInSlot.stackSize == stack.stackSize)
 			{
 				return null;
 			}
@@ -112,7 +111,7 @@ public class ContainerBoiler extends Container
 	public void addCraftingToCrafters(ICrafting par1ICrafting)
 	{
 		super.addCraftingToCrafters(par1ICrafting);
-		if(this.tileEntity.boilerTank != null)
+		if (this.tileEntity.boilerTank != null)
 			par1ICrafting.sendProgressBarUpdate(this, 0, this.tileEntity.boilerTank.tank.getLiquid().amount);
 		par1ICrafting.sendProgressBarUpdate(this, 1, this.tileEntity.fireLevel);
 		par1ICrafting.sendProgressBarUpdate(this, 2, Math.round(this.tileEntity.getEnergy()));
@@ -124,7 +123,7 @@ public class ContainerBoiler extends Container
 
 		for (int var1 = 0; var1 < this.crafters.size(); var1++)
 		{
-			ICrafting var2 = (ICrafting)this.crafters.get(var1);
+			ICrafting var2 = (ICrafting) this.crafters.get(var1);
 
 			if (this.tileEntity.boilerTank != null && this.lastWaterLevel != this.tileEntity.boilerTank.tank.getLiquid().amount)
 			{
@@ -142,14 +141,12 @@ public class ContainerBoiler extends Container
 			}
 		}
 
-		if(this.tileEntity.boilerTank != null)
+		if (this.tileEntity.boilerTank != null)
 			this.lastWaterLevel = this.tileEntity.boilerTank.tank.getLiquid().amount;
 		this.lastFireLevel = this.tileEntity.fireLevel;
 		this.lastEnergyLevel = this.tileEntity.getEnergy();
 
-
 	}
-
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -157,19 +154,18 @@ public class ContainerBoiler extends Container
 	{
 		super.updateProgressBar(bar, value);
 
-		if(bar == 0 && this.tileEntity.boilerTank != null)
+		if (bar == 0 && this.tileEntity.boilerTank != null)
 		{
 			this.tileEntity.boilerTank.tank.getLiquid().amount = value;
 		}
-		if(bar == 1)
+		if (bar == 1)
 		{
 			this.tileEntity.fireLevel = value;
 		}
-		if(bar == 2)
+		if (bar == 2)
 		{
 			this.tileEntity.powerProvider.setEnergyStored(value);
 		}
-
 
 		tileEntity.receiveGuiNetworkData(bar, value);
 	}

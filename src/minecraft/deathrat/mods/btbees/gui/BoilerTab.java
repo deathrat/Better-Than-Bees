@@ -32,7 +32,7 @@ public class BoilerTab extends Tab
 
 		drawIcon(BetterThanBees.getResourcesPath() + "/icons.png", 3, x + 2, y + 2);
 
-		if(!isFullyOpened())
+		if (!isFullyOpened())
 			return;
 
 		tabFontRenderer.drawStringWithShadow("Energy", x + 22, y + 6, headerColor);
@@ -47,7 +47,7 @@ public class BoilerTab extends Tab
 	@Override
 	public String getTooltip()
 	{
-		if(!isFullyOpened())
+		if (!isFullyOpened())
 			return "Energy";
 		return null;
 	}

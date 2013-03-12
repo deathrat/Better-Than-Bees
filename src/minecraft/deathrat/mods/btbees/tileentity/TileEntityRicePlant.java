@@ -20,12 +20,12 @@ public class TileEntityRicePlant extends TileEntity
 	@Override
 	public void updateEntity()
 	{
-		if(this.getWorldObj().rand.nextInt(300) == 0)
+		if (this.getWorldObj().rand.nextInt(300) == 0)
 		{
-			BlockRicePlant block = (BlockRicePlant)this.getBlockType();
+			BlockRicePlant block = (BlockRicePlant) this.getBlockType();
 			block.updatePlant(this.getWorldObj(), this.xCoord, this.yCoord, this.zCoord, this.getWorldObj().rand);
 		}
-		if(this.getWorldObj().getBlockMaterial(this.xCoord, this.yCoord-1, this.zCoord) != Material.water)
+		if (this.getWorldObj().getBlockMaterial(this.xCoord, this.yCoord - 1, this.zCoord) != Material.water)
 		{
 			this.getWorldObj().removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
 		}
@@ -37,7 +37,7 @@ public class TileEntityRicePlant extends TileEntity
 		{
 			this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

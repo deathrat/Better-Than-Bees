@@ -9,7 +9,7 @@ public class TileEntitySteamer extends TileEntityMachine implements IBoilerModul
 {
 	private ItemStack[] inv;
 	public TileEntityBoiler connectedBoiler;
-	
+
 	public TileEntitySteamer()
 	{
 		powerProvider.configure(10 * maxPower, 2 * 1200);
@@ -60,7 +60,7 @@ public class TileEntitySteamer extends TileEntityMachine implements IBoilerModul
 	@Override
 	public void setInventorySlotContents(int slotIndex, ItemStack is)
 	{
-		
+
 	}
 
 	@Override

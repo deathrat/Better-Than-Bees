@@ -30,7 +30,7 @@ public class ServerPacketHandler implements IPacketHandler
 
 	public static void registerPacketHandler(BTBPacket packet)
 	{
-		if(packethandlers.get(Byte.valueOf(packet.getPacketType())) != null)
+		if (packethandlers.get(Byte.valueOf(packet.getPacketType())) != null)
 		{
 			throw new RuntimeException("Multiple id registrations for packet type on BTBees channel");
 		}
@@ -47,37 +47,36 @@ public class ServerPacketHandler implements IPacketHandler
 			int y = data.readInt();
 			int z = data.readInt();
 			int meta = data.readInt();
-			World world = ((EntityPlayer)player).worldObj;
+			World world = ((EntityPlayer) player).worldObj;
 
-			if(world != null)
+			if (world != null)
 			{
 				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 
-				if(tileEntity != null)
+				if (tileEntity != null)
 				{
-					if(tileEntity instanceof TileEntityRicePlant)
+					if (tileEntity instanceof TileEntityRicePlant)
 					{
-						((TileEntityRicePlant)tileEntity).handlePacketData(manager, packet, player, data, meta);
+						((TileEntityRicePlant) tileEntity).handlePacketData(manager, packet, player, data, meta);
 					}
-					if(tileEntity instanceof TileEntityWok)
+					if (tileEntity instanceof TileEntityWok)
 					{
 						int fireLevel = data.readInt();
-						((TileEntityWok)tileEntity).handlePacketData(manager, packet, player, data, fireLevel);
+						((TileEntityWok) tileEntity).handlePacketData(manager, packet, player, data, fireLevel);
 					}
-					if(tileEntity instanceof TileEntityBoiler)
+					if (tileEntity instanceof TileEntityBoiler)
 					{
 						float energyLevel = data.readFloat();
-						((TileEntityBoiler)tileEntity).handlePacketData(manager, packet, player, data, energyLevel);
+						((TileEntityBoiler) tileEntity).handlePacketData(manager, packet, player, data, energyLevel);
 					}
 				}
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-
 
 	public static void sendRiceUpdate(TileEntityRicePlant tileEntity, int metaData)
 	{
@@ -90,7 +89,7 @@ public class ServerPacketHandler implements IPacketHandler
 			data.writeInt(tileEntity.zCoord);
 			data.writeInt(metaData);
 		}
-		catch(IOException e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -103,7 +102,7 @@ public class ServerPacketHandler implements IPacketHandler
 
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-		if(side == Side.SERVER)
+		if (side == Side.SERVER)
 			PacketDispatcher.sendPacketToAllPlayers(packet);
 	}
 
@@ -119,7 +118,7 @@ public class ServerPacketHandler implements IPacketHandler
 			data.writeInt(0);
 			data.writeInt(fireLevel);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -132,7 +131,7 @@ public class ServerPacketHandler implements IPacketHandler
 
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-		if(side == Side.SERVER)
+		if (side == Side.SERVER)
 			PacketDispatcher.sendPacketToAllPlayers(packet);
 	}
 

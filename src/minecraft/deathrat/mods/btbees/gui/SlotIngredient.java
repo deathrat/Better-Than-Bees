@@ -18,13 +18,13 @@ public class SlotIngredient extends Slot
 	{
 		super.putStack(itemStack);
 	}
-	
+
 	@Override
 	public boolean canTakeStack(EntityPlayer par1EntityPlayer)
 	{
 		return false;
 	}
-	
+
 	@Override
 	public boolean isItemValid(ItemStack par1ItemStack)
 	{

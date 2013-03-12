@@ -16,7 +16,6 @@ public class PowerProviderBTB extends PowerProvider implements IPowerProviderAdv
 		configure(0, 0);
 	}
 
-
 	public void configure(int maxEnergyReceived, int maxStoredEnergy)
 	{
 		super.configure(0, 0, maxEnergyReceived, 0, maxStoredEnergy);
@@ -33,7 +32,7 @@ public class PowerProviderBTB extends PowerProvider implements IPowerProviderAdv
 	{
 		energyStored += quantity;
 
-		if(energyStored > maxEnergyStored)
+		if (energyStored > maxEnergyStored)
 			energyStored = maxEnergyStored;
 	}
 
@@ -42,7 +41,7 @@ public class PowerProviderBTB extends PowerProvider implements IPowerProviderAdv
 	{
 		energyStored += quantity;
 
-		if(energyStored > maxEnergyStored)
+		if (energyStored > maxEnergyStored)
 			energyStored = maxEnergyStored;
 	}
 
@@ -51,7 +50,7 @@ public class PowerProviderBTB extends PowerProvider implements IPowerProviderAdv
 	{
 		energyStored -= quantity;
 
-		if(energyStored < 0.0F)
+		if (energyStored < 0.0F)
 			energyStored = 0.0F;
 	}
 
@@ -60,9 +59,9 @@ public class PowerProviderBTB extends PowerProvider implements IPowerProviderAdv
 	{
 		energyStored = quantity;
 
-		if(energyStored > maxEnergyStored)
+		if (energyStored > maxEnergyStored)
 			energyStored = maxEnergyStored;
-		else if(energyStored < 0.0F)
+		else if (energyStored < 0.0F)
 			energyStored = 0.0F;
 	}
 

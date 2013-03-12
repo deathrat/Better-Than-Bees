@@ -33,10 +33,10 @@ public class ItemRenderRice implements IItemRenderer
 
 		Tessellator var5 = Tessellator.instance;
 		int var6 = item.getIconIndex();
-		float var7 = ((float)(var6 % 16 * 16) + 0.0F) / 256.0F;
-		float var8 = ((float)(var6 % 16 * 16) + 15.99F) / 256.0F;
-		float var9 = ((float)(var6 / 16 * 16) + 0.0F) / 256.0F;
-		float var10 = ((float)(var6 / 16 * 16) + 15.99F) / 256.0F;
+		float var7 = ((float) (var6 % 16 * 16) + 0.0F) / 256.0F;
+		float var8 = ((float) (var6 % 16 * 16) + 15.99F) / 256.0F;
+		float var9 = ((float) (var6 / 16 * 16) + 0.0F) / 256.0F;
+		float var10 = ((float) (var6 / 16 * 16) + 15.99F) / 256.0F;
 		float var11 = 0.0F;
 		float var12 = 0.3F;
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -58,17 +58,17 @@ public class ItemRenderRice implements IItemRenderer
 		float var6 = 1.0F;
 		par0Tessellator.startDrawingQuads();
 		par0Tessellator.setNormal(0.0F, 0.0F, 1.0F);
-		par0Tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, (double)par1, (double)par4);
-		par0Tessellator.addVertexWithUV((double)var6, 0.0D, 0.0D, (double)par3, (double)par4);
-		par0Tessellator.addVertexWithUV((double)var6, 1.0D, 0.0D, (double)par3, (double)par2);
-		par0Tessellator.addVertexWithUV(0.0D, 1.0D, 0.0D, (double)par1, (double)par2);
+		par0Tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, (double) par1, (double) par4);
+		par0Tessellator.addVertexWithUV((double) var6, 0.0D, 0.0D, (double) par3, (double) par4);
+		par0Tessellator.addVertexWithUV((double) var6, 1.0D, 0.0D, (double) par3, (double) par2);
+		par0Tessellator.addVertexWithUV(0.0D, 1.0D, 0.0D, (double) par1, (double) par2);
 		par0Tessellator.draw();
 		par0Tessellator.startDrawingQuads();
 		par0Tessellator.setNormal(0.0F, 0.0F, -1.0F);
-		par0Tessellator.addVertexWithUV(0.0D, 1.0D, (double)(0.0F - par5), (double)par1, (double)par2);
-		par0Tessellator.addVertexWithUV((double)var6, 1.0D, (double)(0.0F - par5), (double)par3, (double)par2);
-		par0Tessellator.addVertexWithUV((double)var6, 0.0D, (double)(0.0F - par5), (double)par3, (double)par4);
-		par0Tessellator.addVertexWithUV(0.0D, 0.0D, (double)(0.0F - par5), (double)par1, (double)par4);
+		par0Tessellator.addVertexWithUV(0.0D, 1.0D, (double) (0.0F - par5), (double) par1, (double) par2);
+		par0Tessellator.addVertexWithUV((double) var6, 1.0D, (double) (0.0F - par5), (double) par3, (double) par2);
+		par0Tessellator.addVertexWithUV((double) var6, 0.0D, (double) (0.0F - par5), (double) par3, (double) par4);
+		par0Tessellator.addVertexWithUV(0.0D, 0.0D, (double) (0.0F - par5), (double) par1, (double) par4);
 		par0Tessellator.draw();
 		par0Tessellator.startDrawingQuads();
 		par0Tessellator.setNormal(-1.0F, 0.0F, 0.0F);
@@ -77,22 +77,24 @@ public class ItemRenderRice implements IItemRenderer
 		float var9;
 		float var10;
 
-		/* Gets the width/16 of the currently bound texture, used
-		 * to fix the side rendering issues on textures != 16 */
+		/*
+		 * Gets the width/16 of the currently bound texture, used to fix the
+		 * side rendering issues on textures != 16
+		 */
 		int tileSize = TextureFXManager.instance().getTextureDimensions(GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D)).width / 16;
 
 		float tx = 1.0f / (32 * tileSize);
-		float tz = 1.0f /  tileSize;
+		float tz = 1.0f / tileSize;
 
 		for (var7 = 0; var7 < tileSize; ++var7)
 		{
-			var8 = (float)var7 / tileSize;
+			var8 = (float) var7 / tileSize;
 			var9 = par1 + (par3 - par1) * var8 - tx;
 			var10 = var6 * var8;
-			par0Tessellator.addVertexWithUV((double)var10, 0.0D, (double)(0.0F - par5), (double)var9, (double)par4);
-			par0Tessellator.addVertexWithUV((double)var10, 0.0D, 0.0D, (double)var9, (double)par4);
-			par0Tessellator.addVertexWithUV((double)var10, 1.0D, 0.0D, (double)var9, (double)par2);
-			par0Tessellator.addVertexWithUV((double)var10, 1.0D, (double)(0.0F - par5), (double)var9, (double)par2);
+			par0Tessellator.addVertexWithUV((double) var10, 0.0D, (double) (0.0F - par5), (double) var9, (double) par4);
+			par0Tessellator.addVertexWithUV((double) var10, 0.0D, 0.0D, (double) var9, (double) par4);
+			par0Tessellator.addVertexWithUV((double) var10, 1.0D, 0.0D, (double) var9, (double) par2);
+			par0Tessellator.addVertexWithUV((double) var10, 1.0D, (double) (0.0F - par5), (double) var9, (double) par2);
 		}
 
 		par0Tessellator.draw();
@@ -101,13 +103,13 @@ public class ItemRenderRice implements IItemRenderer
 
 		for (var7 = 0; var7 < tileSize; ++var7)
 		{
-			var8 = (float)var7 / tileSize;
+			var8 = (float) var7 / tileSize;
 			var9 = par1 + (par3 - par1) * var8 - tx;
 			var10 = var6 * var8 + tz;
-			par0Tessellator.addVertexWithUV((double)var10, 1.0D, (double)(0.0F - par5), (double)var9, (double)par2);
-			par0Tessellator.addVertexWithUV((double)var10, 1.0D, 0.0D, (double)var9, (double)par2);
-			par0Tessellator.addVertexWithUV((double)var10, 0.0D, 0.0D, (double)var9, (double)par4);
-			par0Tessellator.addVertexWithUV((double)var10, 0.0D, (double)(0.0F - par5), (double)var9, (double)par4);
+			par0Tessellator.addVertexWithUV((double) var10, 1.0D, (double) (0.0F - par5), (double) var9, (double) par2);
+			par0Tessellator.addVertexWithUV((double) var10, 1.0D, 0.0D, (double) var9, (double) par2);
+			par0Tessellator.addVertexWithUV((double) var10, 0.0D, 0.0D, (double) var9, (double) par4);
+			par0Tessellator.addVertexWithUV((double) var10, 0.0D, (double) (0.0F - par5), (double) var9, (double) par4);
 		}
 
 		par0Tessellator.draw();
@@ -116,13 +118,13 @@ public class ItemRenderRice implements IItemRenderer
 
 		for (var7 = 0; var7 < tileSize; ++var7)
 		{
-			var8 = (float)var7 / tileSize;
+			var8 = (float) var7 / tileSize;
 			var9 = par4 + (par2 - par4) * var8 - tx;
 			var10 = var6 * var8 + tz;
-			par0Tessellator.addVertexWithUV(0.0D, (double)var10, 0.0D, (double)par1, (double)var9);
-			par0Tessellator.addVertexWithUV((double)var6, (double)var10, 0.0D, (double)par3, (double)var9);
-			par0Tessellator.addVertexWithUV((double)var6, (double)var10, (double)(0.0F - par5), (double)par3, (double)var9);
-			par0Tessellator.addVertexWithUV(0.0D, (double)var10, (double)(0.0F - par5), (double)par1, (double)var9);
+			par0Tessellator.addVertexWithUV(0.0D, (double) var10, 0.0D, (double) par1, (double) var9);
+			par0Tessellator.addVertexWithUV((double) var6, (double) var10, 0.0D, (double) par3, (double) var9);
+			par0Tessellator.addVertexWithUV((double) var6, (double) var10, (double) (0.0F - par5), (double) par3, (double) var9);
+			par0Tessellator.addVertexWithUV(0.0D, (double) var10, (double) (0.0F - par5), (double) par1, (double) var9);
 		}
 
 		par0Tessellator.draw();
@@ -131,13 +133,13 @@ public class ItemRenderRice implements IItemRenderer
 
 		for (var7 = 0; var7 < tileSize; ++var7)
 		{
-			var8 = (float)var7 / tileSize;
+			var8 = (float) var7 / tileSize;
 			var9 = par4 + (par2 - par4) * var8 - tx;
 			var10 = var6 * var8;
-			par0Tessellator.addVertexWithUV((double)var6, (double)var10, 0.0D, (double)par3, (double)var9);
-			par0Tessellator.addVertexWithUV(0.0D, (double)var10, 0.0D, (double)par1, (double)var9);
-			par0Tessellator.addVertexWithUV(0.0D, (double)var10, (double)(0.0F - par5), (double)par1, (double)var9);
-			par0Tessellator.addVertexWithUV((double)var6, (double)var10, (double)(0.0F - par5), (double)par3, (double)var9);
+			par0Tessellator.addVertexWithUV((double) var6, (double) var10, 0.0D, (double) par3, (double) var9);
+			par0Tessellator.addVertexWithUV(0.0D, (double) var10, 0.0D, (double) par1, (double) var9);
+			par0Tessellator.addVertexWithUV(0.0D, (double) var10, (double) (0.0F - par5), (double) par1, (double) var9);
+			par0Tessellator.addVertexWithUV((double) var6, (double) var10, (double) (0.0F - par5), (double) par3, (double) var9);
 		}
 
 		par0Tessellator.draw();

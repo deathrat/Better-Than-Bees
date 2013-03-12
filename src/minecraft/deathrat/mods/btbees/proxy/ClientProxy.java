@@ -25,7 +25,8 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.preloadTexture(BetterThanBees.getResourcesPath() + "boatHull.uvw.png");
 		RenderingRegistry.registerBlockHandler(new RenderRice());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRicePlant.class, new RiceBaseRender());
-//		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWok.class, new RenderWok());
+		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWok.class, new
+		// RenderWok());
 		RenderingRegistry.registerEntityRenderingHandler(CheapBoat.class, new RenderCheapBoat());
 	}
 }

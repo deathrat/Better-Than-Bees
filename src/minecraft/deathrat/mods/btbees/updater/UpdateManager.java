@@ -19,7 +19,7 @@ public class UpdateManager implements IScheduledTickHandler
 	{
 		_mod = mod;
 		_updateThread = new UpdateCheckThread(mod, "https://raw.github.com/deathrat/", "/master/VERSION");
-		if(CoreCore.doUpdateCheck.getBoolean(true))
+		if (CoreCore.doUpdateCheck.getBoolean(true))
 		{
 			_updateThread.start();
 		}
@@ -28,14 +28,14 @@ public class UpdateManager implements IScheduledTickHandler
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData)
 	{
-		if(!_notificationDisplayed && _updateThread.checkComplete())
+		if (!_notificationDisplayed && _updateThread.checkComplete())
 		{
 			_notificationDisplayed = true;
-			if(_updateThread.newVersionAvailable())
+			if (_updateThread.newVersionAvailable())
 			{
 				EntityPlayer player = (EntityPlayer) tickData[0];
 				player.sendChatToPlayer("[" + _mod.getModName() + "] A new version is available: " + _updateThread.newVersion().modVersion().toString());
-				player.sendChatToPlayer( _updateThread.newVersion().description());
+				player.sendChatToPlayer(_updateThread.newVersion().description());
 			}
 		}
 	}
@@ -64,7 +64,7 @@ public class UpdateManager implements IScheduledTickHandler
 	@Override
 	public int nextTickSpacing()
 	{
-		if(!_notificationDisplayed)
+		if (!_notificationDisplayed)
 		{
 			return 400;
 		}

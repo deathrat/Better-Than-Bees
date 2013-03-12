@@ -15,7 +15,7 @@ import deathrat.mods.btbees.power.PowerProviderBTB;
 public abstract class TileEntityMachine extends TileEntity implements IPowerReceptor
 {
 	public PowerProviderBTB powerProvider;
-	
+
 	public boolean isActive;
 
 	protected float minPower = 0.5F;
@@ -24,21 +24,21 @@ public abstract class TileEntityMachine extends TileEntity implements IPowerRece
 	protected int minPowerLevel = (2 * maxEnergy / 10);
 	protected int maxPowerLevel = (8 * maxEnergy / 10);
 	protected int energyRamp = (maxPowerLevel / maxPower);
-	
+
 	public TileEntityMachine()
 	{
 		powerProvider = new PowerProviderBTB();
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
-		
+
 		float energy = this.powerProvider.getEnergyStored();
 		tagCompound.setFloat("energyLevel", energy);
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound)
 	{
@@ -47,15 +47,15 @@ public abstract class TileEntityMachine extends TileEntity implements IPowerRece
 		{
 			float energy = tagCompound.getFloat("energyLevel");
 			this.powerProvider.setEnergyStored(energy);
-			if(Float.isNaN(powerProvider.getEnergyStored()))
+			if (Float.isNaN(powerProvider.getEnergyStored()))
 				powerProvider.setEnergyStored(0.0F);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			powerProvider.setEnergyStored(0.0F);
 		}
 	}
-	
+
 	public float getEnergy()
 	{
 		return powerProvider.getEnergyStored();
@@ -68,14 +68,14 @@ public abstract class TileEntityMachine extends TileEntity implements IPowerRece
 
 	public float getPower()
 	{
-		if(!isActive)
+		if (!isActive)
 			return 0.0F;
-		if(powerProvider.getMaxEnergyStored() > maxPowerLevel)
+		if (powerProvider.getMaxEnergyStored() > maxPowerLevel)
 			return maxPower;
-		if(powerProvider.getMaxEnergyStored() < minPowerLevel)
+		if (powerProvider.getMaxEnergyStored() < minPowerLevel)
 			return minPower;
 
-		int intPower = (int)(10.0F * powerProvider.getEnergyStored() / energyRamp);
+		int intPower = (int) (10.0F * powerProvider.getEnergyStored() / energyRamp);
 		return intPower / 10.0F;
 	}
 
@@ -108,21 +108,21 @@ public abstract class TileEntityMachine extends TileEntity implements IPowerRece
 		{
 			return 0;
 		}
-		return (int)Math.ceil(Math.min(powerProvider.getMaxEnergyReceived(), powerProvider.getMaxEnergyStored() - powerProvider.getEnergyStored()));
+		return (int) Math.ceil(Math.min(powerProvider.getMaxEnergyReceived(), powerProvider.getMaxEnergyStored() - powerProvider.getEnergyStored()));
 	}
-	
+
 	public int getScaledEnergyStored(int scale)
 	{
 		return Math.round(powerProvider.getEnergyStored() * scale / powerProvider.getMaxEnergyStored());
 	}
-	
+
 	public void handlePacketData(INetworkManager manager, Packet250CustomPayload packet, Player player, ByteArrayDataInput data, float energyLevel)
 	{
 		try
 		{
 			this.powerProvider.setEnergyStored(energyLevel);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

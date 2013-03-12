@@ -13,17 +13,16 @@ public class TileEntityBoilerTank extends TileEntity implements ITankContainer
 {
 	public LiquidTank tank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME * 8);
 
-	
 	public TileEntityBoilerTank()
 	{
 	}
-	
+
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
 	}
-	
+
 	public int getScaledWaterLevel(int i)
 	{
 		System.out.println("Scaled waterlevel: " + this.tank.getLiquid().amount * i / this.tank.getCapacity());
@@ -70,22 +69,22 @@ public class TileEntityBoilerTank extends TileEntity implements ITankContainer
 	{
 		return tank;
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
-		
-		if(tank.getLiquid() != null)
+
+		if (tank.getLiquid() != null)
 			tagCompound.setTag("tank", tank.getLiquid().writeToNBT(new NBTTagCompound()));
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound)
 	{
 		super.readFromNBT(tagCompound);
-		
-		if(tagCompound.hasKey("tank"))
+
+		if (tagCompound.hasKey("tank"))
 		{
 			LiquidStack liquidStack = new LiquidStack(0, 0, 0);
 			liquidStack.readFromNBT(tagCompound.getCompoundTag("tank"));

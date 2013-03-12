@@ -30,32 +30,31 @@ public class ClientPacketHandler implements IPacketHandler
 			int y = data.readInt();
 			int z = data.readInt();
 			int meta = data.readInt();
-			World world = ((EntityPlayer)player).worldObj;
+			World world = ((EntityPlayer) player).worldObj;
 
-			if(world != null)
+			if (world != null)
 			{
 				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 
-				if(tileEntity != null)
+				if (tileEntity != null)
 				{
-					if(tileEntity instanceof TileEntityRicePlant)
+					if (tileEntity instanceof TileEntityRicePlant)
 					{
-						((TileEntityRicePlant)tileEntity).handlePacketData(manager, packet, player, data, meta);
+						((TileEntityRicePlant) tileEntity).handlePacketData(manager, packet, player, data, meta);
 					}
 
-					if(tileEntity instanceof TileEntityBoiler)
+					if (tileEntity instanceof TileEntityBoiler)
 					{
 						float energyLevel = data.readFloat();
-						((TileEntityBoiler)tileEntity).handlePacketData(manager, packet, player, data, energyLevel);
+						((TileEntityBoiler) tileEntity).handlePacketData(manager, packet, player, data, energyLevel);
 					}
 				}
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-
 
 }

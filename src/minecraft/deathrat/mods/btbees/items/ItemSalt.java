@@ -12,8 +12,7 @@ public class ItemSalt extends Item implements ICookingSpice
 	{
 		super(par1);
 	}
-	
-	
+
 	@Override
 	public String getTextureFile()
 	{
@@ -25,5 +24,5 @@ public class ItemSalt extends Item implements ICookingSpice
 	{
 		return null;
 	}
-	
+
 }

@@ -30,7 +30,7 @@ public class MFRSeedsPatch implements IFactoryPlantable
 	@Override
 	public boolean canBePlantedHere(World world, int x, int y, int z, ItemStack stack)
 	{
-		if(world.getBlockMaterial(x, y-1, z) == Material.water && world.getBlockMetadata(x, y-1, z) == 0 && world.isAirBlock(x, y, z))
+		if (world.getBlockMaterial(x, y - 1, z) == Material.water && world.getBlockMetadata(x, y - 1, z) == 0 && world.isAirBlock(x, y, z))
 		{
 			return true;
 		}

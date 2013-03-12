@@ -28,9 +28,9 @@ public class RenderRice implements ISimpleBlockRenderingHandler
 	{
 		Tessellator var5 = Tessellator.instance;
 		TileEntity te = world.getBlockTileEntity(x, y, z);
-		if((te != null) && (te instanceof TileEntityRicePlant))
+		if ((te != null) && (te instanceof TileEntityRicePlant))
 		{
-			TileEntityRicePlant teRice = (TileEntityRicePlant)te;
+			TileEntityRicePlant teRice = (TileEntityRicePlant) te;
 			ForgeHooksClient.bindTexture(BetterThanBees.terrainTextures, 0);
 		}
 
@@ -52,19 +52,17 @@ public class RenderRice implements ISimpleBlockRenderingHandler
 		return renderId;
 	}
 
-
 	public void renderBlockCropsImpl(Block block, IBlockAccess world, int par3, int par5, int par7)
 	{
 		Tessellator var9 = Tessellator.instance;
 		int var10 = block.getBlockTexture(world, par3, par5, par7, 0);
 
-
 		int var11 = (var10 & 0xF) << 4;
 		int var12 = var10 & 0xF0;
-		double var13 = (double)((float)var11 / 256.0F);
-		double var15 = (double)(((float)var11 + 15.99F) / 256.0F);
-		double var17 = (double)((float)var12 / 256.0F);
-		double var19 = (double)(((float)var12 + 15.99F) / 256.0F);
+		double var13 = (double) ((float) var11 / 256.0F);
+		double var15 = (double) (((float) var11 + 15.99F) / 256.0F);
+		double var17 = (double) ((float) var12 / 256.0F);
+		double var19 = (double) (((float) var12 + 15.99F) / 256.0F);
 		double var21 = par3 + 0.5D - 0.25D;
 		double var23 = par3 + 0.5D + 0.25D;
 		double var25 = par7 + 0.5D - 0.5D;

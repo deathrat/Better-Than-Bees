@@ -57,7 +57,7 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
 		{
 			if (!world.isRemote)
 			{
-				((BlockSapling)Block.sapling).growTree(world, x, y, z, world.rand);
+				((BlockSapling) Block.sapling).growTree(world, x, y, z, world.rand);
 				--itemStack.stackSize;
 			}
 
@@ -66,7 +66,7 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
 
 		if (block == Block.mushroomBrown.blockID || block == Block.mushroomRed.blockID)
 		{
-			if (!world.isRemote && ((BlockMushroom)Block.blocksList[block]).fertilizeMushroom(world, x, y, z, world.rand))
+			if (!world.isRemote && ((BlockMushroom) Block.blocksList[block]).fertilizeMushroom(world, x, y, z, world.rand))
 			{
 				--itemStack.stackSize;
 			}
@@ -83,7 +83,7 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
 
 			if (!world.isRemote)
 			{
-				((BlockStem)Block.blocksList[block]).fertilizeStem(world, x, y, z);
+				((BlockStem) Block.blocksList[block]).fertilizeStem(world, x, y, z);
 				--itemStack.stackSize;
 			}
 
@@ -99,7 +99,7 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
 
 			if (!world.isRemote)
 			{
-				((BlockCrops)Block.blocksList[block]).fertilize(world, x, y, z);
+				((BlockCrops) Block.blocksList[block]).fertilize(world, x, y, z);
 				--itemStack.stackSize;
 			}
 
@@ -162,7 +162,7 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
 			return true;
 		}
 
-		if(block == BetterThanBees.ricePlantID)
+		if (block == BetterThanBees.ricePlantID)
 		{
 			BlockRicePlant.setPlantMeta(world, x, y, z, 3);
 			--itemStack.stackSize;
@@ -194,7 +194,5 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
 	{
 		--fertilizer.stackSize;
 	}
-
-
 
 }

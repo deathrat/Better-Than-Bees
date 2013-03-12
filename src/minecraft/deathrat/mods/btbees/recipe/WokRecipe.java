@@ -35,43 +35,43 @@ public class WokRecipe
 	{
 		return result;
 	}
-	
+
 	public ItemStack getResultStack()
 	{
-		return new ItemStack((Item)result, 1).copy();
+		return new ItemStack((Item) result, 1).copy();
 	}
-	
+
 	public boolean matches(Object[] itemStacks)
 	{
 		ArrayList stackList = new ArrayList(items);
-		for(int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			ItemStack is = (ItemStack)itemStacks[i];
-			
-			if(is != null)
+			ItemStack is = (ItemStack) itemStacks[i];
+
+			if (is != null)
 			{
 				boolean var1 = false;
 				Iterator it = stackList.iterator();
-				
-				while(it.hasNext())
+
+				while (it.hasNext())
 				{
-					ItemStack is2 = (ItemStack)it.next();
-					
-					if(is.itemID == is2.itemID && (is2.getItemDamage() == -1 || is.getItemDamage() == is2.getItemDamage()))
+					ItemStack is2 = (ItemStack) it.next();
+
+					if (is.itemID == is2.itemID && (is2.getItemDamage() == -1 || is.getItemDamage() == is2.getItemDamage()))
 					{
 						var1 = true;
 						stackList.remove(is2);
 						break;
 					}
 				}
-				
-				if(!var1)
+
+				if (!var1)
 					return false;
 			}
 		}
 		return stackList.isEmpty();
 	}
-	
+
 	public int getRecipeSize()
 	{
 		return this.items.size();

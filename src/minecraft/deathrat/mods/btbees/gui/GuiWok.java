@@ -30,22 +30,22 @@ public class GuiWok extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
 	{
-		int texture = mc.renderEngine.getTexture(BetterThanBees.getResourcesPath()+"gui_wok.png");
+		int texture = mc.renderEngine.getTexture(BetterThanBees.getResourcesPath() + "gui_wok.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(texture);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-		
-		if(tileEntity.isBurning())
+
+		if (tileEntity.isBurning())
 		{
 			int burnTime = tileEntity.getBurnTimeRemainingScaled(14);
 			drawTexturedModalRect(x + 8, y + 47, 176, 0, 14, 14 - burnTime);
 		}
 
-		//Arrow
+		// Arrow
 		int cookTime = tileEntity.getCookProgressScaled(24);
-		if(cookTime > 0)
-			drawTexturedModalRect(x + 31, y + 28, 176 + cookTime - cookTime, 14, cookTime-1, 16);
+		if (cookTime > 0)
+			drawTexturedModalRect(x + 31, y + 28, 176 + cookTime - cookTime, 14, cookTime - 1, 16);
 	}
 }

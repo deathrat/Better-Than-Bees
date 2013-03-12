@@ -18,7 +18,6 @@ public class BTBCreativeTab extends CreativeTabs
 		return BetterThanBees.cookedRiceBowl.itemID;
 	}
 
-
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getTabLabel()
@@ -30,6 +29,6 @@ public class BTBCreativeTab extends CreativeTabs
 	@SideOnly(Side.CLIENT)
 	public String getTranslatedTabLabel()
 	{
-		return ""+this.getTabLabel();
+		return "" + this.getTabLabel();
 	}
 }

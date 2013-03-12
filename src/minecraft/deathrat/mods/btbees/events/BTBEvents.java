@@ -8,15 +8,15 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 public class BTBEvents
 {
-	
+
 	@ForgeSubscribe
 	public void mobDrops(LivingDeathEvent event)
 	{
-		if(!event.entityLiving.worldObj.isRemote)
+		if (!event.entityLiving.worldObj.isRemote)
 		{
-			if(event.entityLiving instanceof EntitySheep)
+			if (event.entityLiving instanceof EntitySheep)
 			{
-				if(((EntitySheep) event.entityLiving).getGrowingAge() < 0)
+				if (((EntitySheep) event.entityLiving).getGrowingAge() < 0)
 				{
 					event.entityLiving.entityDropItem(new ItemStack(BetterThanBees.sheepMeat, 1, 2), 0.0F);
 				}

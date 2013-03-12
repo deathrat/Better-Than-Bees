@@ -10,11 +10,11 @@ public class SpeedBuff implements ICookingBuff
 {
 	public String buffName;
 	public boolean isActive;
-	
+
 	public SpeedBuff()
 	{
 	}
-	
+
 	@Override
 	public String getBuffName()
 	{
@@ -53,22 +53,22 @@ public class SpeedBuff implements ICookingBuff
 	{
 		return isActive;
 	}
-	
+
 	public void updateBuff(EntityPlayer entityPlayer)
 	{
 		long startingTime = System.currentTimeMillis();
-		while(isActive())
+		while (isActive())
 		{
-			if(startingTime < startingTime + TimeUnit.SECONDS.toNanos(getBuffDuration()))
+			if (startingTime < startingTime + TimeUnit.SECONDS.toNanos(getBuffDuration()))
 			{
 				continue;
 			}
-			else if(startingTime >= startingTime + TimeUnit.SECONDS.toNanos(getBuffDuration()))
+			else if (startingTime >= startingTime + TimeUnit.SECONDS.toNanos(getBuffDuration()))
 			{
 				updateBuff(entityPlayer);
 			}
 		}
 		return;
 	}
-	
+
 }

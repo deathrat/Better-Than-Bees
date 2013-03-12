@@ -14,11 +14,11 @@ public class BTBGuiHandler implements IGuiHandler
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if(tileEntity instanceof TileEntityWok)
+		if (tileEntity instanceof TileEntityWok)
 		{
 			return new ContainerWok(player.inventory, (TileEntityWok) tileEntity);
 		}
-		if(tileEntity instanceof TileEntityBoiler)
+		if (tileEntity instanceof TileEntityBoiler)
 		{
 			return new ContainerBoiler(player.inventory, (TileEntityBoiler) tileEntity);
 		}
@@ -29,11 +29,11 @@ public class BTBGuiHandler implements IGuiHandler
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if(tileEntity instanceof TileEntityWok)
+		if (tileEntity instanceof TileEntityWok)
 		{
 			return new GuiWok(player.inventory, (TileEntityWok) tileEntity);
 		}
-		if(tileEntity instanceof TileEntityBoiler)
+		if (tileEntity instanceof TileEntityBoiler)
 		{
 			return new GuiBoiler(player.inventory, (TileEntityBoiler) tileEntity);
 		}
