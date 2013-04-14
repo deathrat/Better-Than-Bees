@@ -18,7 +18,7 @@ public class SpeedBuff implements ICookingBuff
 	@Override
 	public String getBuffName()
 	{
-		return buffName;
+		return "Speed Buff";
 	}
 
 	@Override

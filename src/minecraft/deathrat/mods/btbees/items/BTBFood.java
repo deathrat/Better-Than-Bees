@@ -8,15 +8,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import deathrat.mods.btbees.BetterThanBees;
+import deathrat.mods.btbees.api.BuffRegistry;
 import deathrat.mods.btbees.api.ICookingBuff;
 import deathrat.mods.btbees.api.ICookingResult;
 
 public class BTBFood extends ItemFood implements ICookingResult
 {
 	public boolean hasBowl = false;
-	public ICookingBuff buff = null;
 
 	public BTBFood(int id, int healAmount, float saturation, boolean isWolfFood)
 	{
@@ -26,16 +27,6 @@ public class BTBFood extends ItemFood implements ICookingResult
 	public BTBFood(int id, int healAmount, boolean isWolfFood)
 	{
 		this(id, healAmount, 0.6F, isWolfFood);
-	}
-
-	public void setCookingBuff(ICookingBuff buff)
-	{
-		this.buff = buff;
-	}
-
-	public ICookingBuff getCookingBuff()
-	{
-		return buff;
 	}
 
 	@Override
@@ -48,7 +39,7 @@ public class BTBFood extends ItemFood implements ICookingResult
 	{
 		this.hasBowl = hasBowl;
 	}
-
+	
 	@Override
 	public ItemStack onFoodEaten(ItemStack itemStack, World world, EntityPlayer entityPlayer)
 	{
@@ -57,16 +48,31 @@ public class BTBFood extends ItemFood implements ICookingResult
 			super.onFoodEaten(itemStack, world, entityPlayer);
 			return new ItemStack(Item.bowlEmpty);
 		}
-		buff.buffPlayer(entityPlayer);
+
+		String buffName = itemStack.getTagCompound().getString("cookingBuff");
+
+		ICookingBuff buff = BuffRegistry.getBuff(buffName);
+		if (buff != null)
+		{
+			buff.buffPlayer(entityPlayer);
+		}
 
 		return super.onFoodEaten(itemStack, world, entityPlayer);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+	public void addInformation(ItemStack is, EntityPlayer entityPlayer, List list, boolean par4)
 	{
-		if (buff != null)
-			par3List.add(getCookingBuff().getBuffName());
+		if(is.getTagCompound() != null)
+		{
+			String buffStr = is.getTagCompound().getString("cookingBuff");
+			if (buffStr != null || buffStr != "null")
+			{
+				ICookingBuff buff = BuffRegistry.getBuff(buffStr);
+				if (buff != null && buff.getBuffName() != "null")
+					list.add("Buff: " + buff.getBuffName());
+			}
+		}
 	}
 }

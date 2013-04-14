@@ -1,5 +1,7 @@
 package deathrat.mods.btbees;
 
+import java.io.File;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,6 +30,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+import deathrat.mods.btbees.api.BuffRegistry;
 import deathrat.mods.btbees.api.ICookingResult;
 import deathrat.mods.btbees.blocks.BlockBoiler;
 import deathrat.mods.btbees.blocks.BlockBoilerTank;
@@ -35,6 +38,7 @@ import deathrat.mods.btbees.blocks.BlockRicePlant;
 import deathrat.mods.btbees.blocks.BlockSalt;
 import deathrat.mods.btbees.blocks.BlockSteamer;
 import deathrat.mods.btbees.blocks.BlockWok;
+import deathrat.mods.btbees.buffs.HealBuff;
 import deathrat.mods.btbees.entity.CheapBoat;
 import deathrat.mods.btbees.events.BTBEvents;
 import deathrat.mods.btbees.events.PlayerTracker;
@@ -122,6 +126,7 @@ public class BetterThanBees implements IUpdateableMod
 		initializeBlocks();
 		initializeLanguageSetup();
 		initializeRecipes();
+		initializeBuffs();
 		initializeCustomCreative();
 		initializeGui();
 		initializeEntities();
@@ -129,6 +134,11 @@ public class BetterThanBees implements IUpdateableMod
 		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
 
 		proxy.init();
+	}
+
+	private void initializeBuffs()
+	{
+		BuffRegistry.addBuff(new HealBuff(4));
 	}
 
 	private void initializeEntities()
@@ -162,11 +172,8 @@ public class BetterThanBees implements IUpdateableMod
 
 	private void initializeRecipes()
 	{
-		// GameRegistry.addSmelting(uncookedRiceID, new
-		// ItemStack(cookedRiceBall), 2.0F);
-		// WokRecipes.addRecipe(new Item[] {uncookedRice, uncookedRice,
-		// sheepMeat}, (ICookingResult) cookedRiceRoll);
 		WokRecipes.addRecipe((ICookingResult) cookedRiceBall, new Object[] { uncookedRice });
+		WokRecipes.addRecipe((ICookingResult) breadCrumbs, new Object[] { Item.bread });
 		FurnaceRecipes.smelting().addSmelting(sheepMeat.itemID, 0, new ItemStack(sheepMeat, 1, 1), 0.0F);
 		FurnaceRecipes.smelting().addSmelting(sheepMeat.itemID, 2, new ItemStack(sheepMeat, 1, 3), 0.0F);
 		GameRegistry.addShapelessRecipe(new ItemStack(uncookedRice, 1), new ItemStack(this.riceHusk));

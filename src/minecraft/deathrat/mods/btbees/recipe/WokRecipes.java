@@ -40,7 +40,7 @@ public class WokRecipes
 		return null;
 	}
 
-	public static void addRecipe(ICookingResult result, Object... is)
+	private static ArrayList addRecipe(Object... is)
 	{
 		ArrayList objList = new ArrayList();
 		Object[] array = is;
@@ -64,6 +64,18 @@ public class WokRecipes
 				objList.add(new ItemStack((Block) obj));
 			}
 		}
+		return objList;
+	}
+
+	public static void addRecipe(ICookingResult result, Object... is)
+	{
+		ArrayList objList = WokRecipes.addRecipe(is);
+		recipes.add(new WokRecipe(objList, result));
+	}
+
+	public static void addRecipe(Item result, Object... is)
+	{
+		ArrayList objList = WokRecipes.addRecipe(is);
 		recipes.add(new WokRecipe(objList, result));
 	}
 

@@ -14,6 +14,7 @@ public class WokRecipe
 {
 	private List items;
 	private ICookingResult result;
+	private Item itemResult;
 
 	public WokRecipe(List is)
 	{
@@ -25,6 +26,12 @@ public class WokRecipe
 		this(is);
 		this.result = result;
 	}
+	
+	public WokRecipe(List is, Item result)
+	{
+		this(is);
+		this.itemResult = result;
+	}
 
 	public List getItems()
 	{
@@ -35,9 +42,18 @@ public class WokRecipe
 	{
 		return result;
 	}
+	
+	public Item getItemResult()
+	{
+		return itemResult;
+	}
 
 	public ItemStack getResultStack()
 	{
+		if(result == null)
+		{
+			return new ItemStack((Item) itemResult, 1).copy();
+		}
 		return new ItemStack((Item) result, 1).copy();
 	}
 

@@ -1,5 +1,6 @@
 package deathrat.mods.btbees.gui;
 
+import deathrat.mods.btbees.api.BuffRegistry;
 import deathrat.mods.btbees.api.ICookingBuff;
 import deathrat.mods.btbees.api.ICookingResult;
 import deathrat.mods.btbees.api.ICookingSpice;
@@ -9,6 +10,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class SlotResult extends Slot
 {
@@ -17,35 +19,43 @@ public class SlotResult extends Slot
 	{
 		super(par1iInventory, par2, par3, par4);
 	}
+	
+	@Override
+	public void putStack(ItemStack is)
+	{
+		if(is != null && is.getTagCompound() == null)
+		{
+			is.setTagCompound(new NBTTagCompound());
+		}
+		super.putStack(is);
+	}
 
 	@Override
 	public void onPickupFromSlot(EntityPlayer entityPlayer, ItemStack is)
 	{
-		super.onPickupFromSlot(entityPlayer, is);
+		Item spice = inventory.getStackInSlot(2).getItem();
+		ItemStack spiceStack = inventory.getStackInSlot(2);
 
-		// Item spice = inventory.getStackInSlot(2).getItem();
-		// ItemStack spiceStack = inventory.getStackInSlot(2);
-		//
-		// if((spice != null) && (spice instanceof ICookingSpice))
-		// {
-		// ICookingBuff buff = ((ICookingSpice)spice).getCookingBuff();
-		// ICookingResult cookingItem = (ICookingResult)is.getItem();
-		//
-		// cookingItem.setCookingBuff(buff);
-		// --spiceStack.stackSize;
-		//
-		// }
-		// --is.stackSize;
+		if ((spiceStack != null) && (spice instanceof ICookingSpice))
+		{
+			ICookingResult cookingItem = (ICookingResult) is.getItem();
+			ICookingBuff buff = ((ICookingSpice) spice).getCookingBuff();
+			
+			if(buff != null)
+			{
+				NBTTagCompound tag = is.getTagCompound();
+				
+				tag.setString("cookingBuff", buff.getBuffName() );
+				--spiceStack.stackSize;
+			}
+
+		}
 		if (inventory.getStackInSlot(3) != null)
 		{
 			((TileEntityWok) inventory).clearBuffer();
 			((TileEntityWok) inventory).updateResult();
 		}
-
-		if (inventory.getStackInSlot(2) != null)
-		{
-
-		}
+		super.onPickupFromSlot(entityPlayer, is);
 	}
 
 	@Override

@@ -35,7 +35,6 @@ public class TileEntityWok extends TileEntity implements IInventory
 	public int furnaceCookTime;
 	public int furnaceBurnTime;
 	public int currentItemBurnTime;
-	public boolean shouldSmelt = false;
 
 	public TileEntityWok()
 	{
