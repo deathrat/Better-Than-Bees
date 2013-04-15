@@ -4,11 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.client.ForgeHooksClient;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 public class RenderRice implements ISimpleBlockRenderingHandler
@@ -31,7 +30,7 @@ public class RenderRice implements ISimpleBlockRenderingHandler
 		if ((te != null) && (te instanceof TileEntityRicePlant))
 		{
 			TileEntityRicePlant teRice = (TileEntityRicePlant) te;
-			ForgeHooksClient.bindTexture(BetterThanBees.terrainTextures, 0);
+			// FMLClientHandler.instance().getClient().renderEngine.bindTexture("");
 		}
 
 		var5.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
@@ -52,57 +51,55 @@ public class RenderRice implements ISimpleBlockRenderingHandler
 		return renderId;
 	}
 
-	public void renderBlockCropsImpl(Block block, IBlockAccess world, int par3, int par5, int par7)
+	public void renderBlockCropsImpl(Block block, IBlockAccess world, int x, int y, int z)
 	{
-		Tessellator var9 = Tessellator.instance;
-		int var10 = block.getBlockTexture(world, par3, par5, par7, 0);
+		Tessellator tessellator = Tessellator.instance;
+		Icon icon = block.getBlockTexture(world, x, y, z, 0);
 
-		int var11 = (var10 & 0xF) << 4;
-		int var12 = var10 & 0xF0;
-		double var13 = (double) ((float) var11 / 256.0F);
-		double var15 = (double) (((float) var11 + 15.99F) / 256.0F);
-		double var17 = (double) ((float) var12 / 256.0F);
-		double var19 = (double) (((float) var12 + 15.99F) / 256.0F);
-		double var21 = par3 + 0.5D - 0.25D;
-		double var23 = par3 + 0.5D + 0.25D;
-		double var25 = par7 + 0.5D - 0.5D;
-		double var27 = par7 + 0.5D + 0.5D;
-		var9.addVertexWithUV(var21, par5 + 0.8D, var25, var13, var17);
-		var9.addVertexWithUV(var21, par5 + -0.2D, var25, var13, var19);
-		var9.addVertexWithUV(var21, par5 + -0.2D, var27, var15, var19);
-		var9.addVertexWithUV(var21, par5 + 0.8D, var27, var15, var17);
-		var9.addVertexWithUV(var21, par5 + 0.8D, var27, var13, var17);
-		var9.addVertexWithUV(var21, par5 + -0.2D, var27, var13, var19);
-		var9.addVertexWithUV(var21, par5 + -0.2D, var25, var15, var19);
-		var9.addVertexWithUV(var21, par5 + 0.8D, var25, var15, var17);
-		var9.addVertexWithUV(var23, par5 + 0.8D, var27, var13, var17);
-		var9.addVertexWithUV(var23, par5 + -0.2D, var27, var13, var19);
-		var9.addVertexWithUV(var23, par5 + -0.2D, var25, var15, var19);
-		var9.addVertexWithUV(var23, par5 + 0.8D, var25, var15, var17);
-		var9.addVertexWithUV(var23, par5 + 0.8D, var25, var13, var17);
-		var9.addVertexWithUV(var23, par5 + -0.2D, var25, var13, var19);
-		var9.addVertexWithUV(var23, par5 + -0.2D, var27, var15, var19);
-		var9.addVertexWithUV(var23, par5 + 0.8D, var27, var15, var17);
-		var21 = par3 + 0.5D - 0.5D;
-		var23 = par3 + 0.5D + 0.5D;
-		var25 = par7 + 0.5D - 0.25D;
-		var27 = par7 + 0.5D + 0.25D;
-		var9.addVertexWithUV(var21, par5 + 0.8D, var25, var13, var17);
-		var9.addVertexWithUV(var21, par5 + -0.2D, var25, var13, var19);
-		var9.addVertexWithUV(var23, par5 + -0.2D, var25, var15, var19);
-		var9.addVertexWithUV(var23, par5 + 0.8D, var25, var15, var17);
-		var9.addVertexWithUV(var23, par5 + 0.8D, var25, var13, var17);
-		var9.addVertexWithUV(var23, par5 + -0.2D, var25, var13, var19);
-		var9.addVertexWithUV(var21, par5 + -0.2D, var25, var15, var19);
-		var9.addVertexWithUV(var21, par5 + 0.8D, var25, var15, var17);
-		var9.addVertexWithUV(var23, par5 + 0.8D, var27, var13, var17);
-		var9.addVertexWithUV(var23, par5 + -0.2D, var27, var13, var19);
-		var9.addVertexWithUV(var21, par5 + -0.2D, var27, var15, var19);
-		var9.addVertexWithUV(var21, par5 + 0.8D, var27, var15, var17);
-		var9.addVertexWithUV(var21, par5 + 0.8D, var27, var13, var17);
-		var9.addVertexWithUV(var21, par5 + -0.2D, var27, var13, var19);
-		var9.addVertexWithUV(var23, par5 + -0.2D, var27, var15, var19);
-		var9.addVertexWithUV(var23, par5 + 0.8D, var27, var15, var17);
+		double d3 = icon.getMinU();
+		double d4 = icon.getMinV();
+		double d5 = icon.getMaxU();
+		double d6 = icon.getMaxV();
+		double d7 = x + 0.5D - 0.25D;
+		double d8 = x + 0.5D + 0.25D;
+		double d9 = z + 0.5D - 0.5D;
+		double d10 = z + 0.5D + 0.5D;
+		tessellator.addVertexWithUV(d7, y + 0.8D, d9, d3, d4);
+		tessellator.addVertexWithUV(d7, y + -0.2D, d9, d3, d6);
+		tessellator.addVertexWithUV(d7, y + -0.2D, d10, d5, d6);
+		tessellator.addVertexWithUV(d7, y + 0.8D, d10, d5, d4);
+		tessellator.addVertexWithUV(d7, y + 0.8D, d10, d3, d4);
+		tessellator.addVertexWithUV(d7, y + -0.2D, d10, d3, d6);
+		tessellator.addVertexWithUV(d7, y + -0.2D, d9, d5, d6);
+		tessellator.addVertexWithUV(d7, y + 0.8D, d9, d5, d4);
+		tessellator.addVertexWithUV(d8, y + 0.8D, d10, d3, d4);
+		tessellator.addVertexWithUV(d8, y + -0.2D, d10, d3, d6);
+		tessellator.addVertexWithUV(d8, y + -0.2D, d9, d5, d6);
+		tessellator.addVertexWithUV(d8, y + 0.8D, d9, d5, d4);
+		tessellator.addVertexWithUV(d8, y + 0.8D, d9, d3, d4);
+		tessellator.addVertexWithUV(d8, y + -0.2D, d9, d3, d6);
+		tessellator.addVertexWithUV(d8, y + -0.2D, d10, d5, d6);
+		tessellator.addVertexWithUV(d8, y + 0.8D, d10, d5, d4);
+		d7 = x + 0.5D - 0.5D;
+		d8 = x + 0.5D + 0.5D;
+		d9 = z + 0.5D - 0.25D;
+		d10 = z + 0.5D + 0.25D;
+		tessellator.addVertexWithUV(d7, y + 0.8D, d9, d3, d4);
+		tessellator.addVertexWithUV(d7, y + -0.2D, d9, d3, d6);
+		tessellator.addVertexWithUV(d8, y + -0.2D, d9, d5, d6);
+		tessellator.addVertexWithUV(d8, y + 0.8D, d9, d5, d4);
+		tessellator.addVertexWithUV(d8, y + 0.8D, d9, d3, d4);
+		tessellator.addVertexWithUV(d8, y + -0.2D, d9, d3, d6);
+		tessellator.addVertexWithUV(d7, y + -0.2D, d9, d5, d6);
+		tessellator.addVertexWithUV(d7, y + 0.8D, d9, d5, d4);
+		tessellator.addVertexWithUV(d8, y + 0.8D, d10, d3, d4);
+		tessellator.addVertexWithUV(d8, y + -0.2D, d10, d3, d6);
+		tessellator.addVertexWithUV(d7, y + -0.2D, d10, d5, d6);
+		tessellator.addVertexWithUV(d7, y + 0.8D, d10, d5, d4);
+		tessellator.addVertexWithUV(d7, y + 0.8D, d10, d3, d4);
+		tessellator.addVertexWithUV(d7, y + -0.2D, d10, d3, d6);
+		tessellator.addVertexWithUV(d8, y + -0.2D, d10, d5, d6);
+		tessellator.addVertexWithUV(d8, y + 0.8D, d10, d5, d4);
 	}
 
 	public static int renderId;

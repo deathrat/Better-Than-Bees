@@ -38,9 +38,8 @@ public class GuiBoiler extends GuiTE
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int xCoord, int yCoord)
 	{
-		int texture = mc.renderEngine.getTexture(BetterThanBees.getResourcesPath() + "gui_boiler.png");
+		this.mc.renderEngine.bindTexture(BetterThanBees.getResourcesPath() + "gui_boiler.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(texture);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
@@ -80,6 +79,6 @@ public class GuiBoiler extends GuiTE
 			drawTooltip("" + (int) tileEntity.getEnergy() + " / " + (int) tileEntity.getMaxEnergy() + " MJ");
 
 		if ((mouseX >= 173) && (mouseX < 190) && (mouseY >= 40) && (mouseY < 91) && this.tileEntity.boilerTank != null)
-			drawTooltip("" + (int) tileEntity.boilerTank.tank.getLiquid().amount + " / " + (int) tileEntity.boilerTank.tank.getCapacity() + " mB");
+			drawTooltip("" + tileEntity.boilerTank.tank.getLiquid().amount + " / " + tileEntity.boilerTank.tank.getCapacity() + " mB");
 	}
 }

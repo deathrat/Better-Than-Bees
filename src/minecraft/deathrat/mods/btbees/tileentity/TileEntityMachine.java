@@ -4,6 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
 
@@ -49,8 +50,7 @@ public abstract class TileEntityMachine extends TileEntity implements IPowerRece
 			this.powerProvider.setEnergyStored(energy);
 			if (Float.isNaN(powerProvider.getEnergyStored()))
 				powerProvider.setEnergyStored(0.0F);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			powerProvider.setEnergyStored(0.0F);
 		}
@@ -102,7 +102,7 @@ public abstract class TileEntityMachine extends TileEntity implements IPowerRece
 	}
 
 	@Override
-	public int powerRequest()
+	public int powerRequest(ForgeDirection from)
 	{
 		if (powerProvider.getEnergyStored() == powerProvider.getMaxEnergyStored())
 		{
@@ -121,8 +121,7 @@ public abstract class TileEntityMachine extends TileEntity implements IPowerRece
 		try
 		{
 			this.powerProvider.setEnergyStored(energyLevel);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}

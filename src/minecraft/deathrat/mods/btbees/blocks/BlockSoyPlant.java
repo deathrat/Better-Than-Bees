@@ -5,9 +5,9 @@ import net.minecraft.world.World;
 
 public class BlockSoyPlant extends BlockCrops
 {
-	protected BlockSoyPlant(int par1, int par2)
+	protected BlockSoyPlant(int par1)
 	{
-		super(par1, par2);
+		super(par1);
 
 		setTickRandomly(true);
 	}

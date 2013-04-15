@@ -3,18 +3,21 @@ package deathrat.mods.btbees.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
-import powercrystals.core.position.BlockPosition;
-
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import powercrystals.core.position.BlockPosition;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.api.IBoilerModule;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
@@ -22,6 +25,7 @@ import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 
 public class BlockBoiler extends BlockContainer
 {
+	public Icon boilerIcon;
 
 	public BlockBoiler(int id, Material mat)
 	{
@@ -29,7 +33,20 @@ public class BlockBoiler extends BlockContainer
 
 		setHardness(2.0F);
 		setResistance(5.0F);
-		setBlockName("blockBoiler");
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconReg)
+	{
+		boilerIcon = iconReg.registerIcon("btbees:boiler");
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon(int side, int meta)
+	{
+		return boilerIcon;
 	}
 
 	@Override
@@ -52,24 +69,11 @@ public class BlockBoiler extends BlockContainer
 			if (te instanceof IBoilerModule)
 			{
 				arrayList.add((IBoilerModule) te);
-			}
-			else if (te instanceof TileEntityBoilerTank) // Not used heh
+			} else if (te instanceof TileEntityBoilerTank) // Not used heh
 			{
 			}
 		}
 		((TileEntityBoiler) thisTE).setBoilerModules(arrayList);
-	}
-
-	@Override
-	public String getTextureFile()
-	{
-		return BetterThanBees.terrainTextures;
-	}
-
-	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int meta)
-	{
-		return 5;
 	}
 
 	@Override
@@ -79,15 +83,13 @@ public class BlockBoiler extends BlockContainer
 		if (tileEntity == null || player.isSneaking())
 		{
 			return false;
-		}
-		else if (player.getHeldItem() != null && player.getHeldItem().itemID == BetterThanBees.boilerTank.blockID && world.getBlockId(x, y + 1, z) == 0)
+		} else if (player.getHeldItem() != null && player.getHeldItem().itemID == BetterThanBees.boilerTank.blockID && world.getBlockId(x, y + 1, z) == 0)
 		{
 			if (!player.capabilities.isCreativeMode)
 				--player.getHeldItem().stackSize;
-			world.setBlockWithNotify(x, y + 1, z, BetterThanBees.boilerTank.blockID);
+			world.setBlock(x, y + 1, z, BetterThanBees.boilerTank.blockID);
 			return true;
-		}
-		else
+		} else
 		{
 			player.openGui(BetterThanBees.instance, 1, world, x, y, z);
 			return true;
@@ -126,7 +128,7 @@ public class BlockBoiler extends BlockContainer
 
 				if (item.hasTagCompound())
 				{
-					entityItem.func_92014_d().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
+					entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
 				}
 
 				float factor = 0.05F;

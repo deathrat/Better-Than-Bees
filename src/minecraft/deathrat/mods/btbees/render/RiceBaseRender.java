@@ -2,12 +2,11 @@ package deathrat.mods.btbees.render;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import deathrat.mods.btbees.BetterThanBees;
-import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 public class RiceBaseRender extends TileEntitySpecialRenderer
 {
@@ -29,7 +28,7 @@ public class RiceBaseRender extends TileEntitySpecialRenderer
 	{
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) x + 0.5F, (float) y + -1.65F, (float) z + 0.5F);
-		ForgeHooksClient.bindTexture(BetterThanBees.getResourcesPath() + "btb_ricebase.png", 0);
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(BetterThanBees.getResourcesPath() + "btb_ricebase.png");
 		GL11.glPushMatrix();
 		baseModel.render2(0.0625F);
 		GL11.glPopMatrix();
@@ -47,6 +46,6 @@ public class RiceBaseRender extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity var1, double var2, double var3, double var4, float var5)
 	{
-		renderRiceModel((TileEntityRicePlant) var1, var2, var3, var4, var5);
+		renderRiceModel(var1, var2, var3, var4, var5);
 	}
 }

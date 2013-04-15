@@ -1,19 +1,15 @@
 package deathrat.mods.btbees;
 
-import java.io.File;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.src.ModLoader;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import powercrystals.core.updater.IUpdateableMod;
 import thermalexpansion.api.crafting.CraftingManagers;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -74,7 +70,7 @@ public class BetterThanBees implements IUpdateableMod
 	public static CommonProxy proxy;
 
 	public final static String modId = "BetterThanBees";
-	public final static String version = "1.4.7R0.2.4";
+	public final static String version = "1.5.1R0.3.0";
 	public final static String modName = "Better Than Bees";
 
 	@PreInit
@@ -194,8 +190,8 @@ public class BetterThanBees implements IUpdateableMod
 		LanguageRegistry.addName(saltBlock, "Salt");
 		LanguageRegistry.addName(steamer, "Steamer");
 		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 0), "Raw Mutton");
-		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 1), "Cooked Mutton");
-		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 2), "Raw Lamb");
+		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 1), "Raw Lamb");
+		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 2), "Cooked Mutton");
 		LanguageRegistry.addName(new ItemStack(sheepMeat, 1, 3), "Cooked Lamb");
 		LanguageRegistry.addName(breadCrumbs, "Bread Crumbs");
 		LanguageRegistry.addName(boilerTank, "Boiler Tank");
@@ -204,42 +200,42 @@ public class BetterThanBees implements IUpdateableMod
 
 	private void initializeBlocks()
 	{
-		ricePlant = new BlockRicePlant(ricePlantID, 0);
-		GameRegistry.registerBlock(ricePlant, "ricePlant");
+		ricePlant = new BlockRicePlant(ricePlantID).setUnlocalizedName("btb.riceplant");
+		GameRegistry.registerBlock(ricePlant, ricePlant.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileEntityRicePlant.class, "RicePlant");
 
-		wok = new BlockWok(wokID, Material.iron);
-		GameRegistry.registerBlock(wok, "wok");
+		wok = new BlockWok(wokID, Material.iron).setUnlocalizedName("btb.wok");
+		GameRegistry.registerBlock(wok, wok.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileEntityWok.class, "Wok");
 
-		boiler = new BlockBoiler(boilerID, Material.iron);
-		GameRegistry.registerBlock(boiler, "Boiler");
+		boiler = new BlockBoiler(boilerID, Material.iron).setUnlocalizedName("btb.boiler");
+		GameRegistry.registerBlock(boiler, boiler.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileEntityBoiler.class, "Boiler");
 
-		steamer = new BlockSteamer(steamerID, Material.iron);
-		GameRegistry.registerBlock(steamer, "Steamer");
+		steamer = new BlockSteamer(steamerID, Material.iron).setUnlocalizedName("btb.steamer");
+		GameRegistry.registerBlock(steamer, steamer.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileEntitySteamer.class, "Steamer");
 
-		saltBlock = new BlockSalt(saltBlockID);
-		GameRegistry.registerBlock(saltBlock, "Salt");
+		saltBlock = new BlockSalt(saltBlockID).setUnlocalizedName("btb.salt");
+		GameRegistry.registerBlock(saltBlock, saltBlock.getUnlocalizedName());
 
-		boilerTank = new BlockBoilerTank(boilerTankID, Material.iron);
-		GameRegistry.registerBlock(boilerTank, "Boiler Tank");
+		boilerTank = new BlockBoilerTank(boilerTankID, Material.iron).setUnlocalizedName("btb.boilertank");
+		GameRegistry.registerBlock(boilerTank, boilerTank.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileEntityBoilerTank.class, "Boiler Tank");
 	}
 
 	private void initalizeItems()
 	{
-		cookedRiceBowl = new BTBFood(cookedRiceBowlID, 4, 5, false).setIconIndex(0).setItemName("riceBowl");
+		cookedRiceBowl = new BTBFood(cookedRiceBowlID, 4, 5, false).setName("ricebowl");
 		((BTBFood) cookedRiceBowl).setHasBowl(true);
-		cookedRiceBall = new BTBFood(cookedRiceBallID, 4, 3, false).setIconIndex(1).setItemName("riceBall");
-		cookedRiceRoll = new BTBFood(cookedRiceRollID, 4, 7, false).setIconIndex(2).setItemName("riceRoll");
-		uncookedRice = new ItemRiceSeeds(uncookedRiceID, ricePlantID).setIconIndex(3).setItemName("uncookedRice");
-		riceHusk = new ItemRiceHusk(riceHuskID).setIconIndex(4).setItemName("riceHusk");
-		saltItem = new ItemSalt(saltItemID).setIconIndex(6).setItemName("itemSalt");
-		sheepMeat = new ItemSheepMeat(sheepMeatID, 4, 7, true);
-		breadCrumbs = new ItemBreadCrumbs(breadCrumbsID).setIconIndex(9).setItemName("breadCrumbs");
-		boatItem = new BoatItem(boatItemID).setIconIndex(10).setItemName("boatItem");
+		cookedRiceBall = new BTBFood(cookedRiceBallID, 4, 3, false).setName("riceball");
+		cookedRiceRoll = new BTBFood(cookedRiceRollID, 4, 7, false).setName("riceroll");
+		uncookedRice = new ItemRiceSeeds(uncookedRiceID, ricePlantID).setUnlocalizedName("rice");
+		riceHusk = new ItemRiceHusk(riceHuskID).setUnlocalizedName("ricehusk");
+		saltItem = new ItemSalt(saltItemID).setUnlocalizedName("salt");
+		sheepMeat = new ItemSheepMeat(sheepMeatID, 4, 7, true).setUnlocalizedName("lamb");
+		breadCrumbs = new ItemBreadCrumbs(breadCrumbsID).setUnlocalizedName("breadcrumbs");
+		boatItem = new BoatItem(boatItemID).setUnlocalizedName("boatitem");
 
 		MinecraftForge.addGrassSeed(new ItemStack(uncookedRice), 8);
 	}

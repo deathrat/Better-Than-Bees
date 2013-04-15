@@ -1,19 +1,24 @@
 package deathrat.mods.btbees.blocks;
 
-import powercrystals.core.position.BlockPosition;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidStack;
+import powercrystals.core.position.BlockPosition;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
 
 public class BlockBoilerTank extends BlockContainer
 {
+	public Icon boilerTank;
 
 	public BlockBoilerTank(int id, Material material)
 	{
@@ -26,14 +31,27 @@ public class BlockBoilerTank extends BlockContainer
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconReg)
+	{
+		boilerTank = iconReg.registerIcon("btbees:boilertank");
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon(int side, int meta)
+	{
+		return boilerTank;
+	}
+
+	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y - 1, z);
 		if (tileEntity instanceof TileEntityBoiler)
 		{
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
@@ -57,8 +75,7 @@ public class BlockBoilerTank extends BlockContainer
 		if (boilerTE instanceof TileEntityBoiler)
 		{
 			((TileEntityBoiler) boilerTE).setBoilerTank((TileEntityBoilerTank) thisTE);
-		}
-		else
+		} else
 		{
 			return 0;
 		}

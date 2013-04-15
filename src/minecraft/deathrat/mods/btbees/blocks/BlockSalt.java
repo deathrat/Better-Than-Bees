@@ -2,28 +2,40 @@ package deathrat.mods.btbees.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.BetterThanBees;
 
 public class BlockSalt extends Block
 {
+	public Icon saltIcon;
 
 	public BlockSalt(int id)
 	{
 		super(id, Material.rock);
 		setHardness(0.5F);
 		setResistance(0.0F);
-		setBlockName("salt");
 	}
 
 	@Override
-	public int getBlockTextureFromSide(int par1)
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconReg)
 	{
-		return 10;
+		saltIcon = iconReg.registerIcon("btbees:salt");
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon(int side, int meta)
+	{
+		return saltIcon;
 	}
 
 	@Override
@@ -51,9 +63,8 @@ public class BlockSalt extends Block
 
 		if ((meta - 1) > 0)
 		{
-			world.setBlockMetadataWithNotify(x, y, z, meta - 1);
-		}
-		else
+			world.setBlockMetadataWithNotify(x, y, z, meta - 1, 3);
+		} else
 		{
 			world.setBlock(x, y, z, 0);
 		}
@@ -71,19 +82,7 @@ public class BlockSalt extends Block
 		{
 			return false;
 		}
-		return world.setBlockWithNotify(x, y, z, 0);
-	}
-
-	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int meta)
-	{
-		return 6;
-	}
-
-	@Override
-	public String getTextureFile()
-	{
-		return BetterThanBees.terrainTextures;
+		return world.setBlock(x, y, z, 0);
 	}
 
 	@Override

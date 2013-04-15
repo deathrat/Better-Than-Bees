@@ -19,12 +19,10 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.google.common.io.ByteArrayDataInput;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import deathrat.mods.btbees.api.ICookingResult;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.recipe.WokRecipes;
 
@@ -84,8 +82,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 					cookIngredient();
 					hasChanged = true;
 				}
-			}
-			else
+			} else
 			{
 				furnaceCookTime = 0;
 			}
@@ -114,8 +111,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 		if (par0ItemStack == null)
 		{
 			return 0;
-		}
-		else
+		} else
 		{
 			int var1 = par0ItemStack.getItem().itemID;
 			Item var2 = par0ItemStack.getItem();
@@ -137,7 +133,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 
 			if (var2 instanceof ItemTool && ((ItemTool) var2).getToolMaterialName().equals("WOOD"))
 				return 200;
-			if (var2 instanceof ItemSword && ((ItemSword) var2).func_77825_f().equals("WOOD"))
+			if (var2 instanceof ItemSword && ((ItemSword) var2).getToolMaterialName().equals("WOOD"))
 				return 200;
 			if (var2 instanceof ItemHoe && ((ItemHoe) var2).func_77842_f().equals("WOOD"))
 				return 200;
@@ -203,14 +199,12 @@ public class TileEntityWok extends TileEntity implements IInventory
 				if (this.inv[i] != null)
 				{
 					continue;
-				}
-				else if (this.inv[i] == null)
+				} else if (this.inv[i] == null)
 				{
 					if (shouldSmelt)
 					{
 						this.inv[i] = smeltResult.copy();
-					}
-					else
+					} else
 					{
 						this.inv[i] = this.inv[0].copy();
 						this.inv[i].stackSize = 1;
@@ -237,13 +231,11 @@ public class TileEntityWok extends TileEntity implements IInventory
 			if (WokRecipes.isRecipe(tempIs))
 			{
 				this.inv[7] = WokRecipes.getRecipe(tempIs).getResultStack();
-			}
-			else
+			} else
 			{
 				this.inv[7] = createRandomResult(tempIs);
 			}
-		}
-		else
+		} else
 		{
 			this.inv[7] = null;
 		}
@@ -263,8 +255,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 		if (this.inv[0] == null)
 		{
 			return false;
-		}
-		else
+		} else
 		{
 			if (inv[6] == null)
 			{
@@ -273,14 +264,12 @@ public class TileEntityWok extends TileEntity implements IInventory
 					if (inv[i] != null)
 					{
 						continue;
-					}
-					else if (inv[i] == null)
+					} else if (inv[i] == null)
 					{
 						return true;
 					}
 				}
-			}
-			else
+			} else
 			{
 				return false;
 			}
@@ -309,8 +298,7 @@ public class TileEntityWok extends TileEntity implements IInventory
 			if (stack.stackSize <= amt)
 			{
 				setInventorySlotContents(slot, null);
-			}
-			else
+			} else
 			{
 				stack = stack.splitStack(amt);
 				if (stack.stackSize == 0)
@@ -413,10 +401,23 @@ public class TileEntityWok extends TileEntity implements IInventory
 		try
 		{
 			this.fireLevel = fireLevel;
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public boolean isInvNameLocalized()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(int i, ItemStack itemstack)
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

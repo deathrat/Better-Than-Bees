@@ -64,9 +64,15 @@ public class MFRPatch implements IFactoryHarvestable, IFactoryFertilizable
 	}
 
 	@Override
-	public int getSourceId()
+	public int getPlantId()
 	{
 		return BetterThanBees.ricePlantID;
+	}
+
+	@Override
+	public boolean breakBlock()
+	{
+		return true;
 	}
 
 }

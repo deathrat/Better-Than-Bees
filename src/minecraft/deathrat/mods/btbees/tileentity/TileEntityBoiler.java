@@ -72,8 +72,7 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 			if (stack.stackSize <= amt)
 			{
 				setInventorySlotContents(slot, null);
-			}
-			else
+			} else
 			{
 				stack = stack.splitStack(amt);
 				if (stack.stackSize == 0)
@@ -193,6 +192,20 @@ public class TileEntityBoiler extends TileEntityMachine implements IInventory
 	public int getMaxWater()
 	{
 		return this.getMaxWater();
+	}
+
+	@Override
+	public boolean isInvNameLocalized()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(int i, ItemStack itemstack)
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

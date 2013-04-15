@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import cpw.mods.fml.common.IFuelHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
 import deathrat.mods.btbees.BetterThanBees;
 
 public class BTBFuelHandler implements IFuelHandler
@@ -42,7 +41,7 @@ public class BTBFuelHandler implements IFuelHandler
 
 		if (var2 instanceof ItemTool && ((ItemTool) var2).getToolMaterialName().equals("WOOD"))
 			return 200;
-		if (var2 instanceof ItemSword && ((ItemSword) var2).func_77825_f().equals("WOOD"))
+		if (var2 instanceof ItemSword && ((ItemSword) var2).getToolMaterialName().equals("WOOD"))
 			return 200;
 		if (var2 instanceof ItemHoe && ((ItemHoe) var2).func_77842_f().equals("WOOD"))
 			return 200;

@@ -35,9 +35,8 @@ public class TileEntityRicePlant extends TileEntity
 	{
 		try
 		{
-			this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta);
-		}
-		catch (Exception e)
+			this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 3);
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}

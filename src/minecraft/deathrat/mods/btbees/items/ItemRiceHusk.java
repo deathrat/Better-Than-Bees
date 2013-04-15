@@ -6,9 +6,11 @@ import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.BlockStem;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,11 +18,14 @@ import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import powercrystals.minefactoryreloaded.api.FertilizerType;
 import powercrystals.minefactoryreloaded.api.IFactoryFertilizer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.blocks.BlockRicePlant;
 
 public class ItemRiceHusk extends Item implements IFactoryFertilizer
 {
+	public Icon huskIcon;
 
 	public ItemRiceHusk(int id)
 	{
@@ -28,9 +33,23 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
 	}
 
 	@Override
-	public String getTextureFile()
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconReg)
 	{
-		return BetterThanBees.getItemTextures();
+		huskIcon = iconReg.registerIcon("btbees:ricehusk");
+	}
+
+	@Override
+	public Icon getIcon(ItemStack stack, int pass)
+	{
+		return huskIcon;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIconFromDamage(int par1)
+	{
+		return huskIcon;
 	}
 
 	@Override
@@ -110,7 +129,7 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
 		{
 			if (!world.isRemote)
 			{
-				world.setBlockMetadataWithNotify(x, y, z, 8 | BlockDirectional.getDirection(world.getBlockMetadata(x, y, z)));
+				world.setBlockMetadataWithNotify(x, y, z, 8 | BlockDirectional.getDirection(world.getBlockMetadata(x, y, z)), 3);
 				--itemStack.stackSize;
 			}
 
@@ -148,10 +167,9 @@ public class ItemRiceHusk extends Item implements IFactoryFertilizer
 						{
 							if (Block.tallGrass.canBlockStay(world, var13, var14, var15))
 							{
-								world.setBlockAndMetadataWithNotify(var13, var14, var15, Block.tallGrass.blockID, 1);
+								world.setBlock(var13, var14, var15, Block.tallGrass.blockID, 1, 3);
 							}
-						}
-						else
+						} else
 						{
 							ForgeHooks.plantGrass(world, var13, var14, var15);
 						}

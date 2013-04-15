@@ -6,17 +6,20 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.BetterThanBees;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.render.RenderRice;
@@ -26,24 +29,36 @@ public class BlockRicePlant extends BlockContainer implements IPlantable
 {
 	boolean canDrop;
 	public static int metaData;
+	public Icon[] riceIcon = new Icon[4];
 
-	public BlockRicePlant(int par1, int par2)
+	public BlockRicePlant(int par1)
 	{
-		super(par1, par2, Material.plants);
+		super(par1, Material.plants);
 		setTickRandomly(true);
 		float var4 = 0.2F;
 		this.setBlockBounds(0.0F, -0.2F, 0.0F, 1.0F, 0.0F, 1.0F);
 	}
 
-	public String getTextureFile()
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconReg)
 	{
-		return BetterThanBees.terrainTextures;
+		for (int i = 0; i < 3; i++)
+			riceIcon[i] = iconReg.registerIcon("btbees:riceplant" + i);
 	}
 
-	protected boolean canThisPlantGrowOnThisBlockID(int par1)
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon(int side, int meta)
 	{
-		return par1 == Block.waterStill.blockID;
+		return riceIcon[meta];
 	}
+
+	// @Override
+	// protected boolean canThisPlantGrowOnThisBlockID(int par1)
+	// {
+	// return par1 == Block.waterStill.blockID;
+	// }
 
 	@Override
 	public int getRenderType()
@@ -127,7 +142,7 @@ public class BlockRicePlant extends BlockContainer implements IPlantable
 
 		if (side == Side.SERVER)
 		{
-			world.setBlockMetadataWithNotify(x, y, z, meta);
+			world.setBlockMetadataWithNotify(x, y, z, meta, 3);
 			ServerPacketHandler.sendRiceUpdate((TileEntityRicePlant) world.getBlockTileEntity(x, y, z), meta);
 		}
 	}
@@ -171,11 +186,12 @@ public class BlockRicePlant extends BlockContainer implements IPlantable
 	 * if the specified block is in the given AABB, add its collision bounding
 	 * box to the given list
 	 */
-	public void addCollidingBlockToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
+	@Override
+	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
 	{
 		if (par7Entity == null || !(par7Entity instanceof EntityBoat))
 		{
-			super.addCollidingBlockToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+			super.addCollisionBoxesToList(world, x, y, z, par5AxisAlignedBB, par6List, par7Entity);
 		}
 	}
 
@@ -183,9 +199,10 @@ public class BlockRicePlant extends BlockContainer implements IPlantable
 	 * Returns a bounding box from the pool of bounding boxes (this means this
 	 * box can change after the pool has been cleared to be reused)
 	 */
+	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
 	{
-		return AxisAlignedBB.getAABBPool().addOrModifyAABBInPool((double) par2 + this.minX, (double) par3 + this.minY, (double) par4 + this.minZ, (double) par2 + this.maxX, (double) par3 + this.maxY, (double) par4 + this.maxZ);
+		return AxisAlignedBB.getAABBPool().getAABB(par2 + this.minX, par3 + this.minY, par4 + this.minZ, par2 + this.maxX, par3 + this.maxY, par4 + this.maxZ);
 	}
 
 	@Override
@@ -201,7 +218,7 @@ public class BlockRicePlant extends BlockContainer implements IPlantable
 		if (!this.canBlockStay(world, x, y, z))
 		{
 			dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
-			world.setBlockWithNotify(x, y, z, 0);
+			world.setBlock(x, y, z, 0);
 		}
 	}
 

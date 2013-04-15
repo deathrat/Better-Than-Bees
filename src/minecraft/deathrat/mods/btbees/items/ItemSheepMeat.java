@@ -2,54 +2,57 @@ package deathrat.mods.btbees.items;
 
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import deathrat.mods.btbees.BetterThanBees;
 
 public class ItemSheepMeat extends ItemFood
 {
+	public Icon[] lambIcons = new Icon[2];
 
 	public ItemSheepMeat(int id, int healAmount, float saturation, boolean isWolfFood)
 	{
 		super(id, healAmount, saturation, isWolfFood);
 		setHasSubtypes(true);
 		setMaxDamage(0);
-		setItemName("sheepMeat");
 		// setCreativeTab(BetterThanBees.customTab);
 	}
 
 	@Override
-	public String getTextureFile()
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconReg)
 	{
-		return BetterThanBees.itemTextures;
+		lambIcons[0] = iconReg.registerIcon("btbees:lamb" + "0");
+		lambIcons[1] = iconReg.registerIcon("btbees:lamb" + "1");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getIconFromDamage(int i)
+	public Icon getIconFromDamage(int i)
 	{
-		if (i > 1)
-			return 5 + i;
+		if (i >= 2)
+			return lambIcons[1];
 
-		return 7 + i;
+		return lambIcons[0];
 	}
 
 	@Override
-	public String getItemNameIS(ItemStack itemStack)
+	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		switch (itemStack.getItemDamage())
 		{
-		case 1:
-			return getItemName() + ".cookedMutton";
-		case 2:
-			return getItemName() + ".rawLamb";
-		case 3:
-			return getItemName() + ".cookedLamb";
 		default:
-			return getItemName() + ".rawMutton";
+			return getUnlocalizedName() + ".rawMutton";
+		case 1:
+			return getUnlocalizedName() + ".rawLamb";
+		case 2:
+			return getUnlocalizedName() + ".cookedMutton";
+		case 3:
+			return getUnlocalizedName() + ".cookedLamb";
 		}
 	}
 

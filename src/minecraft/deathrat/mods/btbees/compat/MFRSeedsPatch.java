@@ -10,12 +10,6 @@ public class MFRSeedsPatch implements IFactoryPlantable
 {
 
 	@Override
-	public int getSourceId()
-	{
-		return BetterThanBees.uncookedRiceID;
-	}
-
-	@Override
 	public int getPlantedBlockId(World world, int x, int y, int z, ItemStack stack)
 	{
 		return BetterThanBees.ricePlantID;
@@ -45,6 +39,12 @@ public class MFRSeedsPatch implements IFactoryPlantable
 	@Override
 	public void postPlant(World world, int x, int y, int z, ItemStack stack)
 	{
+	}
+
+	@Override
+	public int getSeedId()
+	{
+		return BetterThanBees.uncookedRiceID;
 	}
 
 }

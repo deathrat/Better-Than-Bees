@@ -2,29 +2,35 @@ package deathrat.mods.btbees.blocks;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import deathrat.mods.btbees.BetterThanBees;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.tileentity.TileEntitySteamer;
 
 public class BlockSteamer extends BlockContainer
 {
+	public Icon steamerIcon;
+
 	public BlockSteamer(int id, Material mat)
 	{
 		super(id, mat);
-		setBlockName("blockSteamer");
 	}
 
 	@Override
-	public String getTextureFile()
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconReg)
 	{
-		return BetterThanBees.terrainTextures;
+		steamerIcon = iconReg.registerIcon("btbees:steamer");
 	}
 
 	@Override
-	public int getBlockTextureFromSideAndMetadata(int par1, int par2)
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon(int side, int meta)
 	{
-		return 7;
+		return steamerIcon;
 	}
 
 	@Override
