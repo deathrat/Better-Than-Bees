@@ -137,8 +137,6 @@
 		<copy todir="${classes.dir}/mods">
 			<fileset dir="mods/btbees"/>
 		</copy>
-		
-		<copy todir="${classes.dir}/
 	</target>
 
 	<target name="build-number-there" if="env.BUILD_NUMBER" >
