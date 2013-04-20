@@ -50,6 +50,8 @@
 		
 		<echo message="Downloading PowerCrystals dependencies... " />
 		<get src="https://dl.dropboxusercontent.com/u/141664014/powercrystals.zip" dest="${download.dir}/powercrystals.zip" />
+		<get src="https://dl.dropboxusercontent.com/u/141664014/PowerCrystalsCore-1.4.6R1.0.2B1-9.jar" dest="${download.dir}/PowerCrystalsCore.jar"/>
+		
 	</target>
 
 	<target name="extract-dependencies" depends="setup-forge,get-dependencies">
@@ -65,6 +67,7 @@
 		<echo message="Extracting powercrystals dependencies..." />
 		<unzip src="${download.dir}/powercrystals.zip" dest="${download.dir}" />
 		<move file="${download.dir}/powercrystals" todir="${mcpsrc.dir}" />
+		<move file="${download.dir}/PowerCrystalsCore.jar" todir="${mcp.dir}/lib" />
 
 		<echo message="Copying sources... " />
 	</target>

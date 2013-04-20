@@ -19,9 +19,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import deathrat.mods.btbees.BetterThanBees;
-import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.render.RenderRice;
-import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
 public class BlockRicePlant extends Block implements IPlantable
 {
@@ -141,7 +139,8 @@ public class BlockRicePlant extends Block implements IPlantable
 		if (side == Side.SERVER)
 		{
 			world.setBlockMetadataWithNotify(x, y, z, meta, 3);
-			ServerPacketHandler.sendRiceUpdate((TileEntityRicePlant) world.getBlockTileEntity(x, y, z), meta);
+			// ServerPacketHandler.sendRiceUpdate((TileEntityRicePlant)
+			// world.getBlockTileEntity(x, y, z), meta);
 		}
 	}
 
