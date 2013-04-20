@@ -38,7 +38,6 @@
 		<and>
 			<available file="${mcpsrc.dir}/buildcraft"/>
 			<available file="${download.dir}/thermalexpansion.zip"/>
-			<available file="${download.dir}/powercrystals.zip"/>
 			<available file="${mcp.dir}/lib/PowerCrystalsCore.jar"/>
 		</and>
 	</condition>
@@ -50,8 +49,7 @@
 		<echo message="Downloading Thermal Expansion dependencies... " />
 		<get src="https://dl.dropboxusercontent.com/u/141664014/thermalexpansion-depend.zip" dest="${download.dir}/thermalexpansion.zip" />
 		
-		<echo message="Downloading PowerCrystals dependencies... " />
-		<get src="http://build.technicpack.net/job/MineFactoryReloaded/478/artifact/build/dist/MFR-API-2.4.0-478.zip" dest="${download.dir}/powercrystals.zip" />
+		<echo message="Downloading PowerCrystalsCore... " />
 		<get src="https://dl.dropboxusercontent.com/u/141664014/PowerCrystalsCore-1.4.6R1.0.2B1-9.jar" dest="${download.dir}/PowerCrystalsCore.jar"/>
 		
 	</target>
@@ -62,13 +60,11 @@
 		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
 		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
 		
-		<echo message="Extracting Thermal Expansion dependencies... " />
+		<echo message="Extracting Thermal Expansion dependency... " />
 		<unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
 		<move file="${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
 		
-		<echo message="Extracting powercrystals dependencies..." />
-		<unzip src="${download.dir}/powercrystals.zip" dest="${download.dir}" />
-		<move file="${download.dir}/powercrystals" todir="${mcpsrc.dir}" />
+		<echo message="Moving powercrystalscore ..." />
 		<move file="${download.dir}/PowerCrystalsCore.jar" todir="${mcp.dir}/lib" />
 
 		<echo message="Copying sources... " />
@@ -139,8 +135,10 @@
 		</copy>
 		
 		<copy todir="${classes.dir}/mods">
-			<fileset dir="${mcpsrc.dir}/mods/btbees"/>
+			<fileset dir="mods/btbees"/>
 		</copy>
+		
+		<copy todir="${classes.dir}/
 	</target>
 
 	<target name="build-number-there" if="env.BUILD_NUMBER" >
