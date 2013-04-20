@@ -54,7 +54,6 @@ import deathrat.mods.btbees.recipe.BTBFuelHandler;
 import deathrat.mods.btbees.recipe.WokRecipes;
 import deathrat.mods.btbees.tileentity.TileEntityBoiler;
 import deathrat.mods.btbees.tileentity.TileEntityBoilerTank;
-import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 import deathrat.mods.btbees.tileentity.TileEntitySteamer;
 import deathrat.mods.btbees.tileentity.TileEntityWok;
 import deathrat.mods.btbees.updater.UpdateManager;
@@ -202,7 +201,8 @@ public class BetterThanBees implements IUpdateableMod
 	{
 		ricePlant = new BlockRicePlant(ricePlantID).setUnlocalizedName("btb.riceplant");
 		GameRegistry.registerBlock(ricePlant, ricePlant.getUnlocalizedName());
-		GameRegistry.registerTileEntity(TileEntityRicePlant.class, "RicePlant");
+		// GameRegistry.registerTileEntity(TileEntityRicePlant.class,
+		// "RicePlant");
 
 		wok = new BlockWok(wokID, Material.iron).setUnlocalizedName("btb.wok");
 		GameRegistry.registerBlock(wok, wok.getUnlocalizedName());

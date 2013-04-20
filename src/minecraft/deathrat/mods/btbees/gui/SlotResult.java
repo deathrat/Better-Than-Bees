@@ -1,16 +1,15 @@
 package deathrat.mods.btbees.gui;
 
-import deathrat.mods.btbees.api.BuffRegistry;
-import deathrat.mods.btbees.api.ICookingBuff;
-import deathrat.mods.btbees.api.ICookingResult;
-import deathrat.mods.btbees.api.ICookingSpice;
-import deathrat.mods.btbees.tileentity.TileEntityWok;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import deathrat.mods.btbees.api.ICookingBuff;
+import deathrat.mods.btbees.api.ICookingResult;
+import deathrat.mods.btbees.api.ICookingSpice;
+import deathrat.mods.btbees.tileentity.TileEntityWok;
 
 public class SlotResult extends Slot
 {
@@ -19,11 +18,11 @@ public class SlotResult extends Slot
 	{
 		super(par1iInventory, par2, par3, par4);
 	}
-	
+
 	@Override
 	public void putStack(ItemStack is)
 	{
-		if(is != null && is.getTagCompound() == null)
+		if (is != null && is.getTagCompound() == null)
 		{
 			is.setTagCompound(new NBTTagCompound());
 		}
@@ -33,19 +32,16 @@ public class SlotResult extends Slot
 	@Override
 	public void onPickupFromSlot(EntityPlayer entityPlayer, ItemStack is)
 	{
-		Item spice = inventory.getStackInSlot(2).getItem();
 		ItemStack spiceStack = inventory.getStackInSlot(2);
 
-		if ((spiceStack != null) && (spice instanceof ICookingSpice))
+		if ((spiceStack != null) && (spiceStack.getItem() instanceof ICookingSpice) && (is.getItem() instanceof ICookingResult))
 		{
+			Item spice = spiceStack.getItem();
 			ICookingResult cookingItem = (ICookingResult) is.getItem();
 			ICookingBuff buff = ((ICookingSpice) spice).getCookingBuff();
-			
-			if(buff != null)
+
+			if (buff != null)
 			{
-				NBTTagCompound tag = is.getTagCompound();
-				
-				tag.setString("cookingBuff", buff.getBuffName() );
 				--spiceStack.stackSize;
 			}
 

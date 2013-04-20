@@ -38,7 +38,7 @@ public class GuiBoiler extends GuiTE
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int xCoord, int yCoord)
 	{
-		this.mc.renderEngine.bindTexture(BetterThanBees.getResourcesPath() + "gui_boiler.png");
+		this.mc.renderEngine.bindTexture(BetterThanBees.getResourcesPath() + "gui/gui_boiler.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;

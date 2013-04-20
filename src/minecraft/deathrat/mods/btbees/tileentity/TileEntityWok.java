@@ -23,6 +23,8 @@ import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import deathrat.mods.btbees.api.ICookingBuff;
+import deathrat.mods.btbees.api.ICookingSpice;
 import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.recipe.WokRecipes;
 
@@ -82,7 +84,8 @@ public class TileEntityWok extends TileEntity implements IInventory
 					cookIngredient();
 					hasChanged = true;
 				}
-			} else
+			}
+			else
 			{
 				furnaceCookTime = 0;
 			}
@@ -111,7 +114,8 @@ public class TileEntityWok extends TileEntity implements IInventory
 		if (par0ItemStack == null)
 		{
 			return 0;
-		} else
+		}
+		else
 		{
 			int var1 = par0ItemStack.getItem().itemID;
 			Item var2 = par0ItemStack.getItem();
@@ -199,12 +203,14 @@ public class TileEntityWok extends TileEntity implements IInventory
 				if (this.inv[i] != null)
 				{
 					continue;
-				} else if (this.inv[i] == null)
+				}
+				else if (this.inv[i] == null)
 				{
 					if (shouldSmelt)
 					{
 						this.inv[i] = smeltResult.copy();
-					} else
+					}
+					else
 					{
 						this.inv[i] = this.inv[0].copy();
 						this.inv[i].stackSize = 1;
@@ -231,11 +237,31 @@ public class TileEntityWok extends TileEntity implements IInventory
 			if (WokRecipes.isRecipe(tempIs))
 			{
 				this.inv[7] = WokRecipes.getRecipe(tempIs).getResultStack();
-			} else
+			}
+			else
 			{
 				this.inv[7] = createRandomResult(tempIs);
 			}
-		} else
+
+			ItemStack spiceStack = this.inv[2];
+
+			if ((spiceStack != null) && (spiceStack.getItem() instanceof ICookingSpice))
+			{
+				Item spice = spiceStack.getItem();
+				ICookingBuff buff = ((ICookingSpice) spice).getCookingBuff();
+
+				if (buff != null)
+				{
+					if (this.inv[7].getTagCompound() == null)
+						this.inv[7].setTagCompound(new NBTTagCompound());
+					NBTTagCompound tempNBT = (NBTTagCompound) this.inv[7].getTagCompound().copy();
+					tempNBT.setString("cookingBuff", buff.getBuffName());
+					this.inv[7].setTagCompound(tempNBT);
+				}
+			}
+
+		}
+		else
 		{
 			this.inv[7] = null;
 		}
@@ -255,7 +281,8 @@ public class TileEntityWok extends TileEntity implements IInventory
 		if (this.inv[0] == null)
 		{
 			return false;
-		} else
+		}
+		else
 		{
 			if (inv[6] == null)
 			{
@@ -264,12 +291,14 @@ public class TileEntityWok extends TileEntity implements IInventory
 					if (inv[i] != null)
 					{
 						continue;
-					} else if (inv[i] == null)
+					}
+					else if (inv[i] == null)
 					{
 						return true;
 					}
 				}
-			} else
+			}
+			else
 			{
 				return false;
 			}
@@ -298,7 +327,8 @@ public class TileEntityWok extends TileEntity implements IInventory
 			if (stack.stackSize <= amt)
 			{
 				setInventorySlotContents(slot, null);
-			} else
+			}
+			else
 			{
 				stack = stack.splitStack(amt);
 				if (stack.stackSize == 0)
@@ -401,7 +431,8 @@ public class TileEntityWok extends TileEntity implements IInventory
 		try
 		{
 			this.fireLevel = fireLevel;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

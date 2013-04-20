@@ -54,16 +54,20 @@ public class ItemRiceSeeds extends Item implements IPlantable
 		if (itemStack.stackSize == 0)
 		{
 			return false;
-		} else if (!entityPlayer.canPlayerEdit(x, y, z, side, itemStack))
+		}
+		else if (!entityPlayer.canPlayerEdit(x, y, z, side, itemStack))
 		{
 			return false;
-		} else if (!entityPlayer.canPlayerEdit(x, y + 1, z, side, itemStack))
+		}
+		else if (!entityPlayer.canPlayerEdit(x, y + 1, z, side, itemStack))
 		{
 			return false;
-		} else if (y == 255 && Block.blocksList[this.blockType].blockMaterial.isSolid())
+		}
+		else if (y == 255 && Block.blocksList[this.blockType].blockMaterial.isSolid())
 		{
 			return false;
-		} else if (world.canPlaceEntityOnSide(this.blockType, x, y, z, false, side, entityPlayer, itemStack))
+		}
+		else if (world.canPlaceEntityOnSide(this.blockType, x, y, z, false, side, entityPlayer, itemStack))
 		{
 			Block var12 = Block.blocksList[this.blockType];
 			int itemmeta = this.getMetadata(itemStack.getItemDamage());
@@ -76,7 +80,8 @@ public class ItemRiceSeeds extends Item implements IPlantable
 			}
 
 			return true;
-		} else
+		}
+		else
 		{
 			return false;
 		}
@@ -90,7 +95,8 @@ public class ItemRiceSeeds extends Item implements IPlantable
 		if (movingObjPos == null)
 		{
 			return itemStack;
-		} else
+		}
+		else
 		{
 			if (movingObjPos.typeOfHit == EnumMovingObjectType.TILE)
 			{

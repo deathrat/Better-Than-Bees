@@ -65,14 +65,7 @@ public class BTBFood extends ItemFood implements ICookingResult
 			return new ItemStack(Item.bowlEmpty);
 		}
 
-		String buffName = itemStack.getTagCompound().getString("cookingBuff");
-
-		ICookingBuff buff = BuffRegistry.getBuff(buffName);
-		if (buff != null)
-		{
-			buff.buffPlayer(entityPlayer);
-		}
-
+		eatResult(itemStack, world, entityPlayer);
 		return super.onEaten(itemStack, world, entityPlayer);
 	}
 
@@ -83,7 +76,7 @@ public class BTBFood extends ItemFood implements ICookingResult
 		if (is.getTagCompound() != null)
 		{
 			String buffStr = is.getTagCompound().getString("cookingBuff");
-			if (buffStr != null || buffStr != "null")
+			if (buffStr != null || buffStr != "null" || buffStr != "")
 			{
 				ICookingBuff buff = BuffRegistry.getBuff(buffStr);
 				if (buff != null && buff.getBuffName() != "null")
@@ -101,5 +94,17 @@ public class BTBFood extends ItemFood implements ICookingResult
 	{
 		this.name = name;
 		return this;
+	}
+
+	@Override
+	public void eatResult(ItemStack is, World world, EntityPlayer entityPlayer)
+	{
+		String buffName = is.getTagCompound().getString("cookingBuff");
+
+		ICookingBuff buff = BuffRegistry.getBuff(buffName);
+		if (buff != null)
+		{
+			buff.buffPlayer(entityPlayer);
+		}
 	}
 }

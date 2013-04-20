@@ -4,13 +4,11 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
@@ -25,7 +23,7 @@ import deathrat.mods.btbees.network.ServerPacketHandler;
 import deathrat.mods.btbees.render.RenderRice;
 import deathrat.mods.btbees.tileentity.TileEntityRicePlant;
 
-public class BlockRicePlant extends BlockContainer implements IPlantable
+public class BlockRicePlant extends Block implements IPlantable
 {
 	boolean canDrop;
 	public static int metaData;
@@ -43,7 +41,7 @@ public class BlockRicePlant extends BlockContainer implements IPlantable
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconReg)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 			riceIcon[i] = iconReg.registerIcon("btbees:riceplant" + i);
 	}
 
@@ -88,14 +86,14 @@ public class BlockRicePlant extends BlockContainer implements IPlantable
 	{
 		switch (metaData)
 		{
-		case 0:
-			return 0;
-		case 1:
-			return 1;
-		case 2:
-			return 2;
-		case 3:
-			return 3;
+			case 0:
+				return 0;
+			case 1:
+				return 1;
+			case 2:
+				return 2;
+			case 3:
+				return 3;
 		}
 		this.metaData = metaData;
 
@@ -220,11 +218,5 @@ public class BlockRicePlant extends BlockContainer implements IPlantable
 			dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 			world.setBlock(x, y, z, 0);
 		}
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World var1)
-	{
-		return new TileEntityRicePlant();
 	}
 }

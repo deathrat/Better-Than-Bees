@@ -1,9 +1,11 @@
 package deathrat.mods.btbees.items;
 
-import deathrat.mods.btbees.api.ICookingBuff;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import deathrat.mods.btbees.api.ICookingIngredient;
 import deathrat.mods.btbees.api.ICookingResult;
-import net.minecraft.item.Item;
 
 public class ItemBreadCrumbs extends Item implements ICookingIngredient, ICookingResult
 {
@@ -11,6 +13,12 @@ public class ItemBreadCrumbs extends Item implements ICookingIngredient, ICookin
 	public ItemBreadCrumbs(int id)
 	{
 		super(id);
+	}
+
+	@Override
+	public void eatResult(ItemStack is, World world, EntityPlayer player)
+	{
+
 	}
 
 }

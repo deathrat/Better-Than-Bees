@@ -1,6 +1,5 @@
 package deathrat.mods.btbees.gui;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -10,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import deathrat.mods.btbees.recipe.BTBFuelHandler;
 import deathrat.mods.btbees.recipe.IngredientRegistry;
 import deathrat.mods.btbees.tileentity.TileEntityWok;
 
@@ -32,7 +30,7 @@ public class ContainerWok extends Container
 		addSlotToContainer(new Slot(tileEntity, 1, 8, 64));
 
 		// Spices Slot (2)
-		addSlotToContainer(new Slot(tileEntity, 2, 115, 51));
+		addSlotToContainer(new SlotSpices(tileEntity, 2, 115, 51));
 
 		// Ingredients (3-6)
 		addSlotToContainer(new SlotIngredient(tileEntity, 3, 61 + 0 * 18, 29));
@@ -64,6 +62,7 @@ public class ContainerWok extends Container
 		}
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int par1, int par2)
 	{
@@ -101,6 +100,7 @@ public class ContainerWok extends Container
 	/**
 	 * Looks for changes made in the container, sends them to every listener.
 	 */
+	@Override
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();

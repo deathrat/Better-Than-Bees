@@ -5,16 +5,16 @@
 	<property name="build.dir" value="build" />
 	<property name="classes.dir" value="${build.dir}/packaging" />
 	<property name="src.dir" value="src" />
-	<property name="forge.version" value="1.4.7-6.6.0.497" />
+	<property name="forge.version" value="1.5.1-7.7.1.652" />
 	<property name="forge.url" value="http://files.minecraftforge.net/minecraftforge/minecraftforge-src-${forge.version}.zip" />
-	<property name="mcp.version" value="723" />
+	<property name="mcp.version" value="744" />
 	<property name="forge.dir" value="${build.dir}/forge" />
 	<property name="mcp.dir" value="${forge.dir}/mcp" />
 	<property name="mcpsrc.dir" value="${mcp.dir}/src/minecraft" />
 	<property name="resources.dir" value="resources" />
 
 	<property name="package.meta-inf" value="META-INF" />
-	<property name="build.ver" value="1.4.7" />
+	<property name="build.ver" value="1.5.1" />
 	<!--<property name="files.minecraft.dir" value="jars" />-->
 	<property name="dist.dir" value="${build.dir}/dist" />
 
@@ -24,7 +24,7 @@
 
 	<property file="${forge.dir}/forgeversion.properties" />
 	<condition property="forge.already.installed">
-		<equals arg1="${forge.build.number}" arg2="497" />
+		<equals arg1="${forge.build.number}" arg2="652" />
 	</condition>
 
 	<property name="verclass.dir" value="${mcpsrc.dir}/deathrat/mods/btbees" />
@@ -36,25 +36,17 @@
 
 	<condition property="have-apis">
 		<and>
-			<available file="${download.dir}/thermalexpansiongui.zip"/>
 			<available file="${mcpsrc.dir}/buildcraft"/>
 			<available file="${download.dir}/thermalexpansion.zip"/>
-			<available file="${download.dir}/nitromodelthingy.zip" />
 		</and>
 	</condition>
 
 	<target name="get-dependencies" depends="get-version" unless="${have-apis}">
 		<echo message="Downloading BuildCraft API..." />
 		<get src="https://github.com/BuildCraft/BuildCraft/archive/master.zip" dest="${download.dir}/BuildCraft-master.zip"/>
-		
-		<echo message="Downloading Thermal Expansion GUI... " />
-		<get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Source/ThermalExpansion-SRC-2.1.7-GUI.zip" dest="${download.dir}/thermalexpansiongui.zip" />
-		
-		<echo message="Downloading Thermal Expansion API... " />
-		<get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Release/ThermalExpansion-API-2.2.0.zip" dest="${download.dir}/thermalexpansion.zip" />
-		
-		<echo message="Downloading Nitro Model Thingy... " />
-		<get src="https://nodeload.github.com/deathrat/Nitro-Model-Thingy/zip/master" dest="${download.dir}/nitromodelthingy.zip" />
+
+		<echo message="Downloading Thermal Expansion Dependencies... " />
+		<get src="https://dl.dropboxusercontent.com/u/141664014/thermalexpansion-depend.zip" dest="${download.dir}/thermalexpansion.zip" />
 	</target>
 
 	<target name="extract-dependencies" depends="setup-forge,get-dependencies">
@@ -63,17 +55,9 @@
 		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
 		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
 		
-		<echo message="Extracting Thermal Expansion GUI... " />
-		<unzip src="${download.dir}/thermalexpansiongui.zip" dest="${download.dir}" />
-		<move file = "${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
-		
-		<echo message="Extracting Thermal Expansion API... " />
+		<echo message="Extracting Thermal Expansion Dependencies... " />
 		<unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
 		<move file="${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
-
-		<echo message="Extracting Nitro Model Thingy... " />
-		<unzip src="${download.dir}/nitromodelthingy.zip" dest="${download.dir}" />
-		<move file="${download.dir}/Nitro-Model-Thingy-master/src/com" todir="${mcpsrc.dir}" />
 
 		<echo message="Copying sources... " />
 	</target>
@@ -140,6 +124,10 @@
 
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
+		</copy>
+		
+		<copy todir="${classes.dir}/mods">
+			<fileset dir="${mcpsrc.dir}/mods/btbees"/>
 		</copy>
 	</target>
 
