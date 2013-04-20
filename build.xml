@@ -45,8 +45,11 @@
 		<echo message="Downloading BuildCraft API..." />
 		<get src="https://github.com/BuildCraft/BuildCraft/archive/master.zip" dest="${download.dir}/BuildCraft-master.zip"/>
 
-		<echo message="Downloading Thermal Expansion Dependencies... " />
+		<echo message="Downloading Thermal Expansion dependencies... " />
 		<get src="https://dl.dropboxusercontent.com/u/141664014/thermalexpansion-depend.zip" dest="${download.dir}/thermalexpansion.zip" />
+		
+		<echo message="Downloading PowerCrystals dependencies... " />
+		<get src="https://dl.dropboxusercontent.com/u/141664014/powercrystals.zip" dest="${download.dir}/powercrystals.zip" />
 	</target>
 
 	<target name="extract-dependencies" depends="setup-forge,get-dependencies">
@@ -55,9 +58,13 @@
 		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
 		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
 		
-		<echo message="Extracting Thermal Expansion Dependencies... " />
+		<echo message="Extracting Thermal Expansion dependencies... " />
 		<unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
 		<move file="${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
+		
+		<echo message="Extracting powercrystals dependencies..." />
+		<unzip src="${download.dir}/powercrystals.zip" dest="${download.dir}" />
+		<move file="${download.dir}/powercrystals" todir="${mcpsrc.dir}" />
 
 		<echo message="Copying sources... " />
 	</target>
