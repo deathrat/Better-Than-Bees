@@ -1,20 +1,19 @@
 package deathrat.mods.btbees.recipe;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import deathrat.mods.btbees.api.ICookingResult;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import deathrat.mods.btbees.api.ICookingResult;
 
 public class WokRecipe
 {
 	private List items;
 	private ICookingResult result;
 	private Item itemResult;
+	private int itemMeta = 0;
 
 	public WokRecipe(List is)
 	{
@@ -26,11 +25,25 @@ public class WokRecipe
 		this(is);
 		this.result = result;
 	}
-	
+
+	public WokRecipe(List is, ICookingResult result, int meta)
+	{
+		this(is);
+		this.result = result;
+		this.itemMeta = meta;
+	}
+
 	public WokRecipe(List is, Item result)
 	{
 		this(is);
 		this.itemResult = result;
+	}
+
+	public WokRecipe(List is, Item result, int meta)
+	{
+		this(is);
+		this.itemResult = result;
+		this.itemMeta = meta;
 	}
 
 	public List getItems()
@@ -42,7 +55,7 @@ public class WokRecipe
 	{
 		return result;
 	}
-	
+
 	public Item getItemResult()
 	{
 		return itemResult;
@@ -50,11 +63,11 @@ public class WokRecipe
 
 	public ItemStack getResultStack()
 	{
-		if(result == null)
+		if (result == null)
 		{
-			return new ItemStack((Item) itemResult, 1).copy();
+			return new ItemStack(itemResult, 1, itemMeta).copy();
 		}
-		return new ItemStack((Item) result, 1).copy();
+		return new ItemStack((Item) result, 1, itemMeta).copy();
 	}
 
 	public boolean matches(Object[] itemStacks)

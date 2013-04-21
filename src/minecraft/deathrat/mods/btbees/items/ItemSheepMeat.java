@@ -4,13 +4,18 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import deathrat.mods.btbees.api.BuffRegistry;
+import deathrat.mods.btbees.api.ICookingBuff;
+import deathrat.mods.btbees.api.ICookingResult;
 
-public class ItemSheepMeat extends ItemFood
+public class ItemSheepMeat extends ItemFood implements ICookingResult
 {
 	public Icon[] lambIcons = new Icon[2];
 
@@ -45,14 +50,14 @@ public class ItemSheepMeat extends ItemFood
 	{
 		switch (itemStack.getItemDamage())
 		{
-		default:
-			return getUnlocalizedName() + ".rawMutton";
-		case 1:
-			return getUnlocalizedName() + ".rawLamb";
-		case 2:
-			return getUnlocalizedName() + ".cookedMutton";
-		case 3:
-			return getUnlocalizedName() + ".cookedLamb";
+			default:
+				return getUnlocalizedName() + ".rawMutton";
+			case 1:
+				return getUnlocalizedName() + ".rawLamb";
+			case 2:
+				return getUnlocalizedName() + ".cookedMutton";
+			case 3:
+				return getUnlocalizedName() + ".cookedLamb";
 		}
 	}
 
@@ -63,6 +68,18 @@ public class ItemSheepMeat extends ItemFood
 		for (int i = 0; i < 4; i++)
 		{
 			list.add(new ItemStack(itemID, 1, i));
+		}
+	}
+
+	@Override
+	public void eatResult(ItemStack is, World world, EntityPlayer player)
+	{
+		String buffName = is.getTagCompound().getString("cookingBuff");
+
+		ICookingBuff buff = BuffRegistry.getBuff(buffName);
+		if (buff != null)
+		{
+			buff.buffPlayer(player);
 		}
 	}
 }

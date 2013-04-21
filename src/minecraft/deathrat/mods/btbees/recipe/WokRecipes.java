@@ -1,16 +1,12 @@
 package deathrat.mods.btbees.recipe;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-
-import deathrat.mods.btbees.api.ICookingResult;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import deathrat.mods.btbees.api.ICookingResult;
 
 public class WokRecipes
 {
@@ -73,10 +69,21 @@ public class WokRecipes
 		recipes.add(new WokRecipe(objList, result));
 	}
 
-	public static void addRecipe(Item result, Object... is)
+	public static void addRecipe(Item result, int resultMeta, Object... is)
 	{
 		ArrayList objList = WokRecipes.addRecipe(is);
-		recipes.add(new WokRecipe(objList, result));
+		recipes.add(new WokRecipe(objList, result, resultMeta));
+	}
+
+	public static void addRecipe(Item result, Object... is)
+	{
+		addRecipe(result, 0, is);
+	}
+
+	public static void addRecipe(ItemStack result, Object... is)
+	{
+		ArrayList objList = WokRecipes.addRecipe(is);
+		recipes.add(new WokRecipe(objList, result.getItem(), result.getItemDamage()));
 	}
 
 	public List getRecipeList()

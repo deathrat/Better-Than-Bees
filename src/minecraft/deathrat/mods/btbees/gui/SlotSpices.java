@@ -34,7 +34,7 @@ public class SlotSpices extends Slot
 		if (resultStack != null)
 		{
 			NBTTagCompound tempNBT = resultStack.getTagCompound();
-			tempNBT.setString("cookingBuff", null);
+			tempNBT.setString("cookingBuff", "");
 		}
 
 		super.onPickupFromSlot(entityPlayer, is);
