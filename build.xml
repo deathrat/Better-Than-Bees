@@ -65,7 +65,7 @@
 		<move file="${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
 		
 		<echo message="Moving powercrystalscore ..." />
-		<move file="${download.dir}/PowerCrystalsCore.jar" todir="${mcp.dir}/lib" />
+		<copy file="${download.dir}/PowerCrystalsCore.jar" todir="${mcp.dir}/lib" />
 
 		<echo message="Copying sources... " />
 	</target>
