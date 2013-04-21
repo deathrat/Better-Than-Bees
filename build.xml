@@ -137,7 +137,7 @@
 		</copy>
 		
 		<copy todir="${classes.dir}/mods">
-			<fileset dir="mods/btbees"/>
+			<fileset dir="src/minecraft/mods/btbees"/>
 		</copy>
 	</target>
 
